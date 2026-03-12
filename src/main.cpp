@@ -6,6 +6,7 @@
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_items_character.h"
 
+#include "bn_bg_palettes.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_regular_bg_items_bg_paper.h"
 #include "bn_regular_bg_items_bg_house_1.h"
@@ -33,10 +34,11 @@ public:
 
 int main(){
     bn::core::init();
+    bn::bg_palettes::set_transparent_color(bn::color(0, 0, 0));
 
 
     bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_1.create_bg(8, 48);
-    bn::sprite_ptr character = bn::sprite_items::character.create_sprite(0, 16);
+    bn::sprite_ptr character = bn::sprite_items::character.create_sprite(0, 36); // Value calculated manually for house_1 
     bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper.create_bg(8, 48);
 
     bg_house_1.set_priority(3);
@@ -45,10 +47,9 @@ int main(){
 
     bg_paper.set_blending_enabled(true);
 
-    bn::fixed transparency_alpha = 0.75;
-    bn::fixed intensity_alpha = 0.5;
-    bn::blending::set_transparency_alpha(transparency_alpha);
-    bn::blending::set_intensity_alpha(intensity_alpha);
+    bn::fixed background_weight = 0.49804; // Best values manually calculated
+    bn::fixed foreground_weight = 0.35546; 
+    bn::blending::set_transparency_weights(foreground_weight, background_weight);
     bool change_intensity = false;
 
     int white_grad = 0;
@@ -58,24 +59,28 @@ int main(){
             character.set_x(character.x() - 1);
         }else if(bn::keypad::right_held()){
             character.set_x(character.x() + 1);
+        }else if(bn::keypad::up_held()){
+            character.set_y(character.y() - 1);
+        }else if(bn::keypad::down_held()){
+            character.set_y(character.y() + 1);
         }
 
         if(bn::keypad::l_held() && !change_intensity){
-            transparency_alpha = bn::max(transparency_alpha - 0.01, bn::fixed(0));
-            bn::blending::set_transparency_alpha(transparency_alpha);
+            background_weight = bn::max(background_weight - 0.01, bn::fixed(0));
+            bn::blending::set_transparency_weights(foreground_weight, background_weight);
             
         }else if(bn::keypad::r_held() && !change_intensity){
-            transparency_alpha = bn::min(transparency_alpha + 0.01, bn::fixed(1));
-            bn::blending::set_transparency_alpha(transparency_alpha);
+            background_weight = bn::min(background_weight + 0.01, bn::fixed(1));
+            bn::blending::set_transparency_weights(foreground_weight, background_weight);
         }
 
         if(bn::keypad::l_held() && change_intensity){
-            intensity_alpha = bn::max(intensity_alpha - 0.01, bn::fixed(0));
-            bn::blending::set_intensity_alpha(intensity_alpha);
+            foreground_weight = bn::max(foreground_weight - 0.01, bn::fixed(0));
+            bn::blending::set_transparency_weights(foreground_weight, background_weight);
             
         }else if(bn::keypad::r_held() && change_intensity){
-            intensity_alpha = bn::min(intensity_alpha + 0.01, bn::fixed(1));
-            bn::blending::set_intensity_alpha(intensity_alpha);
+            foreground_weight = bn::min(foreground_weight + 0.01, bn::fixed(1));
+            bn::blending::set_transparency_weights(foreground_weight, background_weight);
         }
 
         if(bn::keypad::b_pressed()){
@@ -101,8 +106,9 @@ int main(){
         }
 
         if(bn::keypad::start_pressed()){
-            BN_LOG("Transparency alpha: ", transparency_alpha);
-            BN_LOG("Intensity alpha: ", intensity_alpha);
+            BN_LOG("Background alpha: ", background_weight);
+            BN_LOG("Foreground alpha: ", foreground_weight);
+            BN_LOG("Position: (", character.x(), ", ", character.y(), ")");
         }
 
         bn::core::update();
