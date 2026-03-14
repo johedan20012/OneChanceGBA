@@ -3,9 +3,6 @@
 #include "bn_blending.h"
 #include "bn_log.h"
 
-#include "bn_sprite_ptr.h"
-#include "bn_sprite_items_character.h"
-
 #include "bn_bg_palettes.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_regular_bg_items_bg_paper.h"
@@ -15,24 +12,7 @@
 #include "bn_regular_bg_items_bg_paper_w.h"
 #include "bn_regular_bg_items_bg_paper_g.h"
 
-class Aux{
-public:
-    Aux();
-    virtual ~Aux() = 0;
-
-    virtual void update() = 0;
-};
-
-class A : public Aux{   
-
-public:
-    A();
-    ~A() = default;
-
-    void update() final {
-        BN_LOG("A");
-    }
-};
+#include "player.h"
 
 int main(){
     bn::core::init();
@@ -40,11 +20,10 @@ int main(){
 
 
     bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_2.create_bg(8, 48);
-    bn::sprite_ptr character = bn::sprite_items::character.create_sprite(0, 36); // Value calculated manually for house_1 
+    game::Player character;
     bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
 
     bg_house_1.set_priority(3);
-    character.set_bg_priority(2);
     bg_paper.set_priority(1);
 
     bg_paper.set_blending_enabled(true);
@@ -57,15 +36,8 @@ int main(){
     int white_grad = 0;
 
     while(true){ 
-        if(bn::keypad::left_held()){
-            character.set_x(character.x() - 1);
-        }else if(bn::keypad::right_held()){
-            character.set_x(character.x() + 1);
-        }else if(bn::keypad::up_held()){
-            character.set_y(character.y() - 1);
-        }else if(bn::keypad::down_held()){
-            character.set_y(character.y() + 1);
-        }
+
+        character.update();
 
         if(bn::keypad::l_held() && !change_intensity){
             background_weight = bn::max(background_weight - 0.01, bn::fixed(0));
@@ -110,7 +82,7 @@ int main(){
         if(bn::keypad::start_pressed()){
             BN_LOG("Background alpha: ", background_weight);
             BN_LOG("Foreground alpha: ", foreground_weight);
-            BN_LOG("Position: (", character.x(), ", ", character.y(), ")");
+            BN_LOG("Position: (", character.getPos().x(), ", ", character.getPos().y(), ")");
         }
 
         bn::core::update();

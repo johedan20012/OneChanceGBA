@@ -1,0 +1,55 @@
+#include "player.h"
+
+namespace game{
+
+Player::Player():
+    // Value calculated manually for house_1 
+    sprite(bn::sprite_items::character.create_sprite(0,26)),
+    walking(bn::create_sprite_animate_action_forever(
+        sprite,12,bn::sprite_items::character.tiles_item(),2,1))
+    {
+
+    sprite.set_bg_priority(2);
+}
+
+void Player::setPos(bn::fixed x,bn::fixed y){
+    sprite.set_position(x,y);
+}
+
+bn::fixed_point Player::getPos(){
+    return sprite.position();
+}
+
+void Player::update(){
+    if(bn::keypad::right_released()){
+        sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
+    }
+
+    if(bn::keypad::left_released()){
+        sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
+    }
+
+    if(bn::keypad::right_pressed()){
+        sprite.set_horizontal_flip(false);
+        walking.reset();
+    }
+
+    if(bn::keypad::left_pressed()){
+        sprite.set_horizontal_flip(true);
+        walking.reset();
+    }
+
+    if(bn::keypad::left_held()){
+        sprite.set_x(sprite.x() - 1);
+        walking.update();
+    }else if(bn::keypad::right_held()){
+        sprite.set_x(sprite.x() + 1);
+        walking.update();
+    }else if(bn::keypad::up_held()){
+        sprite.set_y(sprite.y() - 1);
+    }else if(bn::keypad::down_held()){
+        sprite.set_y(sprite.y() + 1);
+    }
+}
+
+}
