@@ -12,6 +12,36 @@
 
 namespace game{
 
+enum DIRECTION{
+    LEFT = 0,
+    DOOR1,
+    DOOR2,
+    DOOR3,
+    DOOR4,
+    RIGHT
+};
+
+struct RoomExit{
+    bn::string<15> name;
+    bn::fixed_rect trigger;
+    DIRECTION next_in_dir;
+    bool needs_action;
+
+    RoomExit(bn::string<15> _name,bn::fixed_rect _trigger,DIRECTION _next,bool _needs_action){
+        name = _name;
+        trigger = _trigger;
+        next_in_dir = _next;
+        needs_action = _needs_action;
+    }
+
+    RoomExit(bn::string<15> _name, DIRECTION _next){
+        name = _name;
+        trigger = bn::fixed_rect(1000,1000,2,2); //Don't bother
+        next_in_dir = _next;
+        needs_action = true;
+    }
+};
+
 class Room{
 private:
     bn::fixed background_weight; 
@@ -23,14 +53,13 @@ protected:
     bn::optional<bn::regular_bg_ptr> bg_paper;
     Player& player;
 
-    bn::vector<bn::fixed_rect,6> exits; 
-    bn::vector<bn::string<15>,6> exitsName;
+    bn::vector<RoomExit,6> exits;
 
 public:
     Room(const bn::regular_bg_ptr _bg,bn::optional<bn::regular_bg_ptr> _bg_paper,Player& _player);
     virtual ~Room();
 
-    bn::optional<bn::string<15>> checkExits(); 
+    bn::optional<RoomExit> checkExits(); 
 
     virtual void update();
 };

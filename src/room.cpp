@@ -18,9 +18,10 @@ Room::Room(const bn::regular_bg_ptr _bg, bn::optional<bn::regular_bg_ptr> _bg_pa
 
 Room::~Room() = default;
 
-bn::optional<bn::string<15>> Room::checkExits(){
+bn::optional<RoomExit> Room::checkExits(){
     for(int i = 0; i < exits.size(); i++){
-        if(exits[i].intersects(player.boundaries())) return exitsName[i];
+        if(exits[i].needs_action && !bn::keypad::a_pressed()) continue;
+        if(exits[i].trigger.intersects(player.boundaries())) return exits[0];
     }
     return bn::nullopt;
 }

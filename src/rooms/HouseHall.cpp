@@ -1,12 +1,19 @@
 #include "houseHall.h"
 
 namespace game{
-HouseHall::HouseHall(Player& _player):
+HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::regular_bg_items::bg_paper_2.create_bg(8,48),_player){
 
-    player.setPos(-20,26);
-    exits.push_back(bn::fixed_rect(-120,26,10,64));
-    exitsName.push_back("house_bedroom");
+    switch(entering_from){
+        case DIRECTION::LEFT:
+            player.setPos(-108,26);
+            break;
+        default:
+            player.setPos(0,26);
+            break;
+    }
+
+    exits.push_back(RoomExit("house_bedroom",bn::fixed_rect(-120,26,4,64),DIRECTION::RIGHT,false));
 }
 
 HouseHall::~HouseHall(){

@@ -25,8 +25,8 @@ int main(){
     //bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
 
 
-    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom("house_bedroom",character);
-    bn::optional<bn::string<15>> next_room = bn::nullopt;
+    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("house_bedroom",game::DIRECTION::DOOR1),character);
+    bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 
 
@@ -34,7 +34,6 @@ int main(){
 
         next_room = current_room.get()->checkExits();
         if(next_room.has_value()){
-            BN_LOG("Changing room");
             auto new_room = game::RoomLoader::loadRoom(*next_room.get(), character);
             if(new_room) current_room = std::move(new_room);
             else BN_LOG("Error loading room: ",next_room.get());

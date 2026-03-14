@@ -9,7 +9,7 @@
 namespace game{
 class HouseHall : public Room{
 public:
-    HouseHall(Player& _player);
+    HouseHall(Player& _player,DIRECTION entering_from);
     virtual ~HouseHall() override;
 
     void update() override;

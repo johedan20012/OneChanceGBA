@@ -13,7 +13,7 @@ private:
     static const bn::string<15> roomsNames[2];
 
 public:
-    static bn::unique_ptr<Room> loadRoom(const bn::string<15> &room_name, Player& player);
+    static bn::unique_ptr<Room> loadRoom(RoomExit room_exit, Player& player);
 };
 }
 
