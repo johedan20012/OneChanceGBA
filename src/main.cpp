@@ -9,7 +9,9 @@
 #include "bn_bg_palettes.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_regular_bg_items_bg_paper.h"
+#include "bn_regular_bg_items_bg_paper_2.h"
 #include "bn_regular_bg_items_bg_house_1.h"
+#include "bn_regular_bg_items_bg_house_2.h"
 #include "bn_regular_bg_items_bg_paper_w.h"
 #include "bn_regular_bg_items_bg_paper_g.h"
 
@@ -37,9 +39,9 @@ int main(){
     bn::bg_palettes::set_transparent_color(bn::color(0, 0, 0));
 
 
-    bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_1.create_bg(8, 48);
+    bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_2.create_bg(8, 48);
     bn::sprite_ptr character = bn::sprite_items::character.create_sprite(0, 36); // Value calculated manually for house_1 
-    bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper.create_bg(8, 48);
+    bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
 
     bg_house_1.set_priority(3);
     character.set_bg_priority(2);
