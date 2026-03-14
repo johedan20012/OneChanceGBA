@@ -4,7 +4,7 @@ namespace game{
 
 Player::Player():
     // Value calculated manually for house_1 
-    sprite(bn::sprite_items::character.create_sprite(0,26)),
+    sprite(bn::sprite_items::character.create_sprite(0,0)),
     walking(bn::create_sprite_animate_action_forever(
         sprite,12,bn::sprite_items::character.tiles_item(),2,1))
     {
@@ -18,6 +18,10 @@ void Player::setPos(bn::fixed x,bn::fixed y){
 
 bn::fixed_point Player::getPos(){
     return sprite.position();
+}
+
+bn::fixed_rect Player::boundaries(){
+    return bn::fixed_rect(sprite.position(),bn::fixed_size(14,45));
 }
 
 void Player::update(){

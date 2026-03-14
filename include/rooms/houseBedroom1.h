@@ -1,0 +1,18 @@
+#ifndef HOUSEBEDROOM1_H
+#define HOUSEBEDROOM1_H
+
+#include "bn_regular_bg_items_bg_house_1.h"
+#include "bn_regular_bg_items_bg_paper.h"
+
+#include "room.h"
+
+namespace game{
+class HouseBedroom1 : public Room{
+public:
+    HouseBedroom1(Player& _player);
+    virtual ~HouseBedroom1() override;
+
+    void update() override;
+};
+}
+#endif

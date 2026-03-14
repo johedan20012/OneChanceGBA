@@ -7,6 +7,8 @@
 #include "bn_sprite_animate_actions.h"
 #include "bn_sprite_items_character.h"
 
+#include "bn_fixed_rect.h"
+
 namespace game{
 class Player{
 private:
@@ -17,6 +19,8 @@ public:
 
     void setPos(bn::fixed x, bn::fixed y);
     bn::fixed_point getPos();
+
+    bn::fixed_rect boundaries();
 
     void update();
 };

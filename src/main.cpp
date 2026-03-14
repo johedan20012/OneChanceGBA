@@ -13,76 +13,31 @@
 #include "bn_regular_bg_items_bg_paper_g.h"
 
 #include "player.h"
+#include "roomLoader.h"
 
 int main(){
     bn::core::init();
     bn::bg_palettes::set_transparent_color(bn::color(0, 0, 0));
 
 
-    bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_2.create_bg(8, 48);
+    //bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_2.create_bg(8, 48);
     game::Player character;
-    bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
+    //bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
 
-    bg_house_1.set_priority(3);
-    bg_paper.set_priority(1);
 
-    bg_paper.set_blending_enabled(true);
-
-    bn::fixed background_weight = 0.49804; // Best values manually calculated
-    bn::fixed foreground_weight = 0.35546; 
-    bn::blending::set_transparency_weights(foreground_weight, background_weight);
-    bool change_intensity = false;
-
-    int white_grad = 0;
+    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom("house_bedroom",character);
+    bn::optional<bn::string<15>> next_room = bn::nullopt;
 
     while(true){ 
 
-        character.update();
+        current_room.get()->update();
 
-        if(bn::keypad::l_held() && !change_intensity){
-            background_weight = bn::max(background_weight - 0.01, bn::fixed(0));
-            bn::blending::set_transparency_weights(foreground_weight, background_weight);
-            
-        }else if(bn::keypad::r_held() && !change_intensity){
-            background_weight = bn::min(background_weight + 0.01, bn::fixed(1));
-            bn::blending::set_transparency_weights(foreground_weight, background_weight);
-        }
-
-        if(bn::keypad::l_held() && change_intensity){
-            foreground_weight = bn::max(foreground_weight - 0.01, bn::fixed(0));
-            bn::blending::set_transparency_weights(foreground_weight, background_weight);
-            
-        }else if(bn::keypad::r_held() && change_intensity){
-            foreground_weight = bn::min(foreground_weight + 0.01, bn::fixed(1));
-            bn::blending::set_transparency_weights(foreground_weight, background_weight);
-        }
-
-        if(bn::keypad::b_pressed()){
-            change_intensity = !change_intensity;
-        }
-
-        if(bn::keypad::a_pressed()){
-            switch (white_grad){
-            case 0:
-                bg_paper.set_item(bn::regular_bg_items::bg_paper_g);
-                break;
-            
-            case 1:
-                bg_paper.set_item(bn::regular_bg_items::bg_paper_w);
-                break;
-
-            default: // 2
-                bg_paper.set_item(bn::regular_bg_items::bg_paper);
-                break;
-            }
-
-            white_grad = (white_grad + 1) % 3;
-        }
-
-        if(bn::keypad::start_pressed()){
-            BN_LOG("Background alpha: ", background_weight);
-            BN_LOG("Foreground alpha: ", foreground_weight);
-            BN_LOG("Position: (", character.getPos().x(), ", ", character.getPos().y(), ")");
+        next_room = current_room.get()->checkExits();
+        if(next_room.has_value()){
+            BN_LOG("Changing room");
+            auto new_room = game::RoomLoader::loadRoom(*next_room.get(), character);
+            if(new_room) current_room = std::move(new_room);
+            else BN_LOG("Error loading room: ",next_room.get());
         }
 
         bn::core::update();
