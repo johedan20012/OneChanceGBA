@@ -2,7 +2,8 @@
 
 namespace game{
 HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
-    Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::regular_bg_items::bg_paper_2.create_bg(8,48),_player){
+    Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::regular_bg_items::bg_paper_2.create_bg(8,48),_player),
+    penny(bn::sprite_items::penny.create_sprite(54,22)){
 
     switch(entering_from){
         case DIRECTION::LEFT:
@@ -19,6 +20,8 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
             break;
     }
 
+    penny.lookAt(player.getPos());
+
     exits.push_back(RoomExit("house_bedroom",bn::fixed_rect(-120,26,4,64),DIRECTION::RIGHT,false));
     exits.push_back(RoomExit("house_molly",bn::fixed_rect(-84,26,20,64),DIRECTION::RIGHT,true)); 
     exits.push_back(RoomExit("house_bath",bn::fixed_rect(-16,26,20,64),DIRECTION::RIGHT,true));
@@ -31,9 +34,7 @@ HouseHall::~HouseHall(){
 void HouseHall::update(){
     player.update();
 
-    if(bn::keypad::start_pressed()){
-        BN_LOG("holiii2 jsjxj");
-    }
+    penny.lookAt(player.getPos());
 
     Room::update();
 }

@@ -10,6 +10,7 @@ Player::Player():
     {
 
     sprite.set_bg_priority(2);
+    sprite.set_z_order(1);
 }
 
 void Player::setPos(bn::fixed x,bn::fixed y){
