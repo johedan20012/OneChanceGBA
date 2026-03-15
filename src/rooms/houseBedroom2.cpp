@@ -1,0 +1,30 @@
+#include "houseBedroom2.h"
+
+namespace game{
+
+HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from):
+    Room(bn::regular_bg_items::bg_house_3.create_bg(8,48),bn::regular_bg_items::bg_paper_3.create_bg(8,48),_player){
+
+    switch(entering_from){
+        case DIRECTION::RIGHT:
+            player.setPos(108,26);
+            break;
+        default:
+            player.setPos(0,26);
+            break;
+    }
+
+    exits.push_back(RoomExit("house_hall",bn::fixed_rect(120,26,4,64),DIRECTION::DOOR1,false));
+}
+
+HouseBedroom2::~HouseBedroom2(){
+    Room::~Room();
+}
+
+void HouseBedroom2::update(){
+    player.update();
+
+    Room::update();
+}
+
+}

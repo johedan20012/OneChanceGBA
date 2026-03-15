@@ -21,7 +21,7 @@ Room::~Room() = default;
 bn::optional<RoomExit> Room::checkExits(){
     for(int i = 0; i < exits.size(); i++){
         if(exits[i].needs_action && !bn::keypad::a_pressed()) continue;
-        if(exits[i].trigger.intersects(player.boundaries())) return exits[0];
+        if(exits[i].trigger.intersects(player.boundaries())) return exits[i];
     }
     return bn::nullopt;
 }
