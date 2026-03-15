@@ -5,6 +5,7 @@
 
 #include "rooms/houseBedroom1.h"
 #include "rooms/houseBedroom2.h"
+#include "rooms/houseBathroom.h"
 #include "rooms/houseHall.h"
 #include "player.h"
 

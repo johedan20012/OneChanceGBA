@@ -11,6 +11,9 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
         case DIRECTION::DOOR1:
             player.setPos(-92,26);
             break;
+        case DIRECTION::DOOR2:
+            player.setPos(-8,26);
+            break;
         default:
             player.setPos(0,26);
             break;
@@ -18,6 +21,7 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
 
     exits.push_back(RoomExit("house_bedroom",bn::fixed_rect(-120,26,4,64),DIRECTION::RIGHT,false));
     exits.push_back(RoomExit("house_molly",bn::fixed_rect(-84,26,20,64),DIRECTION::RIGHT,true)); 
+    exits.push_back(RoomExit("house_bath",bn::fixed_rect(-16,26,20,64),DIRECTION::RIGHT,true));
 }
 
 HouseHall::~HouseHall(){
