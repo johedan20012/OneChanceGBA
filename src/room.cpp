@@ -13,8 +13,8 @@ Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player
     bn::rect_window::internal().set_boundaries(_paper_boundaries);
     bn::rect_window::internal().set_visible(true);
 
-    background_weight = 0.49804; // Best values manually calculated
-    foreground_weight = 0.35546; 
+    background_weight = 0.64843; // Best values manually calculated
+    foreground_weight = 0.20507; 
     bn::blending::set_transparency_weights(foreground_weight, background_weight);
 }
 
@@ -67,8 +67,8 @@ void Room::update(){
     }
 
     if(bn::keypad::start_pressed()){
-        BN_LOG("Background alpha: ", background_weight);
-        BN_LOG("Foreground alpha: ", foreground_weight);
+        BN_LOG("Background weight: ", background_weight);
+        BN_LOG("Foreground weight: ", foreground_weight);
         BN_LOG("Position: (", player.getPos().x(), ", ", player.getPos().y(), ")");
 
         BN_LOG("Position InnnerWindow: ",bn::rect_window::internal().boundaries().x()," ",bn::rect_window::internal().boundaries().y());

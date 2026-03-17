@@ -7,7 +7,7 @@ const bn::string<15> RoomLoader::roomsNames[12] = {
     "house_hall",
     "house_molly",
     "house_bath",
-    "",
+    "house_entrance",
     "",
     "",
     "",
@@ -30,6 +30,9 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player){
     }
     if(room_exit.name == roomsNames[3]){
         return bn::make_unique<HouseBathroom>(player,room_exit.next_in_dir);
+    }
+    if(room_exit.name == roomsNames[4]){
+        return bn::make_unique<HouseEntrance>(player,room_exit.next_in_dir);
     }
     return bn::unique_ptr<Room>();
 }
