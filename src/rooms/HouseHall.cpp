@@ -2,21 +2,21 @@
 
 namespace game{
 HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
-    Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::regular_bg_items::bg_paper_2.create_bg(8,48),_player),
-    penny(bn::sprite_items::penny.create_sprite(54,22)){
+    Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::fixed_rect(0,9,239,113),_player),
+    penny(bn::sprite_items::penny.create_sprite(54,28)){
 
     switch(entering_from){
         case DIRECTION::LEFT:
-            player.setPos(-108,26);
+            player.setPos(-108,33);
             break;
         case DIRECTION::DOOR1:
-            player.setPos(-92,26);
+            player.setPos(-92,33);
             break;
         case DIRECTION::DOOR2:
-            player.setPos(-8,26);
+            player.setPos(-8,33);
             break;
         default:
-            player.setPos(0,26);
+            player.setPos(0,33);
             break;
     }
 

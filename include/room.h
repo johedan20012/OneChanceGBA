@@ -2,9 +2,12 @@
 #define ROOM_H
 
 #include "bn_regular_bg_ptr.h"
+#include "bn_regular_bg_items_bg_paper_full.h"
 
+#include "bn_rect_window.h"
 #include "bn_fixed_rect.h"
 #include "bn_blending.h"
+#include "bn_window.h"
 #include "bn_string.h"
 #include "bn_log.h"
 
@@ -50,13 +53,13 @@ private:
 
 protected:
     bn::regular_bg_ptr bg;
-    bn::optional<bn::regular_bg_ptr> bg_paper;
+    bn::regular_bg_ptr bg_paper;
     Player& player;
 
     bn::vector<RoomExit,6> exits;
 
 public:
-    Room(const bn::regular_bg_ptr _bg,bn::optional<bn::regular_bg_ptr> _bg_paper,Player& _player);
+    Room(const bn::regular_bg_ptr _bg,bn::fixed_rect _paper_boundaries,Player& _player);
     virtual ~Room();
 
     bn::optional<RoomExit> checkExits(); 

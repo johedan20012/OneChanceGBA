@@ -2,7 +2,6 @@
 #define HOUSEHALL_H
 
 #include "bn_regular_bg_items_bg_house_2.h"
-#include "bn_regular_bg_items_bg_paper_2.h"
 
 #include "bn_sprite_items_penny.h"
 
