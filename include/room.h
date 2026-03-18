@@ -55,16 +55,17 @@ protected:
     bn::regular_bg_ptr bg;
     bn::regular_bg_ptr bg_paper;
     Player& player;
+    bool isExiting = false;
 
     bn::vector<RoomExit,6> exits;
+
+    bn::optional<RoomExit> checkExits(); 
 
 public:
     Room(const bn::regular_bg_ptr _bg,bn::fixed_rect _paper_boundaries,Player& _player);
     virtual ~Room();
 
-    bn::optional<RoomExit> checkExits(); 
-
-    virtual void update();
+    virtual bn::optional<RoomExit> update();
 };
 }
 

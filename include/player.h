@@ -22,6 +22,8 @@ public:
 
     bn::fixed_rect boundaries();
 
+    void setVisible(bool _visible);
+
     void update();
 };
 }

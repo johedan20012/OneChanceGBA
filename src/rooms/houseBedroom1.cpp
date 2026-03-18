@@ -22,14 +22,12 @@ HouseBedroom1::~HouseBedroom1(){
     Room::~Room();
 }
 
-void HouseBedroom1::update(){
+bn::optional<RoomExit> HouseBedroom1::update(){
     player.update();
 
-    if(bn::keypad::start_pressed()){
-        BN_LOG("holiii");
-    }
-
     Room::update();
+
+    return checkExits();
 }
 
 }

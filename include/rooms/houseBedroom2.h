@@ -12,7 +12,7 @@ public:
     HouseBedroom2(Player& _player,DIRECTION entering_from);
     virtual ~HouseBedroom2() override;
 
-    void update() override;
+    bn::optional<RoomExit> update() override;
 };
 }
 #endif

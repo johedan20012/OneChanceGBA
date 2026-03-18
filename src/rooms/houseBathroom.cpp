@@ -21,9 +21,11 @@ HouseBathroom::~HouseBathroom(){
     Room::~Room();
 }
 
-void HouseBathroom::update(){
+bn::optional<RoomExit> HouseBathroom::update(){
     player.update();
 
     Room::update();
+
+    return checkExits();
 }
 }

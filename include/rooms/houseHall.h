@@ -17,7 +17,7 @@ public:
     HouseHall(Player& _player,DIRECTION entering_from);
     virtual ~HouseHall() override;
 
-    void update() override;
+    bn::optional<RoomExit> update() override;
 };
 
 }

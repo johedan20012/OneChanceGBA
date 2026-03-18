@@ -25,14 +25,11 @@ int main(){
     //bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
 
 
-    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("house_bedroom",game::DIRECTION::DOOR1),character);
+    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("house_entrance",game::DIRECTION::DOOR1),character);
     bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 
-
-        current_room.get()->update();
-
-        next_room = current_room.get()->checkExits();
+        next_room = current_room.get()->update();
         if(next_room.has_value()){
             auto new_room = game::RoomLoader::loadRoom(*next_room.get(), character);
             if(new_room) current_room = std::move(new_room);

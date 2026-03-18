@@ -28,7 +28,7 @@ bn::optional<RoomExit> Room::checkExits(){
     return bn::nullopt;
 }
 
-void Room::update(){
+bn::optional<RoomExit> Room::update(){
     if(bn::keypad::l_held() && !change_intensity){
         background_weight = bn::max(background_weight - 0.01, bn::fixed(0));
         bn::blending::set_transparency_weights(foreground_weight, background_weight);
@@ -73,5 +73,7 @@ void Room::update(){
 
         BN_LOG("Position InnnerWindow: ",bn::rect_window::internal().boundaries().x()," ",bn::rect_window::internal().boundaries().y());
     }
+
+    return bn::nullopt;
 }
 }

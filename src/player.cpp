@@ -25,6 +25,10 @@ bn::fixed_rect Player::boundaries(){
     return bn::fixed_rect(sprite.position(),bn::fixed_size(14,45));
 }
 
+void Player::setVisible(bool _visible){
+    sprite.set_visible(_visible);
+}
+
 void Player::update(){
     if(bn::keypad::right_released()){
         sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));

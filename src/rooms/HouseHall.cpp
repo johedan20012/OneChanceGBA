@@ -32,11 +32,13 @@ HouseHall::~HouseHall(){
     Room::~Room();
 }
 
-void HouseHall::update(){
+bn::optional<RoomExit> HouseHall::update(){
     player.update();
 
     penny.lookAt(player.getPos());
 
     Room::update();
+
+    return checkExits();
 }
 }
