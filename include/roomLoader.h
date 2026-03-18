@@ -8,6 +8,7 @@
 #include "rooms/houseBathroom.h"
 #include "rooms/houseHall.h"
 #include "rooms/houseEntrance.h"
+#include "rooms/city.h"
 #include "player.h"
 
 namespace game{

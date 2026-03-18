@@ -20,7 +20,7 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
             break;
     }
 
-    exits.push_back(RoomExit("house_hall",bn::fixed_rect(60,53,21,64),DIRECTION::LEFT,true));
+    exits.push_back(RoomExit("city",bn::fixed_rect(60,53,21,64),DIRECTION::LEFT,true));
 }
 
 HouseEntrance::~HouseEntrance(){
@@ -53,7 +53,7 @@ bn::optional<RoomExit> HouseEntrance::update(){
     Room::update();
 
     auto exit = checkExits();
-    if(exit.has_value() && exit.get()->name == bn::string<15>("house_hall")){
+    if(exit.has_value() && exit.get()->name == bn::string<15>("city")){
         isExiting = true;
         player.setVisible(false);
 
