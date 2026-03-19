@@ -14,28 +14,25 @@
 
 #include "player.h"
 #include "roomLoader.h"
+#include "timer.h"
 
 int main(){
     bn::core::init();
     bn::bg_palettes::set_transparent_color(bn::color(0, 0, 0));
 
-
-    //bn::regular_bg_ptr bg_house_1 = bn::regular_bg_items::bg_house_2.create_bg(8, 48);
     game::Player character;
-    //bn::regular_bg_ptr bg_paper = bn::regular_bg_items::bg_paper_2.create_bg(8, 48);
 
-
-    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("house_entrance",game::DIRECTION::DOOR1),character);
+    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("work_parking",game::DIRECTION::DOOR1),character);
     bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 
         next_room = current_room.get()->update();
         if(next_room.has_value()){
-            auto new_room = game::RoomLoader::loadRoom(*next_room.get(), character);
-            if(new_room) current_room = std::move(new_room);
-            else BN_LOG("Error loading room: ",next_room.get());
+            current_room.reset();
+            current_room = game::RoomLoader::loadRoom(*next_room.get(), character);
         }
 
+        game::Timer::update();
         bn::core::update();
     }
 }

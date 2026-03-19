@@ -17,7 +17,7 @@ City::City(Player& _player, DIRECTION entering_from):
         break;
     }
 
-    exits.push_back(RoomExit("house_entrance",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
+    exits.push_back(RoomExit("work_parking",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
 }
 
 City::~City(){
