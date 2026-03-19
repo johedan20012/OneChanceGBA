@@ -35,7 +35,7 @@ WorkParking::WorkParking(Player& _player,DIRECTION entering_from):
             break;
     }
 
-    exits.push_back(RoomExit("work_entrance",bn::fixed_rect(123,20,10,64),DIRECTION::LEFT,false));
+    exits.push_back(RoomExit("work_lobby",bn::fixed_rect(123,20,10,64),DIRECTION::LEFT,false));
 }
 
 WorkParking::~WorkParking(){

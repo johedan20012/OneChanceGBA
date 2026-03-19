@@ -12,7 +12,7 @@ public:
     NPC(bn::sprite_ptr _sprite);
     virtual ~NPC();
 
-    void lookAt(bn::fixed_point p);
+    void lookAt(bn::fixed_point p,bool flip = false);
     virtual void update();
 };
 

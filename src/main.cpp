@@ -29,7 +29,7 @@ int main(){
         next_room = current_room.get()->update();
         if(next_room.has_value()){
             current_room.reset();
-            current_room = game::RoomLoader::loadRoom(*next_room.get(), character);
+            current_room = game::RoomLoader::loadRoom(next_room.value(), character);
         }
 
         game::Timer::update();

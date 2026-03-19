@@ -10,6 +10,7 @@
 #include "rooms/houseEntrance.h"
 #include "rooms/city.h"
 #include "rooms/workParking.h"
+#include "rooms/workLobby.h"
 #include "player.h"
 
 namespace game{
