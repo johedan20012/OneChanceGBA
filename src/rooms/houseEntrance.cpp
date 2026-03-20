@@ -13,10 +13,10 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
 
     switch(_entering_from){
         case DIRECTION::LEFT:
-            player.setPos(-92,53);
+            player.setPos(-92,50);
             break;
         default:
-            player.setPos(0,0);
+            player.setPos(0,50);
             break;
     }
 

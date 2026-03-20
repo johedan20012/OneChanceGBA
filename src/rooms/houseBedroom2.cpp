@@ -7,10 +7,10 @@ HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from):
 
     switch(entering_from){
         case DIRECTION::RIGHT:
-            player.setPos(108,33);
+            player.setPos(108,29);
             break;
         default:
-            player.setPos(0,33);
+            player.setPos(0,29);
             break;
     }
 

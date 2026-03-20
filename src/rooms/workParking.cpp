@@ -28,7 +28,7 @@ WorkParking::WorkParking(Player& _player,DIRECTION entering_from):
 
     switch (entering_from){
         case DIRECTION::LEFT:
-            player.setPos(-108,53);
+            player.setPos(-108,49);
             break;    
         default:
             player.setPos(0,0);

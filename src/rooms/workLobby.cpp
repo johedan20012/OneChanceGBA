@@ -2,11 +2,11 @@
 
 namespace game{
 WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from):
-    Room(bn::regular_bg_items::bg_work_lobby.create_bg(8,48),bn::fixed_rect(0,0,240,118),_player){
+    Room(bn::regular_bg_items::bg_work_lobby.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player){
 
     switch (entering_from){
         case DIRECTION::LEFT:
-            player.setPos(-106,30);
+            player.setPos(-106,28);
             break;
         
         default:
