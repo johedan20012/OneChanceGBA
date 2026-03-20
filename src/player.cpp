@@ -1,12 +1,14 @@
 #include "player.h"
 
+#include "bn_log.h"
+
 namespace game{
 
 Player::Player():
     // Value calculated manually for house_1 
     sprite(bn::sprite_items::character.create_sprite(0,0)),
     walking(bn::create_sprite_animate_action_forever(
-        sprite,12,bn::sprite_items::character.tiles_item(),2,1))
+        sprite,6,bn::sprite_items::character.tiles_item(),2,1))
     {
 
     sprite.set_bg_priority(2);
@@ -30,35 +32,35 @@ void Player::setVisible(bool _visible){
 }
 
 void Player::update(){
-    if(bn::keypad::right_released()){
-        sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
+    moving_dir = 0;
+    if(bn::keypad::right_held()) {
+        moving_dir = 1;
+        BN_LOG("LEFT");
+    }
+    if(bn::keypad::left_held()){ 
+        moving_dir = -1;
+        BN_LOG("RIGHT");
     }
 
-    if(bn::keypad::left_released()){
-        sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
-    }
-
-    if(bn::keypad::right_pressed()){
-        sprite.set_horizontal_flip(false);
+    if(prev_mov_dir != 0 && moving_dir == 0) sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
+    if(moving_dir != 0 && prev_mov_dir != moving_dir){
         walking.reset();
+        if(moving_dir == 1) sprite.set_horizontal_flip(false);
+        if(moving_dir == -1) sprite.set_horizontal_flip(true);
     }
 
-    if(bn::keypad::left_pressed()){
-        sprite.set_horizontal_flip(true);
-        walking.reset();
+    if(moving_dir != 0){
+        sprite.set_x(sprite.x() + moving_dir);
+        walking.update();
     }
 
-    if(bn::keypad::left_held()){
-        sprite.set_x(sprite.x() - 1);
-        walking.update();
-    }else if(bn::keypad::right_held()){
-        sprite.set_x(sprite.x() + 1);
-        walking.update();
-    }else if(bn::keypad::up_held()){
+    if(bn::keypad::up_pressed()){
         sprite.set_y(sprite.y() - 1);
-    }else if(bn::keypad::down_held()){
+    }else if(bn::keypad::down_pressed()){
         sprite.set_y(sprite.y() + 1);
     }
+
+    prev_mov_dir = moving_dir;
 }
 
 }

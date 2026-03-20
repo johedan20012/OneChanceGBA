@@ -14,6 +14,9 @@ class Player{
 private:
     bn::sprite_ptr sprite;
     bn::sprite_animate_action<2> walking;
+
+    int prev_mov_dir = 0;
+    int moving_dir = 0;
 public:
     Player();
 

@@ -14,7 +14,7 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from):
     switch (entering_from){
         case DIRECTION::LEFT:
             player.setPos(-106,28);
-            walk_mov = bn::sprite_move_to_action(walking_dude,400,bn::fixed_point(-140,20));
+            walk_mov = bn::sprite_move_to_action(walking_dude,280,bn::fixed_point(-140,20));
             walk_anim = bn::create_sprite_animate_action_forever(walking_dude,6,bn::sprite_items::walking_dude.tiles_item(),0,1);
             break;
         case DIRECTION::RIGHT:
