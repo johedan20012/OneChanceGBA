@@ -12,6 +12,7 @@
 #include "rooms/workParking.h"
 #include "rooms/workLobby.h"
 #include "rooms/workHall.h"
+#include "rooms/workLabDoor.h"
 #include "player.h"
 
 namespace game{

@@ -12,7 +12,7 @@ const bn::string<15> RoomLoader::roomsNames[12] = {
     "work_parking",
     "work_lobby",
     "work_hall",
-    "",
+    "work_lab_door",
     "",
     "" 
 };
@@ -46,7 +46,10 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player){
     if(room_exit.name == roomsNames[8]){
         return bn::make_unique<WorkHall>(player,room_exit.next_in_dir);
     }
-    else BN_LOG("Error loading room: ",room_exit.name);
+    if(room_exit.name == roomsNames[9]){
+        return bn::make_unique<WorkLabDoor>(player,room_exit.next_in_dir);
+    }
+    BN_LOG("Error loading room: ",room_exit.name);
     return bn::make_unique<HouseBedroom1>(player,room_exit.next_in_dir);
 }
 }
