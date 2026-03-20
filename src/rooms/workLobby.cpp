@@ -8,7 +8,9 @@ WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from):
         case DIRECTION::LEFT:
             player.setPos(-106,28);
             break;
-        
+        case DIRECTION::RIGHT:
+            player.setPos(106,28);
+            break;
         default:
             player.setPos(0,0);
             break;

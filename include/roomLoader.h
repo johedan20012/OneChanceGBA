@@ -11,6 +11,7 @@
 #include "rooms/city.h"
 #include "rooms/workParking.h"
 #include "rooms/workLobby.h"
+#include "rooms/workHall.h"
 #include "player.h"
 
 namespace game{
