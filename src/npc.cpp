@@ -17,4 +17,8 @@ void NPC::lookAt(bn::fixed_point p, bool flip){
 
 void NPC::update(){}
 
+bn::sprite_palette_ptr NPC::getPalette(){
+    return sprite.palette();
+}
+
 }

@@ -22,7 +22,7 @@ int main(){
 
     game::Player character;
 
-    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("work_parking",game::DIRECTION::DOOR1),character);
+    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("work_lab_door",game::DIRECTION::DOOR1),character);
     bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 
