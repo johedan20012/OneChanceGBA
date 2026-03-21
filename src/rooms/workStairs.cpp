@@ -8,6 +8,7 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from):
     npcs[0].getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
     npcs[0].getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
     
+    player.setMovementBox(bn::fixed_rect(-20.5,0,219,160));
 
     switch (entering_from){
         case DIRECTION::LEFT:

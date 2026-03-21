@@ -26,6 +26,8 @@ void WorkParking::JimNPC::update(){
 WorkParking::WorkParking(Player& _player,DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_work_parking.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player){
 
+    player.setMovementBox(bn::fixed_rect(10,0,240,160));
+
     switch (entering_from){
         case DIRECTION::LEFT:
             player.setPos(-108,49);

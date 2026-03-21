@@ -6,10 +6,10 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from):
     npcs{NPC(bn::sprite_items::work_people.create_sprite(-64,16,8)),NPC(bn::sprite_items::work_people.create_sprite(-44,16,9))},
     walking_dude(bn::sprite_items::walking_dude.create_sprite(140,20,0)){
     
-    
-
     walking_dude.set_bg_priority(2);
     walking_dude.set_z_order(2);
+
+    player.setMovementBox(bn::fixed_rect(0,0,260,160));
 
     switch (entering_from){
         case DIRECTION::LEFT:

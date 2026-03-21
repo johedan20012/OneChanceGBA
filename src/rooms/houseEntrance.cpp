@@ -11,6 +11,8 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
 
     car.setPos(bn::fixed_point(72,67));
 
+    player.setMovementBox(bn::fixed_rect(2,0,200,160));
+
     switch(_entering_from){
         case DIRECTION::LEFT:
             player.setPos(-92,50);

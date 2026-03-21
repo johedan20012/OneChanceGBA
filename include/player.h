@@ -17,6 +17,8 @@ private:
 
     int prev_mov_dir = 0;
     int moving_dir = 0;
+
+    bn::fixed_rect movement_box;
 public:
     Player();
 
@@ -24,6 +26,9 @@ public:
     bn::fixed_point getPos();
 
     bn::fixed_rect boundaries();
+
+    void setMovementBox(bn::fixed_rect _movement_box);
+    bn::fixed_rect movementBox();
 
     void setVisible(bool _visible);
 

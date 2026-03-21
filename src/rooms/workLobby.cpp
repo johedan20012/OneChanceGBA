@@ -4,6 +4,8 @@ namespace game{
 WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_work_lobby.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player){
 
+    player.setMovementBox(bn::fixed_rect(11.5,0,237,160));
+
     switch (entering_from){
         case DIRECTION::LEFT:
             player.setPos(-106,28);

@@ -5,6 +5,8 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::fixed_rect(0,9,239,113),_player),
     penny(bn::sprite_items::penny.create_sprite(54,23)){
 
+    player.setMovementBox(bn::fixed_rect(-10.5,0,239,160));
+
     switch(entering_from){
         case DIRECTION::LEFT:
             player.setPos(-108,29);

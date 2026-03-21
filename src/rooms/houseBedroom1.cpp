@@ -5,6 +5,8 @@ namespace game{
 HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,131),_player){
 
+    player.setMovementBox(bn::fixed_rect(14.5,0,231,160));
+
     switch(entering_from){
         case DIRECTION::RIGHT:
             player.setPos(108,29);

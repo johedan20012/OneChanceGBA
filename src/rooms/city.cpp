@@ -6,6 +6,7 @@ City::City(Player& _player, DIRECTION entering_from):
     car(bn::sprite_items::car_small.create_sprite(0,0)){
 
     player.setVisible(false);
+    player.setMovementBox(bn::fixed_rect(0,0,280,160));
     
     switch (entering_from){
     case DIRECTION::LEFT:
@@ -13,6 +14,7 @@ City::City(Player& _player, DIRECTION entering_from):
         player.setPos(-97,67);
         break;    
     default:
+        car.set_position(bn::fixed_point(0,0));
         player.setPos(0,0);
         break;
     }
