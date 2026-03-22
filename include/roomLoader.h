@@ -14,6 +14,7 @@
 #include "rooms/workHall.h"
 #include "rooms/workLabDoor.h"
 #include "rooms/workStairs.h"
+#include "rooms/skipWork.h"
 #include "player.h"
 
 namespace game{

@@ -14,7 +14,7 @@ const bn::string<15> RoomLoader::roomsNames[12] = {
     "work_hall",
     "work_lab_door",
     "work_stairs",
-    "" 
+    "skip_work" 
 };
 
 bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player){
@@ -51,6 +51,9 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player){
     }
     if(room_exit.name == roomsNames[10]){
         return bn::make_unique<WorkStairs>(player,room_exit.next_in_dir);
+    }
+    if(room_exit.name == roomsNames[11]){
+        return bn::make_unique<SkipWork>(player);
     }
     BN_LOG("Error loading room: ",room_exit.name);
     return bn::make_unique<HouseBedroom1>(player,room_exit.next_in_dir);

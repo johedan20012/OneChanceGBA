@@ -22,6 +22,8 @@ private:
 public:
     Player();
 
+    void resetAnim();
+
     void setPos(bn::fixed x, bn::fixed y);
     bn::fixed_point getPos();
 

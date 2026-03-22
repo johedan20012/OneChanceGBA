@@ -15,6 +15,10 @@ Player::Player():
     sprite.set_z_order(1);
 }
 
+void Player::resetAnim(){
+    sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
+}
+
 void Player::setPos(bn::fixed x,bn::fixed y){
     sprite.set_position(x,y);
 }
