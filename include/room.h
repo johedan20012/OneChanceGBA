@@ -4,6 +4,10 @@
 #include "bn_regular_bg_ptr.h"
 #include "bn_regular_bg_items_bg_paper_full.h"
 
+#include "bn_sprite_ptr.h"
+#include "bn_sprite_text_generator.h"
+#include "jostFontVar8x16.h"
+
 #include "bn_rect_window.h"
 #include "bn_fixed_rect.h"
 #include "bn_blending.h"
@@ -26,6 +30,7 @@ enum DIRECTION{
 
 struct RoomExit{
     bn::string<15> name;
+    bn::string<30> info = "";
     bn::fixed_rect trigger;
     DIRECTION next_in_dir;
     bool needs_action;
@@ -51,6 +56,11 @@ private:
     bn::fixed foreground_weight; 
     bool change_intensity;
 
+    bn::vector<bn::sprite_ptr,30> exit_info;
+    bn::fixed_point player_prev_pos = bn::fixed_point(0,0);
+    bn::sprite_text_generator info_gen;
+    int exit_info_displayed;
+
 protected:
     bn::regular_bg_ptr bg;
     bn::regular_bg_ptr bg_paper;
@@ -60,6 +70,8 @@ protected:
     bn::vector<RoomExit,6> exits;
 
     bn::optional<RoomExit> checkExits(); 
+
+    void updateExitsInfo();
 
 public:
     Room(const bn::regular_bg_ptr _bg,bn::fixed_rect _paper_boundaries,Player& _player);

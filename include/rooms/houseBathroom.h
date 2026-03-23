@@ -2,7 +2,6 @@
 #define HOUSEBATHROOM_H
 
 #include "bn_regular_bg_items_bg_house_4.h"
-#include "bn_regular_bg_items_bg_paper_4.h"
 
 #include "room.h"
 

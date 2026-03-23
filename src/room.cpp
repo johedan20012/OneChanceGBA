@@ -3,7 +3,7 @@
 namespace game{
 
 Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player& _player):
-    bg(_bg),bg_paper(bn::regular_bg_items::bg_paper_full.create_bg(8,48)),player(_player){
+    info_gen(JostFontVar8x16),exit_info_displayed(-1),bg(_bg),bg_paper(bn::regular_bg_items::bg_paper_full.create_bg(8,48)),player(_player){
     
     bg.set_priority(3);
     bg_paper.set_priority(1);
@@ -12,6 +12,10 @@ Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player
 
     bn::rect_window::internal().set_boundaries(_paper_boundaries);
     bn::rect_window::internal().set_visible(true);
+
+    info_gen.set_center_alignment();
+    info_gen.set_bg_priority(2);
+    info_gen.set_z_order(0);
 
     background_weight = 0.64843; // Best values manually calculated
     foreground_weight = 0.20507; 
@@ -26,6 +30,37 @@ bn::optional<RoomExit> Room::checkExits(){
         if(exits[i].trigger.intersects(player.boundaries())) return exits[i];
     }
     return bn::nullopt;
+}
+
+void Room::updateExitsInfo(){
+    if(exit_info_displayed < 0 || exit_info_displayed >= exits.size()){
+        if(exit_info_displayed >= exits.size()) exit_info_displayed = -1;
+        for(int i = 0; i < exits.size(); i++){
+            if(exits[i].needs_action && exits[i].trigger.intersects(player.boundaries())){
+                exit_info.clear();
+                player_prev_pos = player.getPos()+bn::fixed_point(0,-37);
+                info_gen.generate(player_prev_pos,exits[i].info,exit_info);
+                exit_info_displayed = i;
+                BN_LOG("Generating:",exits[i].info);
+                return;
+            }
+        }
+        return;
+    }
+
+    if(!exits[exit_info_displayed].trigger.intersects(player.boundaries())){
+        exit_info_displayed = -1;
+        exit_info.clear();
+        return;
+    }
+
+    bn::fixed_point move_info = player.getPos()+ bn::fixed_point(0,-37) - player_prev_pos;
+    if(move_info.x() != 0 || move_info.y() != 0){
+        for(auto text_spr : exit_info){
+            text_spr.set_position(text_spr.position() + move_info);
+        }
+    }
+    player_prev_pos = player.getPos()+ bn::fixed_point(0,-37);
 }
 
 bn::optional<RoomExit> Room::update(){

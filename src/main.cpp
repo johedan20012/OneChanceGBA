@@ -4,13 +4,6 @@
 #include "bn_log.h"
 
 #include "bn_bg_palettes.h"
-#include "bn_regular_bg_ptr.h"
-#include "bn_regular_bg_items_bg_paper.h"
-#include "bn_regular_bg_items_bg_paper_2.h"
-#include "bn_regular_bg_items_bg_house_1.h"
-#include "bn_regular_bg_items_bg_house_2.h"
-#include "bn_regular_bg_items_bg_paper_w.h"
-#include "bn_regular_bg_items_bg_paper_g.h"
 
 #include "player.h"
 #include "roomLoader.h"

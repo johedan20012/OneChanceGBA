@@ -2,7 +2,6 @@
 #define HOUSEDEBROOM2_H
 
 #include "bn_regular_bg_items_bg_house_3.h"
-#include "bn_regular_bg_items_bg_paper_3.h"
 
 #include "room.h"
 
