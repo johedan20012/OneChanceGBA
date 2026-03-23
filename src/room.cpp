@@ -24,6 +24,34 @@ Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player
 
 Room::~Room() = default;
 
+#ifdef DEBUG_GAME
+void Room::createExitsDebug(){
+    for(int i = 0; i < exits.size(); i++){
+        bn::fixed_rect box =exits[i].trigger;
+        bn::sprite_ptr top_left = bn::sprite_items::debug_corner.create_sprite(box.top_left());
+        top_left.set_bg_priority(2);
+        top_left.set_z_order(1);
+        bn::sprite_ptr top_right = bn::sprite_items::debug_corner.create_sprite(box.top_right());
+        top_right.set_bg_priority(2);
+        top_right.set_z_order(1);
+        top_right.set_horizontal_flip(true);
+        bn::sprite_ptr bottom_left = bn::sprite_items::debug_corner.create_sprite(box.bottom_left());
+        bottom_left.set_bg_priority(2);
+        bottom_left.set_z_order(1);
+        bottom_left.set_vertical_flip(true);
+        bn::sprite_ptr bottom_right = bn::sprite_items::debug_corner.create_sprite(box.bottom_right());
+        bottom_right.set_bg_priority(2);
+        bottom_right.set_z_order(1);
+        bottom_right.set_horizontal_flip(true);
+        bottom_right.set_vertical_flip(true);
+        exits_debug.push_back(top_left);
+        exits_debug.push_back(top_right);
+        exits_debug.push_back(bottom_left);
+        exits_debug.push_back(bottom_right);
+    }
+}
+#endif
+
 bn::optional<RoomExit> Room::checkExits(){
     for(int i = 0; i < exits.size(); i++){
         if(exits[i].needs_action && !bn::keypad::a_pressed()) continue;

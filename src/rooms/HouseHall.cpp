@@ -31,6 +31,10 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from):
     exits[2].info = "Bathroom";
     exits.push_back(RoomExit("house_entrance",bn::fixed_rect(100,26,25,64),DIRECTION::LEFT,true));
     exits[3].info = "Outside";
+
+    #ifdef DEBUG_GAME
+    createExitsDebug();
+    #endif
 }
 
 HouseHall::~HouseHall(){

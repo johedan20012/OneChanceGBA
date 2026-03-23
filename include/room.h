@@ -17,6 +17,10 @@
 
 #include "player.h"
 
+#ifdef DEBUG_GAME
+#include "bn_sprite_items_debug_corner.h"
+#endif
+
 namespace game{
 
 enum DIRECTION{
@@ -68,6 +72,10 @@ protected:
     bool isExiting = false;
 
     bn::vector<RoomExit,6> exits;
+    #ifdef DEBUG_GAME
+    bn::vector<bn::sprite_ptr,24> exits_debug;
+    void createExitsDebug();
+    #endif
 
     bn::optional<RoomExit> checkExits(); 
 
