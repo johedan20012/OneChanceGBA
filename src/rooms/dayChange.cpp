@@ -1,0 +1,84 @@
+#include "dayChange.h"
+
+namespace game{
+DayChange::DayChange(Player& _player):
+    Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player){
+    
+    player.setVisible(false);
+    bg.set_visible(false);
+    bg_paper.set_visible(false);
+
+    timer = bn::make_unique<Timer>();
+
+    bn::sprite_text_generator text_gen(JostFontVar8x16Mini,bn::sprite_palette_item(palette1,bn::bpp_mode::BPP_4));
+    text_gen.set_center_alignment();
+    text_gen.generate(bn::fixed_point(0,-37),"In six days, every single living cell on Planet Earth will be dead.",text);
+    pal1 = text.back().palette();
+    pal1->set_fade_color(bn::color(0,0,0));
+    pal1->set_fade_intensity(1);
+    bn::sprite_text_generator text_gen2(JostFontVar8x16Mini,bn::sprite_palette_item(palette2,bn::bpp_mode::BPP_4));
+    text_gen2.set_center_alignment();
+    text_gen2.generate(bn::fixed_point(0,2),"You have one chance.",text);
+    pal2 = text.back().palette();
+    pal2->set_fade_color(bn::color(0,0,0));
+    pal2->set_fade_intensity(1);
+}
+
+DayChange::~DayChange(){
+    Room::~Room();
+}
+
+bn::optional<RoomExit> DayChange::update(){
+    switch (state){
+        case STATE::DARK:
+            if(timer && timer->elapsedFrames() >= DARK_FRAMES){
+                pal1_fade = bn::make_unique<bn::sprite_palette_fade_to_action>(pal1.value(),120,0);
+                timer.reset();
+            }
+            if(pal1_fade && !pal1_fade->done()){
+                pal1_fade->update();
+                if(pal1_fade->done()){
+                    pal1_fade.reset();
+                    state = STATE::LIGHT_TOP;
+                    pal2_fade = bn::make_unique<bn::sprite_palette_fade_to_action>(pal2.value(),120,0);
+                }
+            }
+            break;
+        case STATE::LIGHT_TOP:
+            if(pal2_fade && !pal2_fade->done()){
+                pal2_fade->update();
+                if(pal2_fade->done()){
+                    pal2_fade.reset();
+                    state = STATE::HOLD_LIGHT;
+                    timer = bn::make_unique<Timer>();
+                }
+            }
+            break;
+        case STATE::HOLD_LIGHT:
+            if(timer && timer->elapsedFrames() >= BRIGHT_FRAMES){
+                timer.reset();
+                pal1_fade = bn::make_unique<bn::sprite_palette_fade_to_action>(pal1.value(),120,1);
+                pal2_fade = bn::make_unique<bn::sprite_palette_fade_to_action>(pal2.value(),120,1);
+            }
+            if(pal1_fade && !pal1_fade->done()) pal1_fade->update();
+            if(pal2_fade && !pal2_fade->done()) pal2_fade->update();
+            if(pal1_fade && pal1_fade->done()){
+                state = STATE::HOLD_DARK;
+                timer = bn::make_unique<Timer>();
+            }
+            break;
+        case STATE::HOLD_DARK:
+            if(timer && timer->elapsedFrames() >= LAST_DARK_FRAMES){
+                player.setVisible(true);
+                return RoomExit("house_bedroom",DIRECTION::DOOR1);
+            }
+            break;
+        default: // i don't like compiler warnings
+            break;
+    }
+
+    Room::update();
+
+    return bn::nullopt;
+}
+}

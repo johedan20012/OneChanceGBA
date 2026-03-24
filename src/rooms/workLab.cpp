@@ -40,7 +40,7 @@ bn::optional<RoomExit> WorkLab::update(){
 
     if(initial_dark.elapsedFrames() >= 54){
         if(end_room.elapsedFrames() >= 240){
-            return RoomExit("end_day",DIRECTION::DOOR1);
+            return RoomExit("day_change",DIRECTION::DOOR1);
         }
     }
 

@@ -16,6 +16,7 @@
 #include "rooms/workStairs.h"
 #include "rooms/skipWork.h"
 #include "rooms/workLab.h"
+#include "rooms/dayChange.h"
 #include "player.h"
 
 namespace game{

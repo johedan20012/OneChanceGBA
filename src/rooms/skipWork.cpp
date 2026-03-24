@@ -31,7 +31,7 @@ bn::optional<RoomExit> SkipWork::update(){
 
     if(initial_dark.elapsedFrames() >= 60){
         if(end_room.elapsedFrames() >= 390){
-            return RoomExit("end_day",DIRECTION::DOOR1);
+            return RoomExit("day_change",DIRECTION::DOOR1);
         }
     }
 
