@@ -15,12 +15,13 @@
 #include "rooms/workLabDoor.h"
 #include "rooms/workStairs.h"
 #include "rooms/skipWork.h"
+#include "rooms/workLab.h"
 #include "player.h"
 
 namespace game{
 class RoomLoader{
 private:
-    static const bn::string<15> roomsNames[12];
+    static const bn::string<15> roomsNames[15];
 
 public:
     static bn::unique_ptr<Room> loadRoom(RoomExit room_exit, Player& player);

@@ -43,6 +43,10 @@ void Player::setVisible(bool _visible){
     sprite.set_visible(_visible);
 }
 
+void Player::setHflip(bool flip){
+    sprite.set_horizontal_flip(flip);
+}
+
 void Player::update(){
     moving_dir = 0;
     if(bn::keypad::right_held()) moving_dir = 1;

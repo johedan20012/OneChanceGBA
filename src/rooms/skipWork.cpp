@@ -12,6 +12,7 @@ SkipWork::SkipWork(Player& _player):
     people[3].set_horizontal_flip(true);
 
     player.resetAnim();
+    player.setHflip(true);
     player.setPos(43,31);
 
     setVisibility(false);

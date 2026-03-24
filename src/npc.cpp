@@ -17,6 +17,10 @@ void NPC::lookAt(bn::fixed_point p, bool flip){
 
 void NPC::update(){}
 
+void NPC::setVisibility(bool visibility){
+    sprite.set_visible(visibility);
+}
+
 bn::sprite_palette_ptr NPC::getPalette(){
     return sprite.palette();
 }

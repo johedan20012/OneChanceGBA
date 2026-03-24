@@ -34,6 +34,8 @@ public:
 
     void setVisible(bool _visible);
 
+    void setHflip(bool flip);
+
     void update();
 };
 }

@@ -2,7 +2,7 @@
 
 namespace game{
 
-const bn::string<15> RoomLoader::roomsNames[12] = {
+const bn::string<15> RoomLoader::roomsNames[15] = {
     "house_bedroom",
     "house_hall",
     "house_molly",
@@ -14,7 +14,8 @@ const bn::string<15> RoomLoader::roomsNames[12] = {
     "work_hall",
     "work_lab_door",
     "work_stairs",
-    "skip_work" 
+    "skip_work",
+    "work_lab"
 };
 
 bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player){
@@ -54,6 +55,9 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player){
     }
     if(room_exit.name == roomsNames[11]){
         return bn::make_unique<SkipWork>(player);
+    }
+    if(room_exit.name == roomsNames[12]){
+        return bn::make_unique<WorkLab>(player);
     }
     BN_LOG("Error loading room: ",room_exit.name);
     return bn::make_unique<HouseBedroom1>(player,room_exit.next_in_dir);

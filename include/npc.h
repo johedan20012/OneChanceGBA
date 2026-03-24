@@ -17,6 +17,8 @@ public:
     void lookAt(bn::fixed_point p,bool flip = false);
     virtual void update();
 
+    void setVisibility(bool visibility);
+
     bn::sprite_palette_ptr getPalette();
 };
 
