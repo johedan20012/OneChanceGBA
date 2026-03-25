@@ -1,9 +1,41 @@
 #include "dayChange.h"
+#include "globalVariables.h"
 
 namespace game{
 DayChange::DayChange(Player& _player):
     Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player){
     
+    GlobalVariables::goNextDay();
+
+    bn::string<80> top_message;
+    bn::string<30> bottom_message;
+    switch (GlobalVariables::currentDay()){
+    case 2:
+        top_message = "In five days,";
+        break;
+    case 3:
+        top_message = "In four days,";
+        break;
+    case 4:
+        top_message = "In three days,";
+        break;
+    case 5:
+        top_message = "In Two days,";
+        break;
+    case 6:
+        top_message = "Today";
+        break;
+    default: // Day 1
+        top_message = "In six days,";
+        break;
+    }
+
+    if(GlobalVariables::currentDay() < 6) top_message += " every single living cell on Planet Earth will be dead.";
+    else top_message += " every single living cell on Planet Earth will die.";
+
+    if(GlobalVariables::currentDay() < 6) bottom_message = "You have one chance.";
+    else bottom_message = "You had one chance.";
+
     player.setVisible(false);
     bg.set_visible(false);
     bg_paper.set_visible(false);
@@ -12,13 +44,13 @@ DayChange::DayChange(Player& _player):
 
     bn::sprite_text_generator text_gen(JostFontVar8x16Mini,bn::sprite_palette_item(palette1,bn::bpp_mode::BPP_4));
     text_gen.set_center_alignment();
-    text_gen.generate(bn::fixed_point(0,-37),"In six days, every single living cell on Planet Earth will be dead.",text);
+    text_gen.generate(bn::fixed_point(0,-37),top_message,text);
     pal1 = text.back().palette();
     pal1->set_fade_color(bn::color(0,0,0));
     pal1->set_fade_intensity(1);
     bn::sprite_text_generator text_gen2(JostFontVar8x16Mini,bn::sprite_palette_item(palette2,bn::bpp_mode::BPP_4));
     text_gen2.set_center_alignment();
-    text_gen2.generate(bn::fixed_point(0,2),"You have one chance.",text);
+    text_gen2.generate(bn::fixed_point(0,2),bottom_message,text);
     pal2 = text.back().palette();
     pal2->set_fade_color(bn::color(0,0,0));
     pal2->set_fade_intensity(1);

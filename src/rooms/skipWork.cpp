@@ -1,5 +1,7 @@
 #include "skipWork.h"
 
+#include "globalVariables.h"
+
 namespace game{
 SkipWork::SkipWork(Player& _player):
     Room(bn::regular_bg_items::bg_skip_work_1.create_bg(8,48),bn::fixed_rect(0,4,240,137),_player),
@@ -7,6 +9,8 @@ SkipWork::SkipWork(Player& _player):
            bn::sprite_items::work_people.create_sprite(-64,30,5),
            bn::sprite_items::work_people.create_sprite(-53,44,3),
            bn::sprite_items::work_people.create_sprite(3,31,9)}{
+
+    GlobalVariables::setDayChoice(GlobalVariables::currentDay(),CHOICE::SKIP_WORK);
 
     people[0].set_horizontal_flip(true);
     people[3].set_horizontal_flip(true);
