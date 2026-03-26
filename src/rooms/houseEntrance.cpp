@@ -23,6 +23,11 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
     }
 
     exits.push_back(RoomExit("city",bn::fixed_rect(60,53,21,64),DIRECTION::LEFT,true));
+    exits.back().info = "Go to Work";
+
+    #ifdef DEBUG_GAME
+    Room::createExitsDebug();
+    #endif
 }
 
 HouseEntrance::~HouseEntrance(){
@@ -52,11 +57,13 @@ bn::optional<RoomExit> HouseEntrance::update(){
     }
 
     player.update();
+    Room::updateExitsInfo();
     Room::update();
 
     auto exit = checkExits();
     if(exit.has_value() && exit.get()->name == bn::string<15>("city")){
         isExiting = true;
+        Room::clearExitsInfo();
         player.setVisible(false);
 
         //car_rotation = bn::sprite_rotate_to_action(car,)

@@ -27,7 +27,12 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from):
 
     exits.push_back(RoomExit("work_lobby",bn::fixed_rect(-128,20,7,64),DIRECTION::RIGHT,false));
     exits.push_back(RoomExit("skip_work",bn::fixed_rect(-45,20,19,64),DIRECTION::DOOR1,true));
+    exits.back().info = "Skip work";
     exits.push_back(RoomExit("work_lab_door",bn::fixed_rect(128,20,7,64),DIRECTION::LEFT,false));
+
+    #ifdef DEBUG_GAME
+    Room::createExitsDebug();
+    #endif
 }
 
 WorkHall::~WorkHall(){
@@ -49,6 +54,7 @@ bn::optional<RoomExit> WorkHall::update(){
 
     npcs[1].lookAt(player.getPos(),true);
 
+    Room::updateExitsInfo();
     Room::update();
 
     return checkExits();

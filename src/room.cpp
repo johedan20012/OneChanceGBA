@@ -30,18 +30,18 @@ void Room::createExitsDebug(){
         bn::fixed_rect box =exits[i].trigger;
         bn::sprite_ptr top_left = bn::sprite_items::debug_corner.create_sprite(box.top_left());
         top_left.set_bg_priority(2);
-        top_left.set_z_order(1);
+        top_left.set_z_order(-10);
         bn::sprite_ptr top_right = bn::sprite_items::debug_corner.create_sprite(box.top_right());
         top_right.set_bg_priority(2);
-        top_right.set_z_order(1);
+        top_right.set_z_order(-10);
         top_right.set_horizontal_flip(true);
         bn::sprite_ptr bottom_left = bn::sprite_items::debug_corner.create_sprite(box.bottom_left());
         bottom_left.set_bg_priority(2);
-        bottom_left.set_z_order(1);
+        bottom_left.set_z_order(-10);
         bottom_left.set_vertical_flip(true);
         bn::sprite_ptr bottom_right = bn::sprite_items::debug_corner.create_sprite(box.bottom_right());
         bottom_right.set_bg_priority(2);
-        bottom_right.set_z_order(1);
+        bottom_right.set_z_order(-10);
         bottom_right.set_horizontal_flip(true);
         bottom_right.set_vertical_flip(true);
         exits_debug.push_back(top_left);
@@ -58,6 +58,10 @@ bn::optional<RoomExit> Room::checkExits(){
         if(exits[i].trigger.intersects(player.boundaries())) return exits[i];
     }
     return bn::nullopt;
+}
+
+void Room::clearExitsInfo(){
+    if(!exit_info.empty()) exit_info.clear();
 }
 
 void Room::updateExitsInfo(){

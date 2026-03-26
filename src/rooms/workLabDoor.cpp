@@ -19,8 +19,13 @@ WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from):
     }
 
     exits.push_back(RoomExit("work_hall",bn::fixed_rect(-128,20,7,64),DIRECTION::RIGHT,false));
-    exits.push_back(RoomExit("work_lab",bn::fixed_rect(20,20,10,64),DIRECTION::RIGHT,true));
+    exits.push_back(RoomExit("work_lab",bn::fixed_rect(50,20,40,64),DIRECTION::RIGHT,true));
+    exits.back().info = "Work";
     exits.push_back(RoomExit("work_stairs",bn::fixed_rect(128,20,7,64),DIRECTION::LEFT,false));
+
+    #ifdef DEBUG_GAME
+    Room::createExitsDebug();
+    #endif
 }
 
 WorkLabDoor::~WorkLabDoor(){
@@ -31,6 +36,7 @@ bn::optional<RoomExit> WorkLabDoor::update(){
 
     player.update();
 
+    Room::updateExitsInfo();
     Room::update();
 
     return checkExits();

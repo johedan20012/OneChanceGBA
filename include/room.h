@@ -79,6 +79,7 @@ protected:
 
     bn::optional<RoomExit> checkExits(); 
 
+    void clearExitsInfo();
     void updateExitsInfo();
 
 public:
