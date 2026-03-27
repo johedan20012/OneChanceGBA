@@ -17,6 +17,7 @@
 #include "rooms/skipWork.h"
 #include "rooms/workLab.h"
 #include "rooms/dayChange.h"
+#include "globalVariables.h"
 #include "player.h"
 
 namespace game{
@@ -25,7 +26,7 @@ private:
     static const bn::string<15> roomsNames[15];
 
 public:
-    static bn::unique_ptr<Room> loadRoom(RoomExit room_exit, Player& player);
+    static bn::unique_ptr<Room> loadRoom(RoomExit room_exit, Player& player,GlobalVariables& _global);
 };
 }
 

@@ -1,7 +1,7 @@
 #ifndef GLOBALVARIABLES_H
 #define GLOBALVARIABLES_H
 
-#include "bn_unique_ptr.h"
+#include "dialogManager.h"
 
 namespace game{
 enum class CHOICE{
@@ -14,17 +14,23 @@ enum class CHOICE{
     GIVE_UP
 };
 
-namespace GlobalVariables{
-namespace{
+class GlobalVariables{
+private:
     CHOICE day_choices[6] = {CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE};
     unsigned int current_day = 0;
-}
+    DialogManager dialog_manager;
 
-CHOICE dayChoice(unsigned int day);
-void setDayChoice(unsigned int day,CHOICE choice);
+public:
+    GlobalVariables() = default;
+    ~GlobalVariables() = default;
 
-unsigned int currentDay();
-void goNextDay();
+    DialogManager& getDialogManager();
+
+    CHOICE dayChoice(unsigned int day);
+    void setDayChoice(unsigned int day,CHOICE choice);
+
+    unsigned int currentDay();
+    void goNextDay();    
 };
 }
 

@@ -10,6 +10,7 @@
 #include "timer.h"
 #include "room.h"
 #include "npc.h"
+#include "globalVariables.h"
 
 namespace game{
 class WorkLab : public Room{
@@ -20,9 +21,11 @@ private:
     NPC npcs[2];
     bn::sprite_ptr pc_screen;
 
+    GlobalVariables& global_var;
+
     void setVisibility(bool visibility);
 public:
-    WorkLab(Player& _player);
+    WorkLab(Player& _player,GlobalVariables& _global_var);
     ~WorkLab() override;
 
     bn::optional<RoomExit> update() override;

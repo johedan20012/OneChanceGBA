@@ -7,14 +7,17 @@
 
 #include "room.h"
 #include "npc.h"
+#include "globalVariables.h"
+#include "dialogTrigger.h"
 
 namespace game{
 class HouseHall : public Room{
 private:
     NPC penny;    
 
+    GlobalVariables& global_var;
 public:
-    HouseHall(Player& _player,DIRECTION entering_from);
+    HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     virtual ~HouseHall() override;
 
     bn::optional<RoomExit> update() override;

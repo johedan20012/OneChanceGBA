@@ -5,16 +5,26 @@
 #include "bn_sprite_palette_item.h"
 #include "bn_sprite_palette_ptr.h"
 
+#include "bn_fixed_rect.h"
+#include "bn_unique_ptr.h"
+#include "bn_vector.h"
+
+#include "dialogTrigger.h"
+#include "pair.h"
+
 namespace game{
 class NPC{
 protected:
     bn::sprite_ptr sprite;
-
+    DialogTrigger* dialog;
 public:
     NPC(bn::sprite_ptr _sprite);
     virtual ~NPC();
 
+    void addDialog(DialogTrigger* _dialog); //eww raw pointers
+
     void lookAt(bn::fixed_point p,bool flip = false);
+    void checkDialog(bn::fixed_rect player_boundaries);
     virtual void update();
 
     void setVisibility(bool visibility);

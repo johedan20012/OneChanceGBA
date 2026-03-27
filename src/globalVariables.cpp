@@ -3,6 +3,11 @@
 #include "bn_assert.h"
 
 namespace game{
+
+DialogManager& GlobalVariables::getDialogManager(){
+    return dialog_manager;
+}
+
 CHOICE GlobalVariables::dayChoice(unsigned int day){
     BN_ASSERT(1<=day && day<=6,"Invalid day:",day);
     return day_choices[day];

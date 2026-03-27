@@ -5,6 +5,7 @@
 
 #include "bn_bg_palettes.h"
 
+#include "globalVariables.h"
 #include "player.h"
 #include "roomLoader.h"
 #include "timer.h"
@@ -14,17 +15,19 @@ int main(){
     bn::bg_palettes::set_transparent_color(bn::color(0, 0, 0));
 
     game::Player character;
+    game::GlobalVariables global_var;
 
-    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("day_change",game::DIRECTION::DOOR1),character);
+    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("day_change",game::DIRECTION::DOOR1),character,global_var);
     bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 
         next_room = current_room.get()->update();
         if(next_room.has_value()){
             current_room.reset();
-            current_room = game::RoomLoader::loadRoom(next_room.value(), character);
+            current_room = game::RoomLoader::loadRoom(next_room.value(), character,global_var);
         }
 
+        global_var.getDialogManager().update();
         game::Timer::update();
         bn::core::update();
     }

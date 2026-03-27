@@ -13,6 +13,7 @@
 #include "jostFontVar8x16Mini.h"
 #include "timer.h"
 #include "room.h"
+#include "globalVariables.h"
 
 #define DARK_FRAMES 60
 #define BRIGHT_FRAMES 90
@@ -38,8 +39,10 @@ private:
 
     bn::unique_ptr<Timer> timer;
     STATE state = STATE::DARK;
+
+    GlobalVariables& global_var;
 public:
-    DayChange(Player& _player);
+    DayChange(Player& _player,GlobalVariables& _global_var);
     ~DayChange() override;
 
     bn::optional<RoomExit> update() override;

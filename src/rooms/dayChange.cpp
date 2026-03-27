@@ -1,15 +1,15 @@
 #include "dayChange.h"
-#include "globalVariables.h"
 
 namespace game{
-DayChange::DayChange(Player& _player):
-    Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player){
+DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
+    Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
+    global_var(_global_var){
     
-    GlobalVariables::goNextDay();
+    global_var.goNextDay();
 
     bn::string<80> top_message;
     bn::string<30> bottom_message;
-    switch (GlobalVariables::currentDay()){
+    switch (global_var.currentDay()){
     case 2:
         top_message = "In five days,";
         break;
@@ -30,10 +30,10 @@ DayChange::DayChange(Player& _player):
         break;
     }
 
-    if(GlobalVariables::currentDay() < 6) top_message += " every single living cell on Planet Earth will be dead.";
+    if(global_var.currentDay() < 6) top_message += " every single living cell on Planet Earth will be dead.";
     else top_message += " every single living cell on Planet Earth will die.";
 
-    if(GlobalVariables::currentDay() < 6) bottom_message = "You have one chance.";
+    if(global_var.currentDay() < 6) bottom_message = "You have one chance.";
     else bottom_message = "You had one chance.";
 
     player.setVisible(false);

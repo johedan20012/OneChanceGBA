@@ -1,13 +1,13 @@
 #include "workLab.h"
-#include "globalVariables.h"
 
 namespace game{
-WorkLab::WorkLab(Player& _player):
+WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_lab.create_bg(8,48),bn::fixed_rect(0,0,240,132),_player),
     npcs{bn::sprite_items::work_people.create_sprite(-92,23,2),bn::sprite_items::work_people.create_sprite(-8,23,6)},
-    pc_screen(bn::sprite_items::pc_screen.create_sprite(-28,17)){
+    pc_screen(bn::sprite_items::pc_screen.create_sprite(-28,17)),
+    global_var(_global_var){
 
-    GlobalVariables::setDayChoice(GlobalVariables::currentDay(),CHOICE::WORK);
+    global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
 
     player.resetAnim();
     player.setHflip(true);
