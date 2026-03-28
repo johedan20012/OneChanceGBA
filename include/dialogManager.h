@@ -28,7 +28,7 @@ public:
     ~DialogManager() = default;
 
     void setBottomText(int dialog_index,int duration = -1);
-    void setBottomTextDuration(unsigned int duration);
+    void setBottomTextDuration(int duration);
     void setActDialogSequence(const bn::vector<Pair<int,int>,10>& _dialog);
     void resetBottomText();
 

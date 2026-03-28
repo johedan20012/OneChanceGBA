@@ -30,15 +30,16 @@ void DialogTrigger::update(bn::fixed_rect player_boundaries){
     if(player_in && hold_until_leaving){
         if(!trigger_box.intersects(player_boundaries)){
             player_in = false;
-            global_var.getDialogManager().setBottomTextDuration(60);
+            if(dialog_sequence.size() >= 1) global_var.getDialogManager().setBottomTextDuration(dialog_sequence[0].second);
             if(!is_reuseable) active = false;
         }
     }else{
         if(trigger_box.intersects(player_boundaries)){
             player_in = true;
             global_var.getDialogManager().setActDialogSequence(dialog_sequence);
+            if(hold_until_leaving) global_var.getDialogManager().setBottomTextDuration(-1);
             if(!is_reuseable && !hold_until_leaving) active = false;
-        }
+        }else player_in = false;
     }
 }
 

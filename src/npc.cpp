@@ -28,6 +28,17 @@ void NPC::checkDialog(bn::fixed_rect player_boundaries){
 
 void NPC::update(){}
 
+void NPC::set_position(bn::fixed_point _pos){
+    bn::fixed_point diff(0,0);
+    if(dialog != nullptr) diff = dialog->getPos() - sprite.position();    
+    sprite.set_position(_pos);
+    if(dialog != nullptr) dialog->setPos(_pos + diff);
+}
+
+bn::fixed_point NPC::position(){
+    return sprite.position();
+}
+
 void NPC::setVisibility(bool visibility){
     sprite.set_visible(visibility);
 }

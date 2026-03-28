@@ -2,10 +2,18 @@
 
 namespace game{
 
-HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from):
-    Room(bn::regular_bg_items::bg_house_3.create_bg(8,48),bn::fixed_rect(6,0,228,131),_player){
+HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
+    Room(bn::regular_bg_items::bg_house_3.create_bg(8,48),bn::fixed_rect(6,0,228,131),_player),
+    global_var(_global_var),
+    molly(bn::sprite_items::molly.create_sprite(-77,39)),teddy_bear(bn::sprite_items::teddy.create_sprite(-24,43)){
 
     player.setMovementBox(bn::fixed_rect(22.5,0,215,160));
+
+    {
+    DialogTrigger* molly_dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,40,60),true,true);
+    molly_dialog->addDialog(Pair<int,int>(2,120));  
+    molly.addDialog(molly_dialog);
+    }
 
     switch(entering_from){
         case DIRECTION::RIGHT:
@@ -25,6 +33,8 @@ HouseBedroom2::~HouseBedroom2(){
 
 bn::optional<RoomExit> HouseBedroom2::update(){
     player.update();
+
+    molly.checkDialog(player.boundaries());
 
     Room::update();
 

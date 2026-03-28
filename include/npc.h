@@ -27,6 +27,9 @@ public:
     void checkDialog(bn::fixed_rect player_boundaries);
     virtual void update();
 
+    virtual void set_position(bn::fixed_point _pos);
+    virtual bn::fixed_point position();
+
     void setVisibility(bool visibility);
 
     bn::sprite_palette_ptr getPalette();

@@ -14,13 +14,18 @@ DialogManager::DialogManager():
 
 void DialogManager::setBottomText(int dialog_index,int duration){
     BN_ASSERT(0<= dialog_index && dialog_index < MAX_DIALOGS," ");
-    if(duration >= 0) setBottomTextDuration((unsigned int)duration);
+    if(duration >= 0) setBottomTextDuration(duration);
 
     bottom_text.clear();
     bottom_text_gen.generate(bn::fixed_point(0,70),DIALOGS[dialog_index],bottom_text);
 }
 
-void DialogManager::setBottomTextDuration(unsigned int duration){
+void DialogManager::setBottomTextDuration(int duration){
+    if(duration < 0){
+        bottom_text_timer.reset();
+        return;
+    }
+
     if(bottom_text_timer) bottom_text_timer.reset();
     bottom_text_timer = bn::make_unique<Timer>();
 
