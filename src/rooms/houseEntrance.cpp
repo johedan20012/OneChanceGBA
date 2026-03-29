@@ -1,9 +1,12 @@
 #include "houseEntrance.h"
 
+#include "bn_log.h"
+
 namespace game{
 HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
     Room(bn::regular_bg_items::bg_house_5.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
-    car(),isExiting(false){
+    car(),cloud(bn::sprite_items::cloud.create_sprite(130,-71)),
+    newspaper(bn::sprite_items::newspaper.create_sprite(-43,73)),isExiting(false){
 
     car.addSprite(bn::sprite_items::car.create_sprite(-31,0,0));
     car.addSprite(bn::sprite_items::car.create_sprite(0,0,1));
@@ -18,7 +21,7 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
             player.setPos(-92,50);
             break;
         default:
-            player.setPos(0,50);
+            player.setPos(-92,50);
             break;
     }
 
@@ -35,6 +38,12 @@ HouseEntrance::~HouseEntrance(){
 }
 
 bn::optional<RoomExit> HouseEntrance::update(){
+    cloud.set_position(cloud.position().x()-0.2,cloud.position().y()+cloud_y_dir);
+    if(cloud.position().x() <= -130) cloud.set_position(130,cloud.position().y());
+    if(cloud.position().y() >= -63){ cloud_y_dir = -0.07; cloud.set_position(cloud.position().x(),-63); }
+    if(cloud.position().y() <= -73){ cloud_y_dir = 0.07; cloud.set_position(cloud.position().x(),-73); }
+
+
     if(isExiting){
         for(auto &action : carRotations){
             if(action){
@@ -44,11 +53,11 @@ bn::optional<RoomExit> HouseEntrance::update(){
             }
         }
 
-        carMovement->update();
+        if(carMovement) carMovement->update();
 
         Room::update();
 
-        if(carMovement->done()){ 
+        if(carMovement && carMovement->done()){ 
             player.setVisible(true);
             return exits[0];
         }
@@ -56,7 +65,29 @@ bn::optional<RoomExit> HouseEntrance::update(){
         return bn::nullopt;
     }
 
+    if(newspaper_bg){
+        if(bn::keypad::a_pressed()) newspaper_bg.reset();
+        
+        return bn::nullopt;
+    }
+
     player.update();
+    if(!newspaper_picked_up){ 
+        if(player.hasNormalState() && player.getPos().x() >= -61){
+            player.setPos(-61,player.getPos().y());
+            player.bend();
+        }else if(player.isBended()){
+            newspaper.set_visible(false);
+            newspaper_picked_up = true;
+            player.standUp();
+        }
+    }
+    if(!newspaper_showed && newspaper_picked_up && player.hasNormalState()){
+        newspaper_bg = bn::regular_bg_items::bg_newspaper1.create_bg(9,55);
+        newspaper_bg->set_priority(1);
+        newspaper_showed = true;
+    }
+    
     Room::updateExitsInfo();
     Room::update();
 
