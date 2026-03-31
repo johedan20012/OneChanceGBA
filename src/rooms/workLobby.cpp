@@ -30,10 +30,6 @@ WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from):
     exits.push_back(RoomExit("work_hall",bn::fixed_rect(128,20,7,64),DIRECTION::LEFT,false));
 }
 
-WorkLobby::~WorkLobby(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> WorkLobby::update(){
     player.update();
 

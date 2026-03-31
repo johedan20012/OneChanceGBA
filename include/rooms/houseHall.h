@@ -18,7 +18,7 @@ private:
     GlobalVariables& global_var;
 public:
     HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
-    virtual ~HouseHall() override;
+    ~HouseHall() override {}
 
     bn::optional<RoomExit> update() override;
 };

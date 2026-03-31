@@ -56,10 +56,6 @@ DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     pal2->set_fade_intensity(1);
 }
 
-DayChange::~DayChange(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> DayChange::update(){
     switch (state){
         case STATE::DARK:

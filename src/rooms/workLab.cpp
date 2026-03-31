@@ -17,10 +17,6 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     setVisibility(false);
 }
 
-WorkLab::~WorkLab(){
-    Room::~Room();
-}
-
 void WorkLab::setVisibility(bool visibility){
     bg.set_visible(visibility);
     bg_paper.set_visible(visibility);

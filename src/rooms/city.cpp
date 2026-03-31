@@ -33,10 +33,6 @@ City::City(Player& _player, DIRECTION entering_from):
     exits.push_back(RoomExit("work_parking",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
 }
 
-City::~City(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> City::update(){
     for(auto& npc_car: npc_cars){
         npc_car.set_x(npc_car.x()-0.70);

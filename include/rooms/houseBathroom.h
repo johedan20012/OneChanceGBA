@@ -9,7 +9,7 @@ namespace game{
 class HouseBathroom : public Room{
 public:
     HouseBathroom(Player& _player,DIRECTION entering_from);
-    virtual ~HouseBathroom() override;
+    ~HouseBathroom() override {}
 
     bn::optional<RoomExit> update() override;
 };

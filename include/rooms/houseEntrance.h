@@ -35,7 +35,7 @@ private:
     bn::optional<CompositeSpritePosToAction> carMovement;
 public:
     HouseEntrance(Player& _player, DIRECTION _entering_from);
-    virtual ~HouseEntrance() override;
+    ~HouseEntrance() override {}
 
     bn::optional<RoomExit> update() override;
 };

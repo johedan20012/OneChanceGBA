@@ -14,7 +14,7 @@ private:
     NPC npc;
 public:
     WorkLabDoor(Player& _player,DIRECTION entering_from);
-    ~WorkLabDoor() override;
+    ~WorkLabDoor() override {}
 
     bn::optional<RoomExit> update() override;
 };

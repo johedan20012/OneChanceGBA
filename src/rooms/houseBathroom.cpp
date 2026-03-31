@@ -19,10 +19,6 @@ HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from):
     exits.push_back(RoomExit("house_hall",bn::fixed_rect(120,26,4,64),DIRECTION::DOOR2,false));
 }
 
-HouseBathroom::~HouseBathroom(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> HouseBathroom::update(){
     player.update();
 

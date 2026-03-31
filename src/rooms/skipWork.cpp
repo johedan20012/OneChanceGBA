@@ -21,10 +21,6 @@ SkipWork::SkipWork(Player& _player,GlobalVariables& _global_var):
     setVisibility(false);
 }
 
-SkipWork::~SkipWork(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> SkipWork::update(){
     if(initial_dark.elapsedFrames() <= 60){
         if(initial_dark.elapsedFrames() >= 60){

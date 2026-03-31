@@ -23,7 +23,7 @@ private:
     void setVisibility(bool visible);
 public:
     SkipWork(Player& _player,GlobalVariables& _global_var);
-    ~SkipWork() override;
+    ~SkipWork() override {}
 
     bn::optional<RoomExit> update() override;
 };

@@ -40,10 +40,6 @@ WorkParking::WorkParking(Player& _player,DIRECTION entering_from):
     exits.push_back(RoomExit("work_lobby",bn::fixed_rect(123,20,10,64),DIRECTION::LEFT,false));
 }
 
-WorkParking::~WorkParking(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> WorkParking::update(){
     jim.update();
 

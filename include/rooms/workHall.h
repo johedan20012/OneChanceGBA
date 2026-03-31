@@ -20,7 +20,7 @@ private:
 
 public:
     WorkHall(Player& _player,DIRECTION entering_from);
-    ~WorkHall() override;
+    ~WorkHall() override {}
 
     bn::optional<RoomExit> update() override;
 };

@@ -18,7 +18,7 @@ private:
 
 public:
     WorkStairs(Player& _player,DIRECTION entering_from);
-    ~WorkStairs() override;
+    ~WorkStairs() override {}
 
     bn::optional<RoomExit> update() override;
 };

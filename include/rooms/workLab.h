@@ -26,7 +26,7 @@ private:
     void setVisibility(bool visibility);
 public:
     WorkLab(Player& _player,GlobalVariables& _global_var);
-    ~WorkLab() override;
+    ~WorkLab() override {}
 
     bn::optional<RoomExit> update() override;
 };

@@ -16,7 +16,7 @@ private:
     bn::vector<NPC,10> npcs;
 public:
     WorkLobby(Player& _player,DIRECTION entering_from);
-    ~WorkLobby() override;
+    ~WorkLobby() override {}
 
     bn::optional<RoomExit> update() override;
 };

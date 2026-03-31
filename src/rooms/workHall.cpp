@@ -35,10 +35,6 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from):
     #endif
 }
 
-WorkHall::~WorkHall(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> WorkHall::update(){
 
     if(walk_anim) walk_anim->update();

@@ -33,10 +33,6 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
     #endif
 }
 
-HouseEntrance::~HouseEntrance(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> HouseEntrance::update(){
     cloud.set_position(cloud.position().x()-0.2,cloud.position().y()+cloud_y_dir);
     if(cloud.position().x() <= -130) cloud.set_position(130,cloud.position().y());

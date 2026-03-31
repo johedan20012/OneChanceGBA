@@ -20,10 +20,6 @@ HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from):
         "house_hall",bn::fixed_rect(120,26,4,64),DIRECTION::LEFT,false));
 }
 
-HouseBedroom1::~HouseBedroom1(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> HouseBedroom1::update(){
     player.update();
 

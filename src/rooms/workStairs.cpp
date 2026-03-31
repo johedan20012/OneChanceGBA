@@ -25,10 +25,6 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from):
     exits.push_back(RoomExit("work_lab_door",bn::fixed_rect(-128,20,7,64),DIRECTION::RIGHT,false));
 }
 
-WorkStairs::~WorkStairs(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> WorkStairs::update(){
     player.update();
     

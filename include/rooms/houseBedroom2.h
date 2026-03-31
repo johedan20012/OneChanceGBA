@@ -21,7 +21,7 @@ private:
     bn::sprite_ptr teddy_bear;
 public:
     HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
-    virtual ~HouseBedroom2() override;
+    ~HouseBedroom2() override {}
 
     bn::optional<RoomExit> update() override;
 };

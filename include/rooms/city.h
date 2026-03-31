@@ -38,7 +38,7 @@ private:
 
 public:
     City(Player& _player,DIRECTION entering_from);
-    virtual ~City() override;
+    ~City() override {}
 
     bn::optional<RoomExit> update() override;
 };

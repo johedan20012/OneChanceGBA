@@ -45,10 +45,6 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _g
     #endif
 }
 
-HouseHall::~HouseHall(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> HouseHall::update(){
     player.update();
 

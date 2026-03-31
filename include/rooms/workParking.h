@@ -27,7 +27,7 @@ private:
 
 public:
     WorkParking(Player& _player,DIRECTION entering_from);
-    virtual ~WorkParking() override;
+    ~WorkParking() override {}
 
     bn::optional<RoomExit> update() override;
 };

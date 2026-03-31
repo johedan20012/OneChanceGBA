@@ -28,10 +28,6 @@ WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from):
     #endif
 }
 
-WorkLabDoor::~WorkLabDoor(){
-    Room::~Room();
-}
-
 bn::optional<RoomExit> WorkLabDoor::update(){
 
     player.update();
