@@ -4,6 +4,7 @@
 #include "bn_keypad.h"
 
 #include "bn_sprite_ptr.h"
+#include "bn_sprite_tiles_ptr.h"
 #include "bn_sprite_animate_actions.h"
 #include "bn_sprite_items_character.h"
 
@@ -40,6 +41,9 @@ public:
 
     void setPos(bn::fixed x, bn::fixed y);
     bn::fixed_point getPos();
+
+    bn::sprite_tiles_ptr getTilesItem();
+    bool getHorizontalFlip();
 
     bn::fixed_rect boundaries();
 

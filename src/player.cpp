@@ -26,6 +26,14 @@ bn::fixed_point Player::getPos(){
     return sprite.position();
 }
 
+bn::sprite_tiles_ptr Player::getTilesItem(){
+    return sprite.tiles();
+}
+
+bool Player::getHorizontalFlip(){
+    return sprite.horizontal_flip();
+}
+
 bn::fixed_rect Player::boundaries(){
     return bn::fixed_rect(sprite.position(),bn::fixed_size(14,45));
 }
