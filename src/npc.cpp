@@ -1,5 +1,7 @@
 #include "npc.h"
 
+#include "bn_math.h"
+
 namespace game{
 NPC::NPC(bn::sprite_ptr _sprite):
     sprite(_sprite),dialog(nullptr){
@@ -21,6 +23,7 @@ void NPC::addDialog(DialogTrigger* _dialog){
 
 void NPC::lookAt(bn::fixed_point p, bool flip){
     bn::fixed x_dif = sprite.position().x()-p.x();
+    if(bn::abs(x_dif) > 20) return; 
     if(x_dif >= 0) sprite.set_horizontal_flip(!flip);
     else sprite.set_horizontal_flip(flip);
 }

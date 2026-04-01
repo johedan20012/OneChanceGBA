@@ -42,7 +42,7 @@ bn::optional<RoomExit> SkipWork::update(){
 void SkipWork::setVisibility(bool visible){
     bg.set_visible(visible);
     bg_paper.set_visible(visible);
-    for(auto ppl : people) ppl.set_visible(visible);
+    for(auto& ppl : people) ppl.set_visible(visible);
     player.setVisible(visible);
 }
 

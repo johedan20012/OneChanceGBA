@@ -88,7 +88,7 @@ void Room::updateExitsInfo(){
 
     bn::fixed_point move_info = player.getPos()+ bn::fixed_point(0,-37) - player_prev_pos;
     if(move_info.x() != 0 || move_info.y() != 0){
-        for(auto text_spr : exit_info){
+        for(auto& text_spr : exit_info){
             text_spr.set_position(text_spr.position() + move_info);
         }
     }

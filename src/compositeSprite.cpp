@@ -16,7 +16,7 @@ void CompositeSprite::addSprite(bn::sprite_ptr _sprite){
 
 void CompositeSprite::setPos(bn::fixed_point _pos){
     bn::fixed_point delta = _pos - pos;
-    for(auto sprite: sprites){
+    for(auto& sprite: sprites){
         sprite.set_position(sprite.position()+delta);
     }
     pos = _pos;
