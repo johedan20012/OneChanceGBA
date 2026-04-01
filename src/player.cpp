@@ -73,35 +73,11 @@ void Player::setHflip(bool flip){
     sprite.set_horizontal_flip(flip);
 }
 
-/*
-        if(bn::keypad::up_pressed()){
-            sprite.set_y(sprite.y() - 1);
-        }else if(bn::keypad::down_pressed()){
-            sprite.set_y(sprite.y() + 1);
-        }
-        if(bn::keypad::left_pressed()){
-            sprite.set_x(sprite.x() - 1);
-        }else if(bn::keypad::right_pressed()){
-            sprite.set_x(sprite.x() + 1);
-        }
-
-        if(bn::keypad::select_pressed()){
-            sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
-            sprite.set_position(sprite.position() - bn::fixed_point(23,11));
-            sprite.set_rotation_angle(0);
-        }
-         if(bn::keypad::b_pressed()){
-            sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(4));
-            sprite.set_position(sprite.position() + bn::fixed_point(23,11));
-            sprite.set_rotation_angle(270);
-        }*/
-
 void Player::update(){
     if(state == STATE::END_BENDING) return;
 
     if(state == STATE::BENDING){
         if(!bend_stand_timer) return;
-        else BN_LOG("Frame:",bend_stand_timer->elapsedFrames());
         if(bend_stand_timer->elapsedFrames() == 14) sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(4));
         if(bend_stand_timer->elapsedFrames() >= 24){ state = STATE::END_BENDING; bend_stand_timer.reset();}
         return;
@@ -109,7 +85,6 @@ void Player::update(){
 
     if(state == STATE::STANDING_UP){
         if(!bend_stand_timer) return;
-        else BN_LOG("frame:",bend_stand_timer->elapsedFrames());
         if(bend_stand_timer->elapsedFrames() == 9){
             sprite.set_tiles(bn::sprite_items::character.tiles_item().create_tiles(0));
             sprite.set_position(sprite.position() - bn::fixed_point(23,11));
@@ -136,6 +111,9 @@ void Player::update(){
         if(sprite.x() < movement_box.left()) sprite.set_x(movement_box.left());
         if(sprite.x() > movement_box.right()) sprite.set_x(movement_box.right());
         walking.update();
+    }else{
+        if(sprite.x() == movement_box.left()) sprite.set_x(movement_box.left()+1);
+        if(sprite.x() == movement_box.right()) sprite.set_x(movement_box.right()-1);
     }
 
     if(bn::keypad::up_pressed()){

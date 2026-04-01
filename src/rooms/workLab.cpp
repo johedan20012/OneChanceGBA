@@ -8,6 +8,8 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     global_var(_global_var){
 
     global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
+    global_var.getDialogManager().resetBottomText();
+    global_var.getDialogManager().resetBg();
 
     player.resetAnim();
     player.setHflip(true);

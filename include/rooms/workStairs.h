@@ -17,7 +17,7 @@ private:
     NPC npcs[2];
 
 public:
-    WorkStairs(Player& _player,DIRECTION entering_from);
+    WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkStairs() override {}
 
     bn::optional<RoomExit> update() override;

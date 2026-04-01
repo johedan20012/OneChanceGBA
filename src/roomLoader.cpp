@@ -53,7 +53,7 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player,Glob
         return bn::make_unique<WorkLabDoor>(player,room_exit.next_in_dir);
     }
     if(room_exit.name == roomsNames[10]){
-        return bn::make_unique<WorkStairs>(player,room_exit.next_in_dir);
+        return bn::make_unique<WorkStairs>(player,room_exit.next_in_dir,_global);
     }
     if(room_exit.name == roomsNames[11]){
         return bn::make_unique<SkipWork>(player,_global);

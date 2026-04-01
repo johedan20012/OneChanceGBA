@@ -12,6 +12,8 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Jim: Well if it isn't the fucking saviour.",
         "Boss: Congratulations John. This is a big step.",
 /*5 */  "Annie: We should go out for a drink to celebrate, John.",
+        "Ryan: Good work Doc'. You're gonna be huge.",
+        "Construction guy: Sorry bro. No entry today.",
         ""
 };
 }

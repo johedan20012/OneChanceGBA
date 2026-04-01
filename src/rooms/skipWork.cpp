@@ -10,6 +10,8 @@ SkipWork::SkipWork(Player& _player,GlobalVariables& _global_var):
     global_var(_global_var){
 
     global_var.setDayChoice(global_var.currentDay(),CHOICE::SKIP_WORK);
+    global_var.getDialogManager().resetBottomText();
+    global_var.getDialogManager().resetBg();
 
     people[0].set_horizontal_flip(true);
     people[3].set_horizontal_flip(true);
