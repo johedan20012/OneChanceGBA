@@ -12,12 +12,25 @@ DialogManager::DialogManager():
     bottom_text_gen.set_z_order(2);
 }
 
+void DialogManager::setBg(bn::regular_bg_ptr _bg){
+    bottom_text_bg = _bg;
+    bottom_text_bg->set_priority(1);
+    bottom_text_bg->set_blending_enabled(true);
+    bottom_text_bg->set_blending_top_enabled(true);
+    bottom_text_bg->set_visible(false);
+}
+
+void DialogManager::resetBg(){
+    if(bottom_text_bg) bottom_text_bg.reset();
+}
+
 void DialogManager::setBottomText(int dialog_index,int duration){
     BN_ASSERT(0<= dialog_index && dialog_index < MAX_DIALOGS," ");
     if(duration >= 0) setBottomTextDuration(duration);
 
     bottom_text.clear();
     bottom_text_gen.generate(bn::fixed_point(0,70),DIALOGS[dialog_index],bottom_text);
+    if(bottom_text_bg) bottom_text_bg->set_visible(true);
 }
 
 void DialogManager::setBottomTextDuration(int duration){
@@ -52,6 +65,7 @@ void DialogManager::resetBottomText(){
     bottom_text.clear();
     bottom_text_timer.reset();
     act_dialog_sequence.clear();
+    if(bottom_text_bg) bottom_text_bg->set_visible(false);
 }
 
 void DialogManager::update(){

@@ -14,6 +14,7 @@
 
 #include "room.h"
 #include "compositeSprite.h"
+#include "globalVariables.h"
 #include "moveable.h"
 
 namespace game{
@@ -34,7 +35,7 @@ private:
     bn::fixed rotations = 0;
     bn::optional<CompositeSpritePosToAction> carMovement;
 public:
-    HouseEntrance(Player& _player, DIRECTION _entering_from);
+    HouseEntrance(Player& _player, DIRECTION _entering_from,GlobalVariables& _global_var);
     ~HouseEntrance() override {}
 
     bn::optional<RoomExit> update() override;

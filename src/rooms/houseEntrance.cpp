@@ -3,10 +3,13 @@
 #include "bn_log.h"
 
 namespace game{
-HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from):
+HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_house_5.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
     car(),cloud(bn::sprite_items::cloud.create_sprite(130,-71)),
     newspaper(bn::sprite_items::newspaper.create_sprite(-43,73)),isExiting(false){
+
+    _global_var.getDialogManager().resetBg();
+    _global_var.getDialogManager().resetBottomText();
 
     car.addSprite(bn::sprite_items::car.create_sprite(-31,0,0));
     car.addSprite(bn::sprite_items::car.create_sprite(0,0,1));

@@ -4,6 +4,8 @@
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_text_generator.h"
 
+#include "bn_regular_bg_ptr.h"
+
 #include "bn_unique_ptr.h"
 #include "bn_optional.h"
 #include "bn_vector.h"
@@ -15,6 +17,9 @@
 namespace game{
 class DialogManager{
 private:
+    bn::optional<bn::regular_bg_ptr> bottom_text_bg;
+    bool bg_active = false;
+
     bn::vector<bn::sprite_ptr,30> bottom_text;
     bn::vector<Pair<int,int>,10> act_dialog_sequence;
     int dialog_sequence_indx;
@@ -26,6 +31,9 @@ private:
 public:
     DialogManager();
     ~DialogManager() = default;
+
+    void setBg(bn::regular_bg_ptr _bg);
+    void resetBg();
 
     void setBottomText(int dialog_index,int duration = -1);
     void setBottomTextDuration(int duration);

@@ -8,7 +8,10 @@ NPC::NPC(bn::sprite_ptr _sprite):
 }
 
 NPC::~NPC(){
-    if(dialog != nullptr) delete dialog;
+    if(dialog != nullptr){
+        delete dialog;
+        dialog = nullptr;
+    }
 }
 
 void NPC::addDialog(DialogTrigger* _dialog){

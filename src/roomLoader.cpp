@@ -35,13 +35,13 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player,Glob
         return bn::make_unique<HouseBathroom>(player,room_exit.next_in_dir);
     }
     if(room_exit.name == roomsNames[4]){
-        return bn::make_unique<HouseEntrance>(player,room_exit.next_in_dir);
+        return bn::make_unique<HouseEntrance>(player,room_exit.next_in_dir,_global);
     }
     if(room_exit.name == roomsNames[5]){
         return bn::make_unique<City>(player,room_exit.next_in_dir);
     }
     if(room_exit.name == roomsNames[6]){
-        return bn::make_unique<WorkParking>(player,room_exit.next_in_dir);
+        return bn::make_unique<WorkParking>(player,room_exit.next_in_dir,_global);
     }
     if(room_exit.name == roomsNames[7]){
         return bn::make_unique<WorkLobby>(player,room_exit.next_in_dir);
