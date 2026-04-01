@@ -1,5 +1,7 @@
 #include "dialogTrigger.h"
 
+#include "bn_log.h"
+
 namespace game{
 DialogTrigger::DialogTrigger(GlobalVariables& _global_var,bn::fixed_rect _box,bool _hold_til_leaving,bool _reusable):
     global_var(_global_var),trigger_box(_box),hold_until_leaving(_hold_til_leaving),is_reuseable(_reusable){

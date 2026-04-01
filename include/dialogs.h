@@ -10,6 +10,7 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
     "Penny: Today is a big day! Get a move on!",
     "Molly: Do I really have to go to school today, Daddy?",
     "Jim: Well if it isn't the fucking saviour.",
+    "Boss: Congratulations John. This is a big step.",
     ""
 };
 }

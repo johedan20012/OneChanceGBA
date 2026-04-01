@@ -9,13 +9,14 @@
 
 #include "room.h"
 #include "npc.h"
+#include "globalVariables.h"
 
 namespace game{
 class WorkLobby : public Room{
 private:
     bn::vector<NPC,10> npcs;
 public:
-    WorkLobby(Player& _player,DIRECTION entering_from);
+    WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkLobby() override {}
 
     bn::optional<RoomExit> update() override;
