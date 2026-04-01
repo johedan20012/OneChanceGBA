@@ -1,13 +1,19 @@
 #include "workHall.h"
 
 namespace game{
-WorkHall::WorkHall(Player& _player,DIRECTION entering_from):
+WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_hall.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),
     npcs{NPC(bn::sprite_items::work_people.create_sprite(-64,16,8)),NPC(bn::sprite_items::work_people.create_sprite(-44,16,9))},
     walking_dude(bn::sprite_items::walking_dude.create_sprite(140,20,0)){
     
     walking_dude.set_bg_priority(2);
     walking_dude.set_z_order(2);
+
+    {
+        DialogTrigger* dialog = new DialogTrigger(_global_var,bn::fixed_rect(0,0,30,64),false);
+        dialog->addDialog(Pair<int,int>(5,180));
+        npcs[1].addDialog(dialog);
+    }
 
     player.setMovementBox(bn::fixed_rect(0,0,260,160));
 
@@ -49,6 +55,7 @@ bn::optional<RoomExit> WorkHall::update(){
     player.update();
 
     npcs[1].lookAt(player.getPos(),true);
+    npcs[1].checkDialog(player.boundaries());
 
     Room::updateExitsInfo();
     Room::update();

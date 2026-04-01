@@ -48,7 +48,7 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _g
 bn::optional<RoomExit> HouseHall::update(){
     player.update();
 
-    penny.lookAt(player.getPos());
+    penny.lookAt(player.getPos(),true);
     penny.checkDialog(player.boundaries());
 
     Room::updateExitsInfo();

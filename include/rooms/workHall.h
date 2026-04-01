@@ -9,6 +9,7 @@
 
 #include "room.h"
 #include "npc.h"
+#include "globalVariables.h"
 
 namespace game{
 class WorkHall : public Room{
@@ -19,7 +20,7 @@ private:
     bn::optional<bn::sprite_animate_action<2>> walk_anim;
 
 public:
-    WorkHall(Player& _player,DIRECTION entering_from);
+    WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkHall() override {}
 
     bn::optional<RoomExit> update() override;

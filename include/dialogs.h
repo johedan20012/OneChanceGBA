@@ -6,12 +6,13 @@
 
 namespace game{
 inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
-    "Penny: Hurry up, honey! You'll be late for work.",
-    "Penny: Today is a big day! Get a move on!",
-    "Molly: Do I really have to go to school today, Daddy?",
-    "Jim: Well if it isn't the fucking saviour.",
-    "Boss: Congratulations John. This is a big step.",
-    ""
+/*0 */  "Penny: Hurry up, honey! You'll be late for work.",
+        "Penny: Today is a big day! Get a move on!",
+        "Molly: Do I really have to go to school today, Daddy?",
+        "Jim: Well if it isn't the fucking saviour.",
+        "Boss: Congratulations John. This is a big step.",
+/*5 */  "Annie: We should go out for a drink to celebrate, John.",
+        ""
 };
 }
 
