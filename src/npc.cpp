@@ -17,7 +17,7 @@ NPC::~NPC(){
 }
 
 void NPC::setZOrder(int order){
-    sprite.set_z_order = order;
+    sprite.set_z_order(order);
 }
 
 void NPC::addDialog(DialogTrigger* _dialog){

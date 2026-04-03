@@ -4,6 +4,32 @@
 
 namespace game{
 
+bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice){
+    switch (choice){
+    case CHOICE::WORK:
+        return os << "Work";
+        break;
+    case CHOICE::SKIP_WORK:
+        return os << "Skip work";
+        break;
+    case CHOICE::GO_HOME:
+        return os << "Go home";
+        break;
+    case CHOICE::DEFEND:
+        return os << "Defend";
+        break;
+    case CHOICE::NO_DEFEND:
+        return os << "No defend";
+        break;
+    case CHOICE::GIVE_UP:
+        return os << "Give up";
+        break;
+    default:
+        return os << "None";
+        break;
+    }
+}
+
 DialogManager& GlobalVariables::getDialogManager(){
     return dialog_manager;
 }

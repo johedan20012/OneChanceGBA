@@ -14,6 +14,8 @@ enum class CHOICE{
     GIVE_UP
 };
 
+bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice);
+
 class GlobalVariables{
 private:
     CHOICE day_choices[6] = {CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE};

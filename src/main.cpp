@@ -27,6 +27,11 @@ int main(){
             current_room = game::RoomLoader::loadRoom(next_room.value(), character,global_var);
         }
 
+        if(bn::keypad::select_held() && bn::keypad::a_pressed()){
+            global_var.goNextDay();
+            BN_LOG("Current day:",global_var.currentDay());
+        }
+
         global_var.getDialogManager().update();
         game::Timer::update();
         bn::core::update();
