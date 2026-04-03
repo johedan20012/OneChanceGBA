@@ -21,6 +21,8 @@ public:
     NPC(bn::sprite_ptr _sprite);
     virtual ~NPC();
 
+    void setZOrder(int order);
+
     void addDialog(DialogTrigger* _dialog); //eww raw pointers
 
     void lookAt(bn::fixed_point p,bool flip = false);

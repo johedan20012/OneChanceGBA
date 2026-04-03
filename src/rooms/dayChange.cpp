@@ -1,11 +1,20 @@
 #include "dayChange.h"
 
+#include "bn_log.h"
+
 namespace game{
 DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
     global_var(_global_var){
     
     global_var.goNextDay();
+
+    BN_LOG("Day 1:",global_var.dayChoice(1));
+    BN_LOG("Day 2:",global_var.dayChoice(2));
+    BN_LOG("Day 3:",global_var.dayChoice(3));
+    BN_LOG("Day 4:",global_var.dayChoice(4));
+    BN_LOG("Day 5:",global_var.dayChoice(5));
+    BN_LOG("Day 6:",global_var.dayChoice(6));
 
     bn::string<80> top_message;
     bn::string<30> bottom_message;

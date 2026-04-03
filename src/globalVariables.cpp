@@ -10,12 +10,12 @@ DialogManager& GlobalVariables::getDialogManager(){
 
 CHOICE GlobalVariables::dayChoice(unsigned int day){
     BN_ASSERT(1<=day && day<=6,"Invalid day:",day);
-    return day_choices[day];
+    return day_choices[day-1];
 }
 
 void GlobalVariables::setDayChoice(unsigned int day, CHOICE choice){
     BN_ASSERT(1<=day && day<=6,"Invalid day:",day);
-    day_choices[day] = choice;
+    day_choices[day-1] = choice;
 }
 
 unsigned int GlobalVariables::currentDay(){
