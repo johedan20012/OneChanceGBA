@@ -19,6 +19,11 @@ private:
 
     NPC molly;
     bn::sprite_ptr teddy_bear;
+
+    Moveable<bn::sprite_ptr> mov;
+
+    void loadDay1();
+    void loadDay2();
 public:
     HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~HouseBedroom2() override {}

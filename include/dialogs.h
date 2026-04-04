@@ -1,6 +1,6 @@
 #ifndef DIALOGS_H
 #define DIALOGS_H
-#define MAX_DIALOGS 10
+#define MAX_DIALOGS 20
 
 #include "bn_string_view.h"
 
@@ -14,6 +14,7 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
 /*5 */  "Annie: We should go out for a drink to celebrate, John.",
         "Ryan: Good work Doc'. You're gonna be huge.",
         "Construction guy: Sorry bro. No entry today.",
+        "Molly: Mum's in the bath",
         ""
 };
 }
