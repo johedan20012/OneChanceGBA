@@ -33,7 +33,7 @@ void NPC::lookAt(bn::fixed_point p, bool flip){
 }
 
 void NPC::checkDialog(bn::fixed_rect player_boundaries){
-    dialog->update(player_boundaries);
+    if(dialog != nullptr) dialog->update(player_boundaries);
 }
 
 void NPC::update(){}

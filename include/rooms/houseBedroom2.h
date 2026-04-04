@@ -20,8 +20,6 @@ private:
     NPC molly;
     bn::sprite_ptr teddy_bear;
 
-    Moveable<bn::sprite_ptr> mov;
-
     void loadDay1();
     void loadDay2();
 public:

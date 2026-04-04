@@ -5,8 +5,7 @@ namespace game{
 HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_house_3.create_bg(8,48),bn::fixed_rect(6,0,228,131),_player),
     global_var(_global_var),
-    molly(bn::sprite_items::molly.create_sprite(-77,39)),teddy_bear(bn::sprite_items::teddy.create_sprite(-24,43)),
-    mov(teddy_bear){
+    molly(bn::sprite_items::molly.create_sprite(-77,39)),teddy_bear(bn::sprite_items::teddy.create_sprite(-24,43)){
 
     player.setMovementBox(bn::fixed_rect(22.5,0,215,160));
 
@@ -59,8 +58,6 @@ bn::optional<RoomExit> HouseBedroom2::update(){
     molly.checkDialog(player.boundaries());
 
     Room::update();
-
-    mov.update();
 
     return checkExits();
 }

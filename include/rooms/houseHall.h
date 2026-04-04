@@ -13,9 +13,12 @@
 namespace game{
 class HouseHall : public Room{
 private:
+    GlobalVariables& global_var;
+    
     NPC penny;    
 
-    GlobalVariables& global_var;
+    void loadDay1(DIRECTION entering_from);
+    void loadDay2(DIRECTION entering_from);
 public:
     HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~HouseHall() override {}
