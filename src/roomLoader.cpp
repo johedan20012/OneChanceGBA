@@ -32,7 +32,7 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player,Glob
         return bn::make_unique<HouseBedroom2>(player,room_exit.next_in_dir,_global);
     }
     if(room_exit.name == roomsNames[3]){
-        return bn::make_unique<HouseBathroom>(player,room_exit.next_in_dir);
+        return bn::make_unique<HouseBathroom>(player,room_exit.next_in_dir,_global);
     }
     if(room_exit.name == roomsNames[4]){
         return bn::make_unique<HouseEntrance>(player,room_exit.next_in_dir,_global);
