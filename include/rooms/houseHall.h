@@ -1,14 +1,10 @@
 #ifndef HOUSEHALL_H
 #define HOUSEHALL_H
 
-#include "bn_regular_bg_items_bg_house_2.h"
-
-#include "bn_sprite_items_penny.h"
-
-#include "room.h"
 #include "npc.h"
-#include "globalVariables.h"
+#include "room.h"
 #include "dialogTrigger.h"
+#include "globalVariables.h"
 
 namespace game{
 class HouseHall : public Room{

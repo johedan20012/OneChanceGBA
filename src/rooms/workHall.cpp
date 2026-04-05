@@ -1,5 +1,10 @@
 #include "workHall.h"
 
+#include "bn_sprite_items_work_people.h"
+#include "bn_sprite_items_walking_dude.h"
+
+#include "bn_regular_bg_items_bg_work_hall.h"
+
 namespace game{
 WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_hall.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),

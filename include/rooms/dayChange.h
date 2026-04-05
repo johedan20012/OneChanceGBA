@@ -1,18 +1,14 @@
 #ifndef DAYCHANGE_H
 #define DAYCHANGE_H
 
-#include "bn_regular_bg_items_bg_house_1.h"
-
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_text_generator.h"   
 #include "bn_sprite_palette_actions.h"
 
 #include "bn_vector.h"
 #include "bn_unique_ptr.h"
 
-#include "jostFontVar8x16Mini.h"
-#include "timer.h"
 #include "room.h"
+#include "timer.h"
 #include "globalVariables.h"
 
 #define DARK_FRAMES 60

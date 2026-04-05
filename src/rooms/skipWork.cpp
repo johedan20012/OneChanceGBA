@@ -1,5 +1,9 @@
 #include "skipWork.h"
 
+#include "bn_sprite_items_work_people.h"
+
+#include "bn_regular_bg_items_bg_skip_work_1.h"
+
 namespace game{
 SkipWork::SkipWork(Player& _player,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_skip_work_1.create_bg(8,48),bn::fixed_rect(0,4,240,137),_player),

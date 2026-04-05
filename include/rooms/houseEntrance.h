@@ -1,21 +1,16 @@
 #ifndef HOUSEENTRANCE_H
 #define HOUSEENTRANCE_H
 
-#include "bn_regular_bg_ptr.h"
-#include "bn_regular_bg_items_bg_house_5.h"
-#include "bn_regular_bg_items_bg_newspaper1.h"
-
-#include "bn_sprite_items_cloud.h"
-#include "bn_sprite_items_newspaper.h"
-#include "bn_sprite_items_car.h"
 #include "bn_sprite_actions.h"
+
+#include "bn_regular_bg_ptr.h"
 
 #include "bn_math.h"
 
 #include "room.h"
+#include "moveable.h"
 #include "compositeSprite.h"
 #include "globalVariables.h"
-#include "moveable.h"
 
 namespace game{
 class HouseEntrance : public Room{

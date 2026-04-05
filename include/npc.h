@@ -2,15 +2,15 @@
 #define NPC_H
 
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_palette_item.h"
 #include "bn_sprite_palette_ptr.h"
+#include "bn_sprite_palette_item.h"
 
+#include "bn_vector.h"
 #include "bn_fixed_rect.h"
 #include "bn_unique_ptr.h"
-#include "bn_vector.h"
 
-#include "dialogTrigger.h"
 #include "pair.h"
+#include "dialogTrigger.h"
 
 namespace game{
 class NPC{

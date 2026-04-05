@@ -1,5 +1,10 @@
 #include "workParking.h"
 
+#include "bn_sprite_items_jim.h"
+
+#include "bn_regular_bg_items_bg_bottom_text.h"
+#include "bn_regular_bg_items_bg_work_parking.h"
+
 namespace game{
 WorkParking::JimNPC::JimNPC():
     NPC(bn::sprite_items::jim.create_sprite(70,40,0)){}

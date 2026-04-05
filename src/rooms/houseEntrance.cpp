@@ -1,5 +1,12 @@
 #include "houseEntrance.h"
 
+#include "bn_sprite_items_car.h"
+#include "bn_sprite_items_cloud.h"
+#include "bn_sprite_items_newspaper.h"
+
+#include "bn_regular_bg_items_bg_house_5.h"
+#include "bn_regular_bg_items_bg_newspaper1.h"
+
 #include "bn_log.h"
 
 namespace game{

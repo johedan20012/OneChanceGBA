@@ -1,5 +1,9 @@
 #include "houseBathroom.h"
 
+#include "bn_sprite_items_penny_bathtub.h"
+
+#include "bn_regular_bg_items_bg_house_4.h"
+
 namespace game{
 
 HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):

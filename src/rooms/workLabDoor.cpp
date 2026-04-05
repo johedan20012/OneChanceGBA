@@ -1,5 +1,9 @@
 #include "workLabDoor.h"
 
+#include "bn_sprite_items_work_people.h"
+
+#include "bn_regular_bg_items_bg_work_lab_door.h"
+
 namespace game{
 WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_work_lab_door.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),

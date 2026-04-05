@@ -1,5 +1,10 @@
 #include "workLab.h"
 
+#include "bn_sprite_items_pc_screen.h"
+#include "bn_sprite_items_work_people.h"
+
+#include "bn_regular_bg_items_bg_work_lab.h"
+
 namespace game{
 WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_lab.create_bg(8,48),bn::fixed_rect(0,0,240,132),_player),

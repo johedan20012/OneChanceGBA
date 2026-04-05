@@ -1,5 +1,7 @@
 #include "player.h"
 
+#include "bn_sprite_items_character.h"
+
 #include "bn_log.h"
 
 namespace game{

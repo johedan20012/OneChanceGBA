@@ -1,6 +1,8 @@
 #include "houseHall.h"
 
-#include "dialogs.h"
+#include "bn_sprite_items_penny.h"
+
+#include "bn_regular_bg_items_bg_house_2.h"
 
 namespace game{
 

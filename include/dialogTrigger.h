@@ -11,7 +11,6 @@
 #endif
 
 #include "globalVariables.h"
-#include "dialogs.h"
 #include "player.h"
 #include "pair.h"
 

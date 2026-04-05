@@ -1,7 +1,9 @@
 #include "dialogManager.h"
 
-#include "dialogs.h"
 #include "bn_assert.h"
+
+#include "dialogs.h"
+#include "jostFontVar8x16Mini.h"
 
 namespace game{
 DialogManager::DialogManager():

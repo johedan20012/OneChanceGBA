@@ -1,12 +1,8 @@
 #ifndef WORKLABDOOR_H
 #define WORKLABDOOR_H
 
-#include "bn_regular_bg_items_bg_work_lab_door.h"
-
-#include "bn_sprite_items_work_people.h"
-
-#include "room.h"
 #include "npc.h"
+#include "room.h"
 
 namespace game{
 class WorkLabDoor : public Room{

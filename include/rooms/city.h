@@ -1,15 +1,11 @@
 #ifndef CITY_H
 #define CITY_H
 
-#include "bn_regular_bg_items_bg_city.h"
-
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_palette_ptr.h"
-#include "bn_sprite_items_car_small.h"
-#include "bn_sprite_items_city_people.h"
+
+#include "bn_color.h"
 
 #include "room.h"
-#include "moveable.h"
 
 namespace game{
 class City : public Room{

@@ -1,5 +1,10 @@
 #include "workStairs.h"
 
+#include "bn_sprite_items_work_people.h"
+#include "bn_sprite_items_construction_guy.h"
+
+#include "bn_regular_bg_items_bg_work_stairs.h"
+
 namespace game{
 WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_stairs.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),

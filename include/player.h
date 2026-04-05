@@ -1,13 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "bn_keypad.h"
-
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_tiles_ptr.h"
 #include "bn_sprite_animate_actions.h"
-#include "bn_sprite_items_character.h"
 
+#include "bn_keypad.h"
 #include "bn_fixed_rect.h"
 #include "bn_unique_ptr.h"
 

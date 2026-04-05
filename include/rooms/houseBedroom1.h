@@ -1,11 +1,7 @@
 #ifndef HOUSEBEDROOM1_H
 #define HOUSEBEDROOM1_H
 
-#include "bn_regular_bg_items_bg_house_1.h"
-
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_items_character.h"
-#include "bn_sprite_items_lab_coat.h"
 
 #include "room.h"
 #include "moveable.h"

@@ -1,5 +1,13 @@
 #include "city.h"
 
+#include "bn_regular_bg_items_bg_city.h"
+
+#include "bn_sprite_palette_ptr.h"
+#include "bn_sprite_items_car_small.h"
+#include "bn_sprite_items_city_people.h"
+
+#include "bn_log.h"
+
 namespace game{
 City::City(Player& _player, DIRECTION entering_from):
     Room(bn::regular_bg_items::bg_city.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),

@@ -1,6 +1,12 @@
 #include "dayChange.h"
 
+#include "bn_sprite_text_generator.h"   
+
+#include "bn_regular_bg_items_bg_house_1.h"
+
 #include "bn_log.h"
+
+#include "jostFontVar8x16Mini.h"
 
 namespace game{
 DayChange::DayChange(Player& _player,GlobalVariables& _global_var):

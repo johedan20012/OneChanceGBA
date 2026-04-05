@@ -2,18 +2,15 @@
 #define ROOM_H
 
 #include "bn_regular_bg_ptr.h"
-#include "bn_regular_bg_items_bg_paper_full.h"
 
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_text_generator.h"
-#include "jostFontVar8x16.h"
 
-#include "bn_rect_window.h"
-#include "bn_fixed_rect.h"
-#include "bn_blending.h"
 #include "bn_window.h"
 #include "bn_string.h"
-#include "bn_log.h"
+#include "bn_blending.h"
+#include "bn_fixed_rect.h"
+#include "bn_rect_window.h"
 
 #include "player.h"
 

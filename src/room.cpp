@@ -1,5 +1,11 @@
 #include "room.h"
 
+#include "bn_regular_bg_items_bg_paper_full.h"
+
+#include "bn_log.h"
+
+#include "jostFontVar8x16.h"
+
 namespace game{
 
 Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player& _player):

@@ -1,10 +1,7 @@
 #ifndef SKIPWORK_H
 #define SKIPWORK_H
 
-#include "bn_regular_bg_items_bg_skip_work_1.h"
-
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_items_work_people.h"
 
 #include "room.h"
 #include "timer.h"

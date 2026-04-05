@@ -1,14 +1,10 @@
 #ifndef WORKHALL_H
 #define WORKHALL_H
 
-#include "bn_regular_bg_items_bg_work_hall.h"
-
-#include "bn_sprite_items_work_people.h"
-#include "bn_sprite_items_walking_dude.h"
 #include "bn_sprite_actions.h"
 
-#include "room.h"
 #include "npc.h"
+#include "room.h"
 #include "globalVariables.h"
 
 namespace game{

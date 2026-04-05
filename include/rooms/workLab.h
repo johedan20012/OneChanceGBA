@@ -1,15 +1,11 @@
 #ifndef WORKLAB_H
 #define WORKLAB_H
 
-#include "bn_regular_bg_items_bg_work_lab.h"
-
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_items_work_people.h"
-#include "bn_sprite_items_pc_screen.h"
 
-#include "timer.h"
-#include "room.h"
 #include "npc.h"
+#include "room.h"
+#include "timer.h"
 #include "globalVariables.h"
 
 namespace game{

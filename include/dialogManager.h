@@ -6,13 +6,12 @@
 
 #include "bn_regular_bg_ptr.h"
 
-#include "bn_unique_ptr.h"
-#include "bn_optional.h"
 #include "bn_vector.h"
+#include "bn_optional.h"
+#include "bn_unique_ptr.h"
 
 #include "pair.h"
 #include "timer.h"
-#include "jostFontVar8x16Mini.h"
 
 namespace game{
 class DialogManager{

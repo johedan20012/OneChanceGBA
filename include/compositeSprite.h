@@ -3,9 +3,9 @@
 
 #include "bn_sprite_ptr.h"
 
-#include "bn_value_template_actions.h"
 #include "bn_math.h"
 #include "bn_vector.h"
+#include "bn_value_template_actions.h"
 
 namespace game{
 class CompositeSprite{

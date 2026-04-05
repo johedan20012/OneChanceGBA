@@ -1,9 +1,9 @@
 #ifndef MOVEABLE_H
 #define MOVEABLE_H
 
-#include "bn_fixed_point.h"
-#include "bn_keypad.h"
 #include "bn_log.h"
+#include "bn_keypad.h"
+#include "bn_fixed_point.h"
 
 namespace game{
 template <typename T>

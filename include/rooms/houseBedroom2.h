@@ -1,16 +1,12 @@
 #ifndef HOUSEBEDROOM2_H
 #define HOUSEDEBROOM2_H
 
-#include "bn_regular_bg_items_bg_house_3.h"
-
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_items_molly.h"
-#include "bn_sprite_items_teddy.h"
 
 #include "npc.h"
 #include "room.h"
-#include "globalVariables.h"
 #include "moveable.h"
+#include "globalVariables.h"
 
 namespace game{
 class HouseBedroom2 : public Room{

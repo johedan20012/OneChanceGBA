@@ -1,5 +1,10 @@
 #include "HouseBedroom1.h"
 
+#include "bn_sprite_items_lab_coat.h"
+#include "bn_sprite_items_character.h"
+
+#include "bn_regular_bg_items_bg_house_1.h"
+
 namespace game{
 
 HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):

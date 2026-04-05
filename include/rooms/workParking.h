@@ -1,11 +1,7 @@
 #ifndef WORKPARKING_H
 #define WORKPARKING_H
 
-#include "bn_regular_bg_items_bg_work_parking.h"
-#include "bn_regular_bg_items_bg_bottom_text.h"
-
 #include "bn_sprite_actions.h"
-#include "bn_sprite_items_jim.h"
 
 #include "npc.h"
 #include "room.h"
