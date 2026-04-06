@@ -25,7 +25,7 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVari
     car.addSprite(bn::sprite_items::car.create_sprite(0,0,1));
     car.addSprite(bn::sprite_items::car.create_sprite(31,0,2));
 
-    car.setPos(bn::fixed_point(72,67));
+    car.set_position(bn::fixed_point(72,67));
 
     player.setMovementBox(bn::fixed_rect(2,0,200,160));
 

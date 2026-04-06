@@ -1,11 +1,15 @@
 #ifndef WORKPARKING_H
 #define WORKPARKING_H
 
+#include "bn_sprite_items_car.h"
 #include "bn_sprite_actions.h"
+
+#include "bn_unique_ptr.h"
 
 #include "npc.h"
 #include "room.h"
 #include "timer.h"
+#include "compositeSprite.h"
 #include "globalVariables.h"
 
 namespace game{
@@ -23,7 +27,13 @@ private:
 
     GlobalVariables& global_var;
 
-    JimNPC jim;
+    bn::unique_ptr<JimNPC> jim;
+
+    CompositeSprite car1;
+    bn::optional<CompositeSprite> car2;
+
+    void loadDay1();
+    void loadDay2();
 
 public:
     WorkParking(Player& _player,DIRECTION entering_from,GlobalVariables& _global);

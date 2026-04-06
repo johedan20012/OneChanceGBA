@@ -2,9 +2,11 @@
 #define COMPOSITESPRITE_H
 
 #include "bn_sprite_ptr.h"
+#include "bn_sprite_palette_ptr.h"
 
 #include "bn_math.h"
 #include "bn_vector.h"
+#include "bn_optional.h"
 #include "bn_value_template_actions.h"
 
 namespace game{
@@ -20,17 +22,19 @@ public:
 
     void addSprite(bn::sprite_ptr _sprite);
 
-    void setPos(bn::fixed_point _pos);
+    void set_position(bn::fixed_point _pos);
     bn::fixed_point position() const;
 
     void setRotation(bn::fixed _rotation);
     bn::fixed rotationAngle() const;
+
+    bn::optional<bn::sprite_palette_ptr> palette();
 };
 
 class CompositeSpritePosManager{
 public:
     [[nodiscard]] static bn::fixed_point get(const CompositeSprite& sprite) {return sprite.position();}
-    static void set(bn::fixed_point _pos,CompositeSprite& sprite) {sprite.setPos(_pos);}
+    static void set(bn::fixed_point _pos,CompositeSprite& sprite) {sprite.set_position(_pos);}
 };
 
 class CompositeSpritePosToAction : public bn::to_value_template_action<CompositeSprite,bn::fixed_point, CompositeSpritePosManager>{

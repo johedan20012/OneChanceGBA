@@ -14,7 +14,7 @@ void CompositeSprite::addSprite(bn::sprite_ptr _sprite){
     //distToCenter.push_back(bn::sqrt((_sprite.position().x()-pos.x())*(_sprite.position().x()-pos.x()) + (_sprite.position().y()-pos.y())*(_sprite.position().y()-pos.y())));
 }
 
-void CompositeSprite::setPos(bn::fixed_point _pos){
+void CompositeSprite::set_position(bn::fixed_point _pos){
     bn::fixed_point delta = _pos - pos;
     for(auto& sprite: sprites){
         sprite.set_position(sprite.position()+delta);
@@ -51,5 +51,10 @@ void CompositeSprite::setRotation(bn::fixed _rotation){
 
 bn::fixed CompositeSprite::rotationAngle() const{
     return rotation;
+}
+
+bn::optional<bn::sprite_palette_ptr> CompositeSprite::palette() {
+    if(sprites.size() > 0) return sprites[0].palette();
+    return bn::nullopt;
 }
 }
