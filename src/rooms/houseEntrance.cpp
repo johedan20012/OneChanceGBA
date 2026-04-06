@@ -6,14 +6,17 @@
 
 #include "bn_regular_bg_items_bg_house_5.h"
 #include "bn_regular_bg_items_bg_newspaper1.h"
+#include "bn_regular_bg_items_bg_newspaper2.h"
 
 #include "bn_log.h"
 
 namespace game{
 HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_house_5.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
+    global_var(_global_var),
     car(),cloud(bn::sprite_items::cloud.create_sprite(130,-71)),
-    newspaper(bn::sprite_items::newspaper.create_sprite(-43,73)),isExiting(false){
+    newspaper(bn::sprite_items::newspaper.create_sprite(-43,73)),
+    newspaper_item(bn::regular_bg_items::bg_newspaper1),isExiting(false){
 
     _global_var.getDialogManager().resetBg();
     _global_var.getDialogManager().resetBottomText();
@@ -41,6 +44,20 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVari
     #ifdef DEBUG_GAME
     Room::createExitsDebug();
     #endif
+
+    switch(global_var.currentDay()){
+        case 2:
+            loadDay2();
+            break;
+        default:
+            break;
+    }
+}
+
+void HouseEntrance::loadDay2(){
+    cloud.set_visible(false);
+
+    newspaper_item = bn::regular_bg_items::bg_newspaper2;
 }
 
 bn::optional<RoomExit> HouseEntrance::update(){
@@ -89,7 +106,7 @@ bn::optional<RoomExit> HouseEntrance::update(){
         }
     }
     if(!newspaper_showed && newspaper_picked_up && player.hasNormalState()){
-        newspaper_bg = bn::regular_bg_items::bg_newspaper1.create_bg(9,55);
+        newspaper_bg = newspaper_item.create_bg(9,55);
         newspaper_bg->set_priority(1);
         newspaper_showed = true;
     }
