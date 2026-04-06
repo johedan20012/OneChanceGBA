@@ -5,8 +5,6 @@
 
 #include "npc.h"
 #include "room.h"
-#include "bn_unique_ptr.h"
-#include "moveable.h"
 #include "globalVariables.h"
 
 namespace game{
@@ -15,8 +13,6 @@ private:
     GlobalVariables& global_var;
 
     bn::vector<NPC,10> npcs;
-
-    bn::unique_ptr<Moveable<NPC>> mov;
 
     void loadDay1();
     void loadDay2();

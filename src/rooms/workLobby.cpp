@@ -64,8 +64,6 @@ void WorkLobby::loadDay2(){
         dialog->addDialog(Pair<int,int>(12,120));
         npcs.back().addDialog(dialog);
     }
-
-    mov = bn::make_unique<Moveable<NPC>>(npcs[0]);
 }
 
 bn::optional<RoomExit> WorkLobby::update(){
@@ -74,8 +72,6 @@ bn::optional<RoomExit> WorkLobby::update(){
     for(auto& npc : npcs){
         npc.lookAt(player.getPos(),true);
     }
-
-    if(mov) mov->update();
 
     if(npcs.size() > 0) npcs[0].checkDialog(player.boundaries());
 

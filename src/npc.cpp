@@ -20,6 +20,10 @@ void NPC::setZOrder(int order){
     sprite.set_z_order(order);
 }
 
+void NPC::setHorizontalFlip(bool flip){
+    sprite.set_horizontal_flip(flip);
+}
+
 void NPC::addDialog(DialogTrigger* _dialog){
     dialog = _dialog;
     dialog->setPos(sprite.position()+dialog->getPos());

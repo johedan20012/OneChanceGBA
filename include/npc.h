@@ -23,6 +23,8 @@ public:
 
     void setZOrder(int order);
 
+    void setHorizontalFlip(bool flip);
+
     void addDialog(DialogTrigger* _dialog); //eww raw pointers
 
     void lookAt(bn::fixed_point p,bool flip = false);
