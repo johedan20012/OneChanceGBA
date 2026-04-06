@@ -17,6 +17,8 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Molly: Mum's in the bath",
         "Penny: The phone's been ringing all morning for you",
 /*10*/  "Penny: Must be important",
+        "Boss: We're fucked John. The drug is dangerous!",
+        "Boss: We're going to get our funding pulled.",
         ""      
 };
 }
