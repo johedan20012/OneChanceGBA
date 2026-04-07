@@ -22,6 +22,8 @@ private:
     unsigned int current_day = 0;
     DialogManager dialog_manager;
 
+    bool visited_work_lab_door = false;
+
 public:
     GlobalVariables() = default;
     ~GlobalVariables() = default;
@@ -33,6 +35,9 @@ public:
 
     unsigned int currentDay();
     void goNextDay();    
+
+    bool hasVisitedLabDoor();
+    void setVisitedLabDoor(bool visited);
 };
 }
 

@@ -1,6 +1,6 @@
 #ifndef DIALOGS_H
 #define DIALOGS_H
-#define MAX_DIALOGS 20
+#define MAX_DIALOGS 30
 
 #include "bn_string_view.h"
 
@@ -19,6 +19,9 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
 /*10*/  "Penny: Must be important",
         "Boss: We're fucked John. The drug is dangerous!",
         "Boss: We're going to get our funding pulled.",
+        "Ryan: It's not really as dangerous as they say it is...",
+        "Ryan: ...is it Doc'?",
+/*15*/  "It's Locked.",
         ""      
 };
 }

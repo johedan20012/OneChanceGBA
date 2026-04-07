@@ -54,4 +54,12 @@ void GlobalVariables::goNextDay(){
     BN_ASSERT(1<=current_day && current_day<=6,"Invalid day:",current_day);
 }
 
+bool GlobalVariables::hasVisitedLabDoor(){
+    return visited_work_lab_door;
+}
+
+void GlobalVariables::setVisitedLabDoor(bool visited){
+    visited_work_lab_door = visited;
+}
+
 }

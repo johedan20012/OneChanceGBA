@@ -75,7 +75,7 @@ void Room::updateExitsInfo(){
         if(exit_info_displayed >= exits.size()) exit_info_displayed = -1;
         for(int i = 0; i < exits.size(); i++){
             if(exits[i].needs_action && exits[i].trigger.intersects(player.boundaries())){
-                exit_info.clear();
+                clearExitsInfo();
                 player_prev_pos = player.getPos()+bn::fixed_point(0,-37);
                 info_gen.generate(player_prev_pos,exits[i].info,exit_info);
                 exit_info_displayed = i;
