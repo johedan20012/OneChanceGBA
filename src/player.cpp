@@ -118,12 +118,12 @@ void Player::update(){
 
     if(moving_dir != 0){
         sprite.set_x(sprite.x() + moving_dir);
-        if(sprite.x() < movement_box.left()) sprite.set_x(movement_box.left());
-        if(sprite.x() > movement_box.right()) sprite.set_x(movement_box.right());
+        if(sprite.x() < movement_box.left() - 1) sprite.set_x(movement_box.left()-1);
+        if(sprite.x() > movement_box.right() + 1) sprite.set_x(movement_box.right()+1);
         walking.update();
     }else{
-        if(sprite.x() == movement_box.left()) sprite.set_x(movement_box.left()+1);
-        if(sprite.x() == movement_box.right()) sprite.set_x(movement_box.right()-1);
+        if(sprite.x() <= movement_box.left()) sprite.set_x(sprite.x()+1);
+        if(sprite.x() >= movement_box.right()) sprite.set_x(sprite.x()-1);
     }
 
     if(bn::keypad::up_pressed()){
