@@ -70,6 +70,10 @@ void DialogManager::resetBottomText(){
     if(bottom_text_bg) bottom_text_bg->set_visible(false);
 }
 
+bool DialogManager::hasADialogSequence(){
+    return (act_dialog_sequence.size() > 0);
+}
+
 void DialogManager::update(){
     if(bottom_text_timer && bottom_text_timer->elapsedFrames() > bottom_text_duration)
         nextDialog();

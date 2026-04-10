@@ -3,22 +3,9 @@
 
 #include "bn_unique_ptr.h"
 
+#include "room.h"
 #include "player.h"
-#include "rooms/city.h"
-#include "rooms/workLab.h"
-#include "rooms/skipWork.h"
-#include "rooms/workHall.h"
 #include "globalVariables.h"
-#include "rooms/dayChange.h"
-#include "rooms/houseHall.h"
-#include "rooms/workLobby.h"
-#include "rooms/workStairs.h"
-#include "rooms/workLabDoor.h"
-#include "rooms/workParking.h"
-#include "rooms/houseBedroom1.h"
-#include "rooms/houseBedroom2.h"
-#include "rooms/houseBathroom.h"
-#include "rooms/houseEntrance.h"
 
 namespace game{
 class RoomLoader{

@@ -57,7 +57,7 @@ public:
 
     void setHflip(bool flip);
 
-    void update();
+    void update(bool frozen = false);
 };
 }
 

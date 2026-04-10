@@ -14,6 +14,12 @@ void CompositeSprite::addSprite(bn::sprite_ptr _sprite){
     //distToCenter.push_back(bn::sqrt((_sprite.position().x()-pos.x())*(_sprite.position().x()-pos.x()) + (_sprite.position().y()-pos.y())*(_sprite.position().y()-pos.y())));
 }
 
+void CompositeSprite::setVisibility(bool visible){
+    for(auto& sprite: sprites){
+        sprite.set_visible(visible);
+    }
+}
+
 void CompositeSprite::set_position(bn::fixed_point _pos){
     bn::fixed_point delta = _pos - pos;
     for(auto& sprite: sprites){

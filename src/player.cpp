@@ -83,7 +83,7 @@ void Player::setHflip(bool flip){
     sprite.set_horizontal_flip(flip);
 }
 
-void Player::update(){
+void Player::update(bool frozen){
     if(state == STATE::END_BENDING) return;
 
     if(state == STATE::BENDING){
@@ -117,7 +117,7 @@ void Player::update(){
     }
 
     if(moving_dir != 0){
-        sprite.set_x(sprite.x() + moving_dir);
+        if(!frozen) sprite.set_x(sprite.x() + moving_dir);
         if(sprite.x() < movement_box.left() - 1) sprite.set_x(movement_box.left()-1);
         if(sprite.x() > movement_box.right() + 1) sprite.set_x(movement_box.right()+1);
         walking.update();

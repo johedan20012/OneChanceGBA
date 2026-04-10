@@ -22,6 +22,8 @@ public:
 
     void addSprite(bn::sprite_ptr _sprite);
 
+    void setVisibility(bool visible);
+
     void set_position(bn::fixed_point _pos);
     bn::fixed_point position() const;
 

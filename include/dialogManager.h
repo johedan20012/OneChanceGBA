@@ -39,6 +39,8 @@ public:
     void setActDialogSequence(const bn::vector<Pair<int,int>,10>& _dialog);
     void resetBottomText();
 
+    bool hasADialogSequence();
+
     void update();
 };
 }
