@@ -36,8 +36,12 @@ private:
         bool jumpStarted = false;
         bool jumpFinished = false;
 
+        bn::fixed degrees_offset = 0;
+        bn::fixed radius = 1;
+        bn::fixed_point pivot = bn::fixed_point(0,0);
     private:
-        void rotateRespectTo(bn::fixed_point pivot,bn::fixed delta_degrees);
+        void setPivot(bn::fixed_point _pivot);
+        void rotateTo(bn::fixed angle);
 
     public:
         Matthew();

@@ -5,6 +5,7 @@
 #include "bn_sprite_items_roof_edge.h"
 
 #include "bn_regular_bg_items_bg_work_roof.h"
+#include "bn_regular_bg_items_bg_conference.h"
 #include "bn_regular_bg_items_bg_bottom_text_b.h"
 
 #include "bn_math.h"
@@ -29,22 +30,27 @@ void WorkRoof::Matthew::update(){
         if(timer && timer->elapsedFrames() >= 36){
             state = MSTATE::LEANING;
             timer = bn::make_unique<Timer>();
+            setPivot(bn::fixed_point(84,39));
             BN_LOG("Change Matthew to leaning");
         }
         break;
     case MSTATE::LEANING:
-
-        rotateRespectTo(bn::fixed_point(84,39),-0.6666);
+        rotateTo(sprite.rotation_angle()-0.6666);
 
         if(timer && timer->elapsedFrames() >= 30){
             state = MSTATE::FALLING;
-
             sprite.set_tiles(bn::sprite_items::matthew.tiles_item().create_tiles(3));
+            setPivot(bn::fixed_point(76,60));
             timer = bn::make_unique<Timer>();
             BN_LOG("Change Matthew to falling");
         }
         break;
     case MSTATE::FALLING:
+        rotateTo(sprite.rotation_angle()-1);
+        if(timer && timer->elapsedFrames() == 20){
+            setPivot(bn::fixed_point(-120,-80));
+        }
+
         if(timer && timer->elapsedFrames() >= 50) sprite.set_visible(false);
         if(timer && timer->elapsedFrames() >= 141){
             state = MSTATE::LEG_OVER;
@@ -67,33 +73,21 @@ void WorkRoof::Matthew::update(){
 
 }
 
-void WorkRoof::Matthew::rotateRespectTo(bn::fixed_point pivot, bn::fixed delta_degrees){
-    bn::fixed_point local_coords = sprite.position() - pivot;
-    bn::fixed_point aplified_coords = local_coords * 1000;
-    BN_LOG("Local Coords:",local_coords.x()," ",local_coords.y());
-    bn::fixed radius = bn::sqrt((local_coords.x() * local_coords.x()) + (local_coords.y() * local_coords.y()));
-    bn::fixed angle_degrees = bn::degrees_atan2(aplified_coords.x().integer(),aplified_coords.y().integer());
-    BN_LOG("Amp Coords:",aplified_coords.x()," ",aplified_coords.y());
-    BN_LOG("Atan2:",bn::degrees_atan2(aplified_coords.x().integer(),aplified_coords.y().integer()));
-    angle_degrees = bn::safe_degrees_angle(angle_degrees + delta_degrees - 90);
+void WorkRoof::Matthew::setPivot(bn::fixed_point _pivot){
+    bn::fixed_point local_coords = sprite.position() - _pivot;
+    pivot = _pivot;
+    degrees_offset = bn::safe_degrees_angle(bn::degrees_atan2(local_coords.x().integer(),local_coords.y().integer())-90);    
+    radius = bn::sqrt((local_coords.x() * local_coords.x()) + (local_coords.y() * local_coords.y()));
+}
 
-    BN_LOG("Degrees from pivot:",angle_degrees);
+void WorkRoof::Matthew::rotateTo(bn::fixed angle){
+    bn::fixed true_angle = bn::safe_degrees_angle(angle + degrees_offset);
 
-    sprite.set_rotation_angle(bn::safe_degrees_angle(sprite.rotation_angle()+delta_degrees));
+    sprite.set_rotation_angle(bn::safe_degrees_angle(angle));
         
-    bn::fixed aux = 1.0 + bn::degrees_cos(angle_degrees);
-    aux *= radius;
-    BN_LOG("Aux:",aux);
-    aux -= (radius - 0.1);
-    bn::fixed x =  pivot.x() + aux;
-    BN_LOG("Radius:",radius);
-    BN_LOG("Aux:",aux);
-    BN_LOG("Cos * Radius:",bn::degrees_cos(angle_degrees));
-    BN_LOG("Degrees cos:",bn::degrees_cos(angle_degrees));
-    BN_LOG("Degrees sin:",bn::degrees_sin(angle_degrees));
-    bn::fixed y =  pivot.y() - (bn::degrees_sin(angle_degrees)*radius);// minus cause y-axis is flipped
-    BN_LOG("New Pos:",x,",",y);
-    BN_LOG("---------------------");
+    bn::fixed x =  pivot.x() + bn::degrees_cos(true_angle)*radius;
+    bn::fixed y =  pivot.y() - (bn::degrees_sin(true_angle)*radius);// minus cause y-axis is flipped
+
     sprite.set_position(x,y);
 }
 
@@ -133,20 +127,6 @@ WorkRoof::WorkRoof(Player& _player,GlobalVariables& _global_var):
 
     global_var.getDialogManager().resetBottomText();
     global_var.getDialogManager().setBg(bn::regular_bg_items::bg_bottom_text_b.create_bg(8,48));
-
-    BN_LOG("cos(360):",bn::degrees_cos(360.0));
-    BN_LOG("cos(270):",bn::degrees_cos(270.0));
-    BN_LOG("cos(180):",bn::degrees_cos(180.0));
-    BN_LOG("cos(90):",bn::degrees_cos(90.0));
-
-    BN_LOG("arctan2(1,0):",bn::degrees_atan2(0,-26));
-    BN_LOG("arctan2(1,0):",bn::degrees_atan2(-26,0));
-    BN_LOG("arctan2(1,0):",bn::degrees_atan2(0,26));
-    BN_LOG("arctan2(1,0):",bn::degrees_atan2(26,0));
-
-    timer = bn::make_unique<Timer>(); //ERASEME
-    state = STATE::DIALOG;
-    matthew.setHorizontalFlip(true);
 }
 
 bn::optional<RoomExit> WorkRoof::update(){
@@ -184,6 +164,7 @@ bn::optional<RoomExit> WorkRoof::update(){
             state = STATE::NEWS;
             timer = bn::make_unique<Timer>();
             bg.set_visible(true); // Change background
+            bg = bn::regular_bg_items::bg_conference.create_bg(8,48);
             bg_paper.set_visible(true);
             BN_LOG("Change state to news");
         }
