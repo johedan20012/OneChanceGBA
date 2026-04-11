@@ -14,7 +14,7 @@ HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVaria
     white_lab_coat(bn::sprite_items::lab_coat.create_sprite(0,0)){
 
     player_reflexion.set_bg_priority(3);
-    bg.set_priority(2);
+    bg->set_priority(2);
 
     white_lab_coat.set_bg_priority(2);
     white_lab_coat.set_z_order(2);

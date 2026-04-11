@@ -53,8 +53,8 @@ DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     else bottom_message = "You had one chance.";
 
     player.setVisible(false);
-    bg.set_visible(false);
-    bg_paper.set_visible(false);
+    bg->set_visible(false);
+    bg_paper->set_visible(false);
 
     timer = bn::make_unique<Timer>();
 

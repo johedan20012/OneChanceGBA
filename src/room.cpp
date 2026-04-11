@@ -11,10 +11,10 @@ namespace game{
 Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player& _player):
     info_gen(JostFontVar8x16),exit_info_displayed(-1),bg(_bg),bg_paper(bn::regular_bg_items::bg_paper_full.create_bg(8,48)),player(_player){
     
-    bg.set_priority(3);
-    bg_paper.set_priority(0);
-    bg_paper.set_blending_enabled(true);
-    bn::window::outside().set_show_bg(bg_paper,false);
+    bg->set_priority(3);
+    bg_paper->set_priority(0);
+    bg_paper->set_blending_enabled(true);
+    bn::window::outside().set_show_bg(bg_paper.value(),false);
 
     bn::rect_window::internal().set_boundaries(_paper_boundaries);
     bn::rect_window::internal().set_visible(true);

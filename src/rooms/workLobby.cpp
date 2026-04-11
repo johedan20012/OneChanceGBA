@@ -55,7 +55,7 @@ void WorkLobby::loadDay1(){
 
 void WorkLobby::loadDay2(){
     bg = bn::regular_bg_items::bg_work_lobby_b.create_bg(8,48);
-    bg.set_palette(bn::regular_bg_items::bg_work_lobby_b.palette_item());
+    bg->set_palette(bn::regular_bg_items::bg_work_lobby_b.palette_item());
 
     npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-8,15,0)));
     {

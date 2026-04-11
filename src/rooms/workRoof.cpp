@@ -153,8 +153,8 @@ bn::optional<RoomExit> WorkRoof::update(){
             state = STATE::DARK;
             timer = bn::make_unique<Timer>();
             player.setVisible(false);
-            bg_paper.set_visible(false);
-            bg.set_visible(false);
+            bg_paper->set_visible(false);
+            bg->set_visible(false);
             BN_LOG("Change state to dark");
         }
         break;
@@ -163,9 +163,9 @@ bn::optional<RoomExit> WorkRoof::update(){
         if(timer && timer->elapsedFrames() >= 90){
             state = STATE::NEWS;
             timer = bn::make_unique<Timer>();
-            bg.set_visible(true); // Change background
+            bg_paper.reset();
+            bg->set_visible(true); // Change background
             bg = bn::regular_bg_items::bg_conference.create_bg(8,48);
-            bg_paper.set_visible(true);
             BN_LOG("Change state to news");
         }
         break;

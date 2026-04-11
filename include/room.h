@@ -8,6 +8,7 @@
 
 #include "bn_window.h"
 #include "bn_string.h"
+#include "bn_optional.h"
 #include "bn_blending.h"
 #include "bn_fixed_rect.h"
 #include "bn_rect_window.h"
@@ -63,8 +64,8 @@ private:
     int exit_info_displayed;
 
 protected:
-    bn::regular_bg_ptr bg;
-    bn::regular_bg_ptr bg_paper;
+    bn::optional<bn::regular_bg_ptr> bg;
+    bn::optional<bn::regular_bg_ptr> bg_paper;
     Player& player;
     bool isExiting = false;
 

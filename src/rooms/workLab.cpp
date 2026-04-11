@@ -25,8 +25,8 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
 }
 
 void WorkLab::setVisibility(bool visibility){
-    bg.set_visible(visibility);
-    bg_paper.set_visible(visibility);
+    bg->set_visible(visibility);
+    bg_paper->set_visible(visibility);
 
     npcs[0].setVisibility(visibility);
     npcs[1].setVisibility(visibility);
