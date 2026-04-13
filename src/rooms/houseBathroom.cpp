@@ -1,5 +1,6 @@
 #include "houseBathroom.h"
 
+#include "bn_sprite_items_lab_coat.h"
 #include "bn_sprite_items_penny_bathtub.h"
 
 #include "bn_regular_bg_items_bg_house_4.h"
@@ -27,6 +28,9 @@ HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVaria
         case 2:
             loadDay2();
             break;
+        case 3:
+            loadDay3();
+            break;
         default:
             break;
     }
@@ -43,10 +47,17 @@ void HouseBathroom::loadDay2(){
     }
 }
 
+void HouseBathroom::loadDay3(){
+    coat = bn::sprite_items::lab_coat.create_sprite(46,48);
+    coat->set_rotation_angle(90);
+    bn::sprite_palette_ptr pal =  coat->palette();
+    pal.set_color(2,bn::color(19,6,12));
+}
+
 bn::optional<RoomExit> HouseBathroom::update(){
     player.update();
     if(penny) penny->checkDialog(player.boundaries());
-
+    
     Room::update();
 
     return checkExits();
