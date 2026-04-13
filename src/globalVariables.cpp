@@ -62,4 +62,11 @@ void GlobalVariables::setVisitedLabDoor(bool visited){
     visited_work_lab_door = visited;
 }
 
+bool GlobalVariables::roofCheckedDay3(){
+    return roof_checked_day_3;
+}
+
+void GlobalVariables::setRoofCheckedDay3(bool checked){
+    roof_checked_day_3 = checked;
+}
 }

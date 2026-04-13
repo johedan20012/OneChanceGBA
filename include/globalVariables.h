@@ -22,7 +22,9 @@ private:
     unsigned int current_day = 0;
     DialogManager dialog_manager;
 
+    /* Especific room and day information */
     bool visited_work_lab_door = false;
+    bool roof_checked_day_3 = false;
 
 public:
     GlobalVariables() = default;
@@ -38,6 +40,9 @@ public:
 
     bool hasVisitedLabDoor();
     void setVisitedLabDoor(bool visited);
+
+    bool roofCheckedDay3();
+    void setRoofCheckedDay3(bool checked);
 };
 }
 
