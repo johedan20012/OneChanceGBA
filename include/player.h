@@ -32,8 +32,12 @@ private:
     int moving_dir = 0;
 
     bn::fixed_rect movement_box;
+
+    bool lab_coat = true;
 public:
     Player();
+
+    void takeOffLabCoat();
 
     void resetAnim();
 

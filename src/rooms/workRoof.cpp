@@ -174,6 +174,7 @@ bn::optional<RoomExit> WorkRoof::update(){
         if(timer && timer->elapsedFrames() >= 230){
             state = STATE::NORMAL;
             timer.reset();
+            global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
             BN_LOG("Going to day change from roof");
             return RoomExit("day_change",DIRECTION::DOOR1);
         }

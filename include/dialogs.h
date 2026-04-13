@@ -27,7 +27,9 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Matthew: I've done the tests a thousand times",
         "Matthew: It's so much worse than we thought",
 /*20*/  "Matthew: It's going to change everything...",
-        ""      
+        "Penny: Do you really have to go in today?",
+        "Penny: Does anything really matter any more?",
+        ""     
 };
 }
 

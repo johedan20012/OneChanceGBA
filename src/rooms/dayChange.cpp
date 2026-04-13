@@ -56,6 +56,8 @@ DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     bg->set_visible(false);
     bg_paper->set_visible(false);
 
+    if(global_var.currentDay() >= 3) player.takeOffLabCoat();
+
     timer = bn::make_unique<Timer>();
 
     bn::sprite_text_generator text_gen(JostFontVar8x16Mini,bn::sprite_palette_item(palette1,bn::bpp_mode::BPP_4));
