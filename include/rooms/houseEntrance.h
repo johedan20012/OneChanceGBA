@@ -35,6 +35,7 @@ private:
     bn::optional<CompositeSpritePosToAction> carMovement;
 
     void loadDay2();
+    void loadDay3();
 public:
     HouseEntrance(Player& _player, DIRECTION _entering_from,GlobalVariables& _global_var);
     ~HouseEntrance() override {}

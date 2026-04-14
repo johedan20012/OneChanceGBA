@@ -5,8 +5,10 @@
 #include "bn_sprite_items_newspaper.h"
 
 #include "bn_regular_bg_items_bg_house_5.h"
+#include "bn_regular_bg_items_bg_house_5_b.h"
 #include "bn_regular_bg_items_bg_newspaper1.h"
 #include "bn_regular_bg_items_bg_newspaper2.h"
+#include "bn_regular_bg_items_bg_newspaper3.h"
 
 #include "bn_log.h"
 
@@ -49,6 +51,9 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVari
         case 2:
             loadDay2();
             break;
+        case 3:
+            loadDay3();
+            break;
         default:
             break;
     }
@@ -58,6 +63,13 @@ void HouseEntrance::loadDay2(){
     cloud.set_visible(false);
 
     newspaper_item = bn::regular_bg_items::bg_newspaper2;
+}
+
+void HouseEntrance::loadDay3(){
+    cloud.set_visible(false);
+
+    newspaper_item = bn::regular_bg_items::bg_newspaper3;
+    bg->set_item(bn::regular_bg_items::bg_house_5_b);
 }
 
 bn::optional<RoomExit> HouseEntrance::update(){
