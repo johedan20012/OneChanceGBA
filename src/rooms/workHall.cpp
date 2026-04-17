@@ -2,6 +2,8 @@
 
 #include "bn_sprite_items_work_people.h"
 #include "bn_sprite_items_walking_dude.h"
+#include "bn_sprite_items_small_cabinet.h"
+#include "bn_sprite_items_bruce_walking.h"
 
 #include "bn_regular_bg_items_bg_work_hall.h"
 
@@ -9,7 +11,7 @@ namespace game{
 WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_hall.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),
     global_var(_global_var),
-    npcs{NPC(bn::sprite_items::work_people.create_sprite(-63,17,8)),NPC(bn::sprite_items::work_people.create_sprite(-43,17,9))}{
+    small_cabinet(bn::sprite_items::small_cabinet.create_sprite(-34,27)){
     
     player.setMovementBox(bn::fixed_rect(0,0,260,160));
 
@@ -32,6 +34,9 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _glo
         case 2:
             loadDay2();
             break;
+        case 3:
+            loadDay3(entering_from);
+            break;
         default:
             loadDay1(entering_from);
             break;
@@ -43,6 +48,9 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _glo
 }
 
 void WorkHall::loadDay1(DIRECTION entering_from){
+    npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-63,17,8)));
+    npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-43,17,9)));
+
     walking_dude = bn::sprite_items::walking_dude.create_sprite(140,20,0);
     walking_dude->set_bg_priority(2);
     walking_dude->set_z_order(2);
@@ -63,11 +71,29 @@ void WorkHall::loadDay1(DIRECTION entering_from){
 }
 
 void WorkHall::loadDay2(){
+    npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-63,17,8)));
+    npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-43,17,9)));
+
     npcs[0].set_position(bn::fixed_point(-49,17));
     npcs[1].set_position(bn::fixed_point(-29,17));
 
-    extra_npc = bn::sprite_items::work_people.create_sprite(-62,21,5);
-    extra_npc->setHorizontalFlip(true);
+    npcs.push_back(bn::sprite_items::work_people.create_sprite(-62,21,5));
+    npcs.back().setHorizontalFlip(true);
+}
+
+void WorkHall::loadDay3(DIRECTION entering_from){
+    small_cabinet.set_rotation_angle(90);
+    small_cabinet.set_position(-36,26);
+
+    if(global_var.roofCheckedDay3() && entering_from == DIRECTION::RIGHT){
+        walking_dude = bn::sprite_items::bruce_walking.create_sprite(-140,20);
+        walking_dude->set_horizontal_flip(true);
+        walking_dude->set_bg_priority(2);
+        walking_dude->set_z_order(2);
+
+        walk_mov = bn::sprite_move_to_action(walking_dude.value(),280,bn::fixed_point(140,20));
+        walk_anim = bn::create_sprite_animate_action_forever(walking_dude.value(),6,bn::sprite_items::bruce_walking.tiles_item(),0,1);    
+    }
 }
 
 bn::optional<RoomExit> WorkHall::update(){
@@ -83,10 +109,12 @@ bn::optional<RoomExit> WorkHall::update(){
 
     player.update();
 
-    npcs[1].lookAt(player.getPos(),true);
-    npcs[1].checkDialog(player.boundaries());
+    if(npcs.size() >= 2){ 
+        npcs[1].lookAt(player.getPos(),true);
+        npcs[1].checkDialog(player.boundaries());
+    }
 
-    if(extra_npc) extra_npc->lookAt(player.getPos(),true);
+    if(npcs.size() >= 3) npcs[2].lookAt(player.getPos(),true);
 
     Room::updateExitsInfo();
     Room::update();

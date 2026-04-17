@@ -32,6 +32,11 @@ int main(){
             BN_LOG("Current day:",global_var.currentDay());
         }
 
+        if(bn::keypad::select_held() && bn::keypad::b_pressed()){
+            global_var.setRoofCheckedDay3(true);
+            BN_LOG("Roof checked on day 3");
+        }
+
         global_var.getDialogManager().update();
         game::Timer::update();
         bn::core::update();
