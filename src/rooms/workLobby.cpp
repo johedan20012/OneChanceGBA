@@ -4,6 +4,7 @@
 
 #include "bn_regular_bg_items_bg_work_lobby.h"
 #include "bn_regular_bg_items_bg_work_lobby_b.h"
+#include "bn_regular_bg_items_bg_work_lobby_c.h"
 
 namespace game{
 WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
@@ -30,7 +31,9 @@ WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _g
         case 2:
             loadDay2();
             break;
-
+        case 3:
+            loadDay3();
+            break;
         default:
             loadDay1();
             break;
@@ -66,6 +69,27 @@ void WorkLobby::loadDay2(){
     }
 }
 
+void WorkLobby::loadDay3(){
+    bg->set_item(bn::regular_bg_items::bg_work_lobby_c);
+
+    if(!global_var.roofCheckedDay3()){
+        npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-9,12,5)));
+        npcs[0].getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
+        npcs[0].getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
+        DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,30,64),false,false);
+        dialog->addDialog(Pair<int,int>(25,210));
+        npcs[0].addDialog(dialog);
+
+    }else{
+        exits.push_back(RoomExit("house_molly",bn::fixed_rect(-110,20,30,64),DIRECTION::LEFT,true));
+        exits.back().info = "Go home";
+
+        #ifdef DEBUG_GAME
+        Room::createExitsDebug();
+        #endif
+    }
+}
+
 bn::optional<RoomExit> WorkLobby::update(){
     player.update();
 
@@ -76,7 +100,11 @@ bn::optional<RoomExit> WorkLobby::update(){
     if(npcs.size() > 0) npcs[0].checkDialog(player.boundaries());
 
     Room::update();
+    Room::updateExitsInfo();
 
-    return checkExits();
+    auto exit = checkExits();
+    if(global_var.currentDay() == 3 && global_var.roofCheckedDay3() && exit && exit->name == bn::string<15>("work_hall"))
+        global_var.setRoofCheckedDay3(false);
+    return exit;
 }
 }

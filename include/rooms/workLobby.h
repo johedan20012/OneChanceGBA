@@ -16,6 +16,7 @@ private:
 
     void loadDay1();
     void loadDay2();
+    void loadDay3();
 public:
     WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkLobby() override {}

@@ -31,7 +31,8 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Penny: Does anything really matter any more?",
         "Molly: Why don't I have to go to school today?",
         "Bruce: There must be something we can do.",
-/*25*/  ""     
+/*25*/  "Ryan: What's happened here?! Where is everyone?",
+        ""     
 };
 }
 
