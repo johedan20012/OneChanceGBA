@@ -28,12 +28,14 @@ private:
     GlobalVariables& global_var;
 
     bn::unique_ptr<JimNPC> jim;
+    bn::optional<NPC> npc;
 
-    CompositeSprite car1;
+    bn::optional<CompositeSprite> car1;
     bn::optional<CompositeSprite> car2;
 
     void loadDay1();
     void loadDay2();
+    void loadDay3();
 
 public:
     WorkParking(Player& _player,DIRECTION entering_from,GlobalVariables& _global);

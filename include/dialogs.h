@@ -1,6 +1,6 @@
 #ifndef DIALOGS_H
 #define DIALOGS_H
-#define MAX_DIALOGS 30
+#define MAX_DIALOGS 50
 
 #include "bn_string_view.h"
 
@@ -30,7 +30,8 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Penny: Do you really have to go in today?",
         "Penny: Does anything really matter any more?",
         "Molly: Why don't I have to go to school today?",
-        ""     
+        "Bruce: There must be something we can do.",
+/*25*/  ""     
 };
 }
 

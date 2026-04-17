@@ -3,9 +3,11 @@
 #include "bn_sprite_items_jim.h"
 #include "bn_sprite_items_car.h"
 #include "bn_sprite_palette_ptr.h"
+#include "bn_sprite_items_work_people.h"
 
 #include "bn_regular_bg_items_bg_bottom_text.h"
 #include "bn_regular_bg_items_bg_work_parking.h"
+#include "bn_regular_bg_items_bg_work_parking_b.h"
 
 #include "bn_optional.h"
 
@@ -29,11 +31,7 @@ void WorkParking::JimNPC::update(){
 
 WorkParking::WorkParking(Player& _player,DIRECTION entering_from,GlobalVariables& _global):
     Room(bn::regular_bg_items::bg_work_parking.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
-    global_var(_global),car1(){
-
-    car1.addSprite(bn::sprite_items::car.create_sprite(-31,0,0));
-    car1.addSprite(bn::sprite_items::car.create_sprite(0,0,1));
-    car1.addSprite(bn::sprite_items::car.create_sprite(31,0,2));
+    global_var(_global){
 
     player.setMovementBox(bn::fixed_rect(10,0,240,160));
 
@@ -55,7 +53,9 @@ WorkParking::WorkParking(Player& _player,DIRECTION entering_from,GlobalVariables
         case 2:
             loadDay2();
             break;
-        
+        case 3:
+            loadDay3();
+            break;
         default:
             loadDay1();
             break;
@@ -63,9 +63,15 @@ WorkParking::WorkParking(Player& _player,DIRECTION entering_from,GlobalVariables
 }
 
 void WorkParking::loadDay1(){
-    car1.set_position(bn::fixed_point(-5,57));
+    car1 = CompositeSprite();
 
-    bn::optional<bn::sprite_palette_ptr> car1_pal = car1.palette();
+    car1->addSprite(bn::sprite_items::car.create_sprite(-31,0,0));
+    car1->addSprite(bn::sprite_items::car.create_sprite(0,0,1));
+    car1->addSprite(bn::sprite_items::car.create_sprite(31,0,2));
+
+    car1->set_position(bn::fixed_point(-5,57));
+
+    bn::optional<bn::sprite_palette_ptr> car1_pal = car1->palette();
     if(car1_pal) car1_pal->set_color(3,bn::color(19,0,12));
 
     jim = bn::make_unique<JimNPC>();
@@ -77,9 +83,15 @@ void WorkParking::loadDay1(){
 }
 
 void WorkParking::loadDay2(){
-    car1.set_position(bn::fixed_point(-6,57));
+    car1 = CompositeSprite();
 
-    bn::optional<bn::sprite_palette_ptr> car1_pal = car1.palette();
+    car1->addSprite(bn::sprite_items::car.create_sprite(-31,0,0));
+    car1->addSprite(bn::sprite_items::car.create_sprite(0,0,1));
+    car1->addSprite(bn::sprite_items::car.create_sprite(31,0,2));
+
+    car1->set_position(bn::fixed_point(-6,57));
+
+    bn::optional<bn::sprite_palette_ptr> car1_pal = car1->palette();
     if(car1_pal) car1_pal->set_color(3,bn::color(23,26,7));
 
     bn::sprite_palette_ptr new_pal = bn::sprite_items::car.palette_item().create_new_palette();
@@ -96,7 +108,16 @@ void WorkParking::loadDay2(){
     car2_spr.set_palette(new_pal); 
     car2->addSprite(car2_spr);
     car2->set_position(bn::fixed_point(70,56));
+}
 
+void WorkParking::loadDay3(){
+    bg->set_item(bn::regular_bg_items::bg_work_parking_b);
+
+    npc = NPC(bn::sprite_items::work_people.create_sprite(65,36,2));
+    
+    DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,30,64),false,false);
+    dialog->addDialog(Pair<int,int>(24,150));
+    npc->addDialog(dialog);
 }
 
 WorkParking::~WorkParking(){
@@ -107,6 +128,11 @@ bn::optional<RoomExit> WorkParking::update(){
     if(jim){ 
         jim->update();
         jim->checkDialog(player.boundaries());
+    }
+
+    if(npc){ 
+        npc->lookAt(player.getPos(),true);
+        npc->checkDialog(player.boundaries());
     }
 
     player.update();
