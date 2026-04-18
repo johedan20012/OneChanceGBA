@@ -33,7 +33,9 @@ WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables
         case 2:
             loadDay2(entering_from);
             break;
-        
+        case 3:
+            loadDay3();
+            break;
         default:
             loadDay1();
             break;
@@ -52,9 +54,9 @@ void WorkLabDoor::loadDay2(DIRECTION entering_from){
     is_door_locked = true;
 
     npc = bn::sprite_items::work_people.create_sprite(-10,14,5);
-    npc.set_position(bn::fixed_point(-83,13));
-    npc.getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
-    npc.getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
+    npc->set_position(bn::fixed_point(-83,13));
+    npc->getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
+    npc->getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
     
     if(global_var.hasVisitedLabDoor()){
         global_var.getDialogManager().resetBg();
@@ -63,7 +65,7 @@ void WorkLabDoor::loadDay2(DIRECTION entering_from){
         DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,30,64),false);
         dialog->addDialog(Pair<int,int>(13,120));
         dialog->addDialog(Pair<int,int>(14,120));
-        npc.addDialog(dialog);
+        npc->addDialog(dialog);
     }
     global_var.setVisitedLabDoor(!global_var.hasVisitedLabDoor());
 
@@ -73,6 +75,27 @@ void WorkLabDoor::loadDay2(DIRECTION entering_from){
     if(entering_from == DIRECTION::LEFT){
         walk_mov = bn::sprite_move_to_action(walking_dude.value(),280,bn::fixed_point(-140,20));
         walk_anim = bn::create_sprite_animate_action_forever(walking_dude.value(),6,bn::sprite_items::walking_dude.tiles_item(),0,1);    
+    }
+}
+
+void WorkLabDoor::loadDay3(){
+    if(global_var.roofCheckedDay3()){
+        exits.back().trigger = bn::fixed_rect(-11,12,28,64);
+        
+        npc = NPC(bn::sprite_items::work_people.create_sprite(-11,12,5));
+        npc->getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
+        npc->getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
+        DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,30,64),false,false);
+        dialog->addDialog(Pair<int,int>(26,150));
+        dialog->addDialog(Pair<int,int>(27,240));
+        npc->addDialog(dialog);
+
+        #ifdef DEBUG_GAME
+        Room::createExitsDebug();
+        #endif
+    }else{
+        is_door_locked = true;
+        npc.reset();
     }
 }
 
@@ -88,9 +111,9 @@ bn::optional<RoomExit> WorkLabDoor::update(){
 
     player.update();
 
-    if(global_var.currentDay() == 2){
-        npc.lookAt(player.getPos(),true);
-        npc.checkDialog(player.boundaries());
+    if(npc && (global_var.currentDay() == 2 || global_var.currentDay() == 3)){
+        npc->lookAt(player.getPos(),true);
+        npc->checkDialog(player.boundaries());
     }
 
     Room::updateExitsInfo();

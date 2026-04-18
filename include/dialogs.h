@@ -32,6 +32,8 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Molly: Why don't I have to go to school today?",
         "Bruce: There must be something we can do.",
 /*25*/  "Ryan: What's happened here?! Where is everyone?",
+        "Ryan: You're going home Doc'?",
+        "Ryan: I've got the keys to the lab here if you want to work?",
         ""     
 };
 }

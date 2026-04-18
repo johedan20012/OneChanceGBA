@@ -14,8 +14,8 @@ class WorkLabDoor : public Room{
 private:
     GlobalVariables& global_var;
 
-    NPC npc;
-    bool is_door_locked;
+    bn::optional<NPC> npc;
+    bool is_door_locked = false;
 
     bn::optional<bn::sprite_ptr> walking_dude;
     bn::optional<bn::sprite_move_to_action> walk_mov;
@@ -23,6 +23,7 @@ private:
 
     void loadDay1();
     void loadDay2(DIRECTION entering_from);
+    void loadDay3();
 public:
     WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkLabDoor() override {}
