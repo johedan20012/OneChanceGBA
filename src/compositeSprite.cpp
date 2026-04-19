@@ -14,6 +14,12 @@ void CompositeSprite::addSprite(bn::sprite_ptr _sprite){
     //distToCenter.push_back(bn::sqrt((_sprite.position().x()-pos.x())*(_sprite.position().x()-pos.x()) + (_sprite.position().y()-pos.y())*(_sprite.position().y()-pos.y())));
 }
 
+void CompositeSprite::setZOrder(int z_order){
+    for(auto& sprite: sprites){
+        sprite.set_z_order(z_order);
+    }
+}
+
 void CompositeSprite::setVisibility(bool visible){
     for(auto& sprite: sprites){
         sprite.set_visible(visible);

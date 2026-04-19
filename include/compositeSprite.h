@@ -22,6 +22,8 @@ public:
 
     void addSprite(bn::sprite_ptr _sprite);
 
+    void setZOrder(int z_order);
+
     void setVisibility(bool visible);
 
     void set_position(bn::fixed_point _pos);

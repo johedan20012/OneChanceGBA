@@ -60,14 +60,21 @@ private:
     STATE state;
     bn::unique_ptr<Timer> timer;
 
-    Matthew matthew;
+    bn::unique_ptr<Matthew> matthew;
     CompositeSprite edge;
 
+    bn::optional<NPC> npc;
+
+    void loadDay2();
+    void loadDay3();
 public:
     WorkRoof(Player& _player,GlobalVariables& _global_var);
-    ~WorkRoof() = default;
+    ~WorkRoof();
 
     bn::optional<RoomExit> update() override;
+
+    bn::optional<RoomExit> updateDay2();
+    bn::optional<RoomExit> updateDay3();
 };
 }
 

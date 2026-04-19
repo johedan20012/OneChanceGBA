@@ -3,6 +3,7 @@
 #include "bn_sprite_items_matthew.h"
 #include "bn_sprite_affine_mat_ptr.h"
 #include "bn_sprite_items_roof_edge.h"
+#include "bn_sprite_items_work_people_b.h"
 
 #include "bn_regular_bg_items_bg_work_roof.h"
 #include "bn_regular_bg_items_bg_conference.h"
@@ -104,21 +105,9 @@ bool WorkRoof::Matthew::jumpfinished(){
 
 WorkRoof::WorkRoof(Player& _player,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_roof.create_bg(8,48),bn::fixed_rect(0,0,280,160),_player),
-    global_var(_global_var),state(STATE::NORMAL),matthew(),edge(){
+    global_var(_global_var),state(STATE::NORMAL),edge(){
 
     player.setPos(-98,25);
-
-    {
-    DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,50,64),false,false);
-    dialog->addDialog(Pair<int,int>(16,92));
-    dialog->addDialog(Pair<int,int>(17,157));
-    dialog->addDialog(Pair<int,int>(18,167));
-    dialog->addDialog(Pair<int,int>(19,133));
-    dialog->addDialog(Pair<int,int>(20,126));
-    matthew.addDialog(dialog);
-    }
-
-    matthew.setHorizontalFlip(true);
 
     edge.addSprite(bn::sprite_items::roof_edge.create_sprite(16,-32,0));
     edge.addSprite(bn::sprite_items::roof_edge.create_sprite(0,0,1));
@@ -127,29 +116,86 @@ WorkRoof::WorkRoof(Player& _player,GlobalVariables& _global_var):
 
     global_var.getDialogManager().resetBottomText();
     global_var.getDialogManager().setBg(bn::regular_bg_items::bg_bottom_text_b.create_bg(8,48));
+
+    switch (global_var.currentDay()){
+    case 3:
+        loadDay3();
+        break;
+    default:    // Day 1,2
+        loadDay2();
+        break;
+    }
+}
+
+WorkRoof::~WorkRoof(){
+    global_var.getDialogManager().resetBg();
+}
+
+void WorkRoof::loadDay2(){
+    matthew = bn::make_unique<Matthew>();
+
+    {
+    DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,50,64),false,false);
+    dialog->addDialog(Pair<int,int>(16,92));
+    dialog->addDialog(Pair<int,int>(17,157));
+    dialog->addDialog(Pair<int,int>(18,167));
+    dialog->addDialog(Pair<int,int>(19,133));
+    dialog->addDialog(Pair<int,int>(20,126));
+    matthew->addDialog(dialog);
+    }
+
+    matthew->setHorizontalFlip(true);
+}
+
+void WorkRoof::loadDay3(){
+    player.setMovementBox(bn::fixed_rect(-17,0,173,160));
+
+    npc = bn::sprite_items::work_people_b.create_sprite(0,13);
+
+    {
+    DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,40,64),false,false);
+    dialog->addDialog(Pair<int,int>(28,152));
+    dialog->addDialog(Pair<int,int>(29,168));
+    dialog->addDialog(Pair<int,int>(30,156));
+    npc->addDialog(dialog);
+    }
+
+    edge.setZOrder(-1);
 }
 
 bn::optional<RoomExit> WorkRoof::update(){
     player.update(state != STATE::NORMAL);
 
+    Room::update();
+
+    switch (global_var.currentDay()){
+    case 3:
+        return updateDay3();
+    case 2:
+    default: // Day 1 just for the lol's XD
+        return updateDay2();
+    }
+}
+
+bn::optional<RoomExit> WorkRoof::updateDay2(){
     switch (state){
     case STATE::DIALOG:
         if(timer == nullptr && !global_var.getDialogManager().hasADialogSequence()){
             timer = bn::make_unique<Timer>();
-            matthew.setHorizontalFlip(true);
+            matthew->setHorizontalFlip(true);
         }
         if(timer && timer->elapsedFrames() >= 35){
             state = STATE::ANIM;
             edge.setVisibility(false);
             timer.reset();
-            matthew.startJump();
+            matthew->startJump();
             BN_LOG("Change state to ANIM");
         }
         break;
 
     case STATE::ANIM:
-        matthew.update();
-        if(matthew.jumpfinished()){
+        matthew->update();
+        if(matthew->jumpfinished()){
             state = STATE::DARK;
             timer = bn::make_unique<Timer>();
             player.setVisible(false);
@@ -181,17 +227,43 @@ bn::optional<RoomExit> WorkRoof::update(){
         break;
     
     default: //Normal
-        matthew.checkDialog(player.boundaries());
+        matthew->checkDialog(player.boundaries());
 
         if(global_var.getDialogManager().hasADialogSequence()){
             state = STATE::DIALOG;
-            matthew.setHorizontalFlip(false);
+            matthew->setHorizontalFlip(false);
             BN_LOG("Change state to DIALOG");
         }
         break;
     }
+    return bn::nullopt;
+}
 
-    Room::update();
+bn::optional<RoomExit> WorkRoof::updateDay3(){
+    switch (state){
+    case STATE::DIALOG:
+        if(!global_var.getDialogManager().hasADialogSequence()){
+            state = STATE::NORMAL; 
+            exits.push_back(RoomExit("work_stairs",bn::fixed_rect(-120,23,40,64),DIRECTION::RIGHT,false));
+
+            #ifdef DEBUG_GAME
+            Room::createExitsDebug();
+            #endif
+        }
+        break;
+    default:
+        if(global_var.getDialogManager().hasADialogSequence()) state = STATE::DIALOG;
+
+        npc->checkDialog(player.boundaries());
+        npc->lookAt(player.getPos(),true);
+
+        auto exit = Room::checkExits();
+        if(exit){
+            global_var.setRoofCheckedDay3(true);
+            return exit;
+        }
+        break;
+    }
 
     return bn::nullopt;
 }
