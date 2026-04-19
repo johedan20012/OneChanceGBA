@@ -8,8 +8,7 @@
 namespace game{
 WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_stairs.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),
-    global_var(_global_var),
-    npcs{NPC(bn::sprite_items::work_people.create_sprite(-10,14,5)),NPC(bn::sprite_items::construction_guy.create_sprite(108,26,0))}{
+    global_var(_global_var){
 
     player.setMovementBox(bn::fixed_rect(-20.5,0,219,160));
 
@@ -31,7 +30,9 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& 
     case 2:
         loadDay2();
         break;
-    
+    case 3:
+        loadDay3();
+        break;
     default:
         loadDay1();
         break;
@@ -43,6 +44,9 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& 
 }
 
 void WorkStairs::loadDay1(){
+    npcs.push_back(bn::sprite_items::work_people.create_sprite(-10,14,5));
+    npcs.push_back(bn::sprite_items::construction_guy.create_sprite(108,26,0));
+
     npcs[0].getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
     npcs[0].getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
     
@@ -63,18 +67,25 @@ void WorkStairs::loadDay2(){
     exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
     exits.back().info = "Roof";
 
-    npcs[0] = bn::sprite_items::work_people.create_sprite(-38,15,2);
+    npcs.push_back(bn::sprite_items::work_people.create_sprite(-38,15,2));
     npcs[0].setHorizontalFlip(true);
-    npcs[1] = bn::sprite_items::work_people.create_sprite(-14,15,4);
+    npcs.push_back(bn::sprite_items::work_people.create_sprite(-14,15,4));
+}
+
+void WorkStairs::loadDay3(){
+    if(!global_var.roofCheckedDay3()){
+        exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
+        exits.back().info = "Roof";
+    }
 }
 
 bn::optional<RoomExit> WorkStairs::update(){
     player.update();
     
-    npcs[0].lookAt(player.getPos(),true);
-    npcs[0].checkDialog(player.boundaries());
-    npcs[1].checkDialog(player.boundaries());
-    npcs[1].lookAt(player.getPos(),true);
+    for(auto& npc : npcs){
+        npc.lookAt(player.getPos(),true);
+        npc.checkDialog(player.boundaries());
+    }
 
     Room::update();
     Room::updateExitsInfo();
