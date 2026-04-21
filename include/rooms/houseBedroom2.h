@@ -24,6 +24,7 @@ private:
     void loadDay1();
     void loadDay2();
     void loadDay3();
+    void loadDay4();
 public:
     HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~HouseBedroom2() override {}

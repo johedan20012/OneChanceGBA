@@ -5,6 +5,7 @@
 
 #include "bn_regular_bg_items_bg_house_3.h"
 #include "bn_regular_bg_items_bg_house_3_b.h"
+#include "bn_regular_bg_items_bg_house_3_c.h"
 
 namespace game{
 
@@ -32,6 +33,9 @@ HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVaria
             break;
         case 3:
             loadDay3();
+            break;
+        case 4:
+            loadDay4();
             break;
         default:
             loadDay1();
@@ -76,6 +80,12 @@ void HouseBedroom2::loadDay3(){
         player.setVisible(false);
         timer = bn::make_unique<Timer>();
     }
+}
+
+void HouseBedroom2::loadDay4(){
+    bg->set_item(bn::regular_bg_items::bg_house_3_c);
+    molly.setVisibility(false);
+    teddy_bear.set_visible(false);
 }
 
 bn::optional<RoomExit> HouseBedroom2::update(){
