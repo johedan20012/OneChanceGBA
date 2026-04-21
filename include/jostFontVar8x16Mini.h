@@ -12,7 +12,7 @@ constexpr bn::utf8_character JostFontVar8x16Mini_utf8_characters[] = {
 };
 constexpr int8_t JostFontVar8x16Mini_character_widths[] = {
     1,  // 32
-    4,  // 33 !
+    1,  // 33 !
     7,  // 34 "
     8,  // 35 #
     8,  // 36 $
@@ -42,25 +42,25 @@ constexpr int8_t JostFontVar8x16Mini_character_widths[] = {
     6,  // 60 <
     7,  // 61 =
     6,  // 62 >
-    7,  // 63 ?
+    4,  // 63 ?
     8,  // 64 @
-    6,  // 65 A
+    5,  // 65 A
     3,  // 66 B
-    6,  // 67 C
-    5,  // 68 D
+    4,  // 67 C
+    4,  // 68 D
     3,  // 69 E
     3,  // 70 F
-    7,  // 71 G
-    5,  // 72 H
+    5,  // 71 G
+    4,  // 72 H
     1,  // 73 I
     2,  // 74 J
-    4,  // 75 K
+    3,  // 75 K
     3,  // 76 L
-    7,  // 77 M
-    5,  // 78 N
-    7,  // 79 O
+    6,  // 77 M
+    4,  // 78 N
+    5,  // 79 O
     3,  // 80 P
-    7,  // 81 Q
+    6,  // 81 Q
     3,  // 82 R
     3,  // 83 S
     4,  // 84 T
@@ -82,7 +82,7 @@ constexpr int8_t JostFontVar8x16Mini_character_widths[] = {
     3,  // 100 d
     3,  // 101 e
     3,  // 102 f
-    4,  // 103 g
+    3,  // 103 g
     3,  // 104 h
     1,  // 105 i
     2,  // 106 j
@@ -90,18 +90,18 @@ constexpr int8_t JostFontVar8x16Mini_character_widths[] = {
     1,  // 108 l
     5,  // 109 m
     3,  // 110 n
-    5,  // 111 o
-    4,  // 112 p
-    5,  // 113 q
-    2,  // 114 r
+    3,  // 111 o
+    3,  // 112 p
+    3,  // 113 q
+    3,  // 114 r
     3,  // 115 s
-    2,  // 116 t
+    3,  // 116 t
     3,  // 117 u
     4,  // 118 v
     6,  // 119 w
     4,  // 120 x
     4,  // 121 y
-    4,  // 122 z
+    3,  // 122 z
     6,  // 123 {
     3,  // 124 |
     6,  // 125 }
