@@ -37,6 +37,9 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Boss: Don't worry John, I'm not going to jump.", 
         "Boss: Although I don't suppose it matters now.",
 /*30*/  "Boss: Go home and be with your family John.", 
+        "Penny: Look at all the plants dying...",
+        "Penny: I'm glad you came back last night",
+        "Penny: Now go get the paper and come back if youre not going\nto work today.",
         ""
 };
 }

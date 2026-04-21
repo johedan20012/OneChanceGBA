@@ -37,7 +37,7 @@ constexpr int8_t JostFontVar8x16Mini_character_widths[] = {
     7,  // 55 7
     7,  // 56 8
     7,  // 57 9
-    4,  // 58 :
+    2,  // 58 :
     4,  // 59 ;
     6,  // 60 <
     7,  // 61 =
@@ -45,11 +45,11 @@ constexpr int8_t JostFontVar8x16Mini_character_widths[] = {
     4,  // 63 ?
     8,  // 64 @
     5,  // 65 A
-    3,  // 66 B
+    4,  // 66 B
     4,  // 67 C
     4,  // 68 D
-    3,  // 69 E
-    3,  // 70 F
+    4,  // 69 E
+    4,  // 70 F
     5,  // 71 G
     4,  // 72 H
     1,  // 73 I

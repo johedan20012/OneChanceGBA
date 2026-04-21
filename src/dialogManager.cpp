@@ -31,7 +31,20 @@ void DialogManager::setBottomText(int dialog_index,int duration){
     if(duration >= 0) setBottomTextDuration(duration);
 
     bottom_text.clear();
-    bottom_text_gen.generate(bn::fixed_point(0,70),DIALOGS[dialog_index],bottom_text);
+    if(DIALOGS[dialog_index].contains('\n')){
+        int init = 0, end;
+        bn::fixed_point pos(0,68);
+        for(end = 0; end < DIALOGS[dialog_index].size(); end++){
+            if(DIALOGS[dialog_index][end] == '\n'){
+                if(end-init > 0){
+                    bottom_text_gen.generate(pos,DIALOGS[dialog_index].substr(init,end-init),bottom_text);
+                    pos += bn::fixed_point(1,7);
+                }
+                init = end+1;
+            }
+        }
+        if(end-init > 0) bottom_text_gen.generate(pos,DIALOGS[dialog_index].substr(init,end-init),bottom_text);
+    }else bottom_text_gen.generate(bn::fixed_point(0,70),DIALOGS[dialog_index],bottom_text);
     if(bottom_text_bg) bottom_text_bg->set_visible(true);
 }
 
