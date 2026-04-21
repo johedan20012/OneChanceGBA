@@ -5,6 +5,7 @@
 #include "bn_sprite_items_teddy.h"
 
 #include "bn_regular_bg_items_bg_house_2.h"
+#include "bn_regular_bg_items_bg_house_2b.h"
 
 namespace game{
 
@@ -44,6 +45,9 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _g
         case 3:
             loadDay3();
             break;
+        case 4:
+            loadDay4();
+            break;
         default:
             loadDay1(entering_from);
             break;
@@ -75,6 +79,12 @@ void HouseHall::loadDay3(){
     DialogTrigger* molly_dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,30,64),false,false);
     molly_dialog->addDialog(Pair<int,int>(23,180));
     npc->addDialog(molly_dialog);
+}
+
+void HouseHall::loadDay4(){
+    bg->set_item(bn::regular_bg_items::bg_house_2b);
+
+    npc->setVisibility(false);
 }
 
 bn::optional<RoomExit> HouseHall::update(){

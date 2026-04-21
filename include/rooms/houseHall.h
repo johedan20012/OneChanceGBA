@@ -21,6 +21,7 @@ private:
     void loadDay1(DIRECTION entering_from);
     void loadDay2();
     void loadDay3();
+    void loadDay4();
 public:
     HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~HouseHall() override {}
