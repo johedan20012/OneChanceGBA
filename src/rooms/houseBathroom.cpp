@@ -29,6 +29,7 @@ HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVaria
             loadDay2();
             break;
         case 3:
+        case 4:
             loadDay3();
             break;
         default:
