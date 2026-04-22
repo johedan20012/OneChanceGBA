@@ -5,6 +5,7 @@
 #include "bn_sprite_tiles_ptr.h"
 #include "bn_sprite_animate_actions.h"
 
+#include "bn_color.h"
 #include "bn_keypad.h"
 #include "bn_fixed_rect.h"
 #include "bn_unique_ptr.h"
@@ -19,6 +20,12 @@ private:
         BENDING,
         END_BENDING,
         STANDING_UP,
+    };
+
+    static constexpr bn::color NIGHT_PAL[16] = {
+        bn::color(0,12,0),bn::color(0,0,0),bn::color(1,1,2),
+        bn::color(2,2,3),bn::color(5,3,2),bn::color(11,9,6),
+        bn::color(5,6,6),bn::color(10,13,17),bn::color(27,27,27),
     };
 
     bn::sprite_ptr sprite;
@@ -46,6 +53,8 @@ public:
 
     bn::sprite_tiles_ptr getTilesItem();
     bool getHorizontalFlip();
+
+    void useNightColors(bool use_night);
 
     bn::fixed_rect boundaries();
 

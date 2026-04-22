@@ -35,6 +35,10 @@ int main(){
         if(bn::keypad::select_held() && bn::keypad::b_pressed()){
             global_var.setRoofCheckedDay3(true);
             BN_LOG("Roof checked on day 3");
+            BN_LOG("Work skipped on day 4A");
+            global_var.setWorkSkippedDay4A(true);
+            character.useNightColors(true);
+            character.takeOffLabCoat();
         }
 
         global_var.getDialogManager().update();

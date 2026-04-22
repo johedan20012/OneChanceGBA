@@ -1,5 +1,6 @@
 #include "player.h"
 
+#include "bn_sprite_palette_ptr.h"
 #include "bn_sprite_items_character.h"
 
 #include "bn_log.h"
@@ -40,6 +41,12 @@ bn::sprite_tiles_ptr Player::getTilesItem(){
 
 bool Player::getHorizontalFlip(){
     return sprite.horizontal_flip();
+}
+
+void Player::useNightColors(bool use_night){
+    auto spr_pal = sprite.palette();
+    if(use_night) spr_pal.set_colors(NIGHT_PAL);
+    else spr_pal.set_colors(bn::sprite_items::character.palette_item());
 }
 
 bn::fixed_rect Player::boundaries(){

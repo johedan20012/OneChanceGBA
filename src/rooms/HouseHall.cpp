@@ -6,6 +6,7 @@
 
 #include "bn_regular_bg_items_bg_house_2.h"
 #include "bn_regular_bg_items_bg_house_2b.h"
+#include "bn_regular_bg_items_bg_house_2c.h"
 
 namespace game{
 
@@ -82,7 +83,12 @@ void HouseHall::loadDay3(){
 }
 
 void HouseHall::loadDay4(){
-    bg->set_item(bn::regular_bg_items::bg_house_2b);
+    if(global_var.workSkippedDay4A()){
+        bg->set_item(bn::regular_bg_items::bg_house_2c);
+        exits.pop_back(); // Delete exits "Go to Work"
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_2b);
+    }
 
     npc->setVisibility(false);
 }
