@@ -44,7 +44,9 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
 /*35*/  "Penny: You know what, don't even answer.",
         "Penny: I can't believe you'd do this to me\nat a time like this.",
         "Penny: I'm taking Molly to my mothers.\nGoodbye John.",
-        ""
+        "Boss: John, we need you at the lab.",
+        "Boss: We could be on to something, but we understand if\nyou want to be with your family.",
+/*40*/  ""
 };
 }
 

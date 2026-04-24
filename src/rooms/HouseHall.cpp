@@ -26,6 +26,9 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _g
     case DIRECTION::DOOR2:
         player.setPos(-8,29);
         break;
+    case DIRECTION::RIGHT:
+        player.setPos(106,29);
+        break;
     default:
         player.setPos(0,29);
         break;
