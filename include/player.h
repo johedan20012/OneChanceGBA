@@ -54,6 +54,7 @@ public:
     bn::sprite_tiles_ptr getTilesItem();
     bool getHorizontalFlip();
 
+    bn::sprite_palette_ptr getPalettePtr();
     void useNightColors(bool use_night);
 
     bn::fixed_rect boundaries();

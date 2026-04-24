@@ -7,6 +7,7 @@
 #include "bn_regular_bg_items_bg_house_1.h"
 #include "bn_regular_bg_items_bg_house_1b.h"
 #include "bn_regular_bg_items_bg_house_1c.h"
+#include "bn_regular_bg_items_bg_house_1d.h"
 
 namespace game{
 
@@ -84,26 +85,43 @@ void HouseBedroom1::loadDay3(){
 }
 
 void HouseBedroom1::loadDay4(){
-    bg->set_item(bn::regular_bg_items::bg_house_1c);
+    if(global_var.workSkippedDay4A()){
+        bg->set_item(bn::regular_bg_items::bg_house_1d);
 
-    white_lab_coat.set_rotation_angle(90);
-    white_lab_coat.set_position(bn::fixed_point(23,48));
+        white_lab_coat.set_visible(false);
 
-    white_lab_coat2 = bn::sprite_items::lab_coat.create_sprite(75,60);
-    white_lab_coat2->set_rotation_angle(90);
-    white_lab_coat2->set_bg_priority(2);
-    white_lab_coat2->set_z_order(2);
-    
-    penny = bn::sprite_items::penny.create_sprite(26,25,1);
-    DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(-14,0,31,64),false,false);
-    dialog->addDialog(Pair<int,int>(31,148));
-    dialog->addDialog(Pair<int,int>(32,208));
-    dialog->addDialog(Pair<int,int>(33,340));
-    penny->addDialog(dialog);
+        penny = bn::sprite_items::penny.create_sprite(-17,26,0);
+        DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,60,64),false,false);
+        dialog->addDialog(Pair<int,int>(34,136));
+        dialog->addDialog(Pair<int,int>(35,186));
+        dialog->addDialog(Pair<int,int>(36,292));
+        dialog->addDialog(Pair<int,int>(37,168));
+        penny->addDialog(dialog);
+        penny->setHorizontalFlip(true);
+        penny->getPalette().set_colors(penny_dark_pal);
+
+        player_reflexion.set_palette(player.getPalettePtr());
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_1c);
+
+        white_lab_coat.set_rotation_angle(90);
+        white_lab_coat.set_position(bn::fixed_point(23,48));
+
+        white_lab_coat2 = bn::sprite_items::lab_coat.create_sprite(75,60);
+        white_lab_coat2->set_rotation_angle(90);
+        white_lab_coat2->set_bg_priority(2);
+        white_lab_coat2->set_z_order(2);
+        
+        penny = bn::sprite_items::penny.create_sprite(26,25,1);
+        DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(-14,0,31,64),false,false);
+        dialog->addDialog(Pair<int,int>(31,148));
+        dialog->addDialog(Pair<int,int>(32,208));
+        dialog->addDialog(Pair<int,int>(33,340));
+        penny->addDialog(dialog);
+    }
 }
 
 bn::optional<RoomExit> HouseBedroom1::update(){
-    player.update(global_var.currentDay() == 4 && global_var.getDialogManager().hasADialogSequence());
     player_reflexion.set_position(player.getPos() + bn::fixed_point(13,-10));
     player_reflexion.set_tiles(player.getTilesItem());
     player_reflexion.set_horizontal_flip(player.getHorizontalFlip());
@@ -112,7 +130,39 @@ bn::optional<RoomExit> HouseBedroom1::update(){
         penny->checkDialog(player.boundaries());
         penny->lookAt(player.getPos(),true);
     }
+
+    if(global_var.currentDay() == 4){
+        if(global_var.workSkippedDay4A()){
+            if(global_var.getDialogManager().hasADialogSequence()) day4ADialogStarted = true;
+            player.update(day4ADialogStarted);
+
+            if(day4ADialogStarted && !global_var.getDialogManager().hasADialogSequence() && !bg_fade_to_black){
+                bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
+                bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
+                bg_fade_to_black = bn::bg_palettes_fade_to_action(132,1);
+                spr_fade_to_black = bn::sprite_palettes_fade_to_action(132,1);
+            }
+
+            if(bg_fade_to_black){ 
+                if(bg_fade_to_black->done() || spr_fade_to_black->done()){
+                    bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
+                    bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
+                    player.useNightColors(false);
+                    return RoomExit("day_change",DIRECTION::LEFT);
+                }
+                bg_fade_to_black->update();
+                spr_fade_to_black->update();
+            }
+        }else{
+            player.update(global_var.currentDay() == 4 && global_var.getDialogManager().hasADialogSequence());
+        }
+
+    }else player.update(); 
+
     Room::update();
+    #ifdef DEBUG_GAME
+    if(mov) mov->update();
+    #endif
 
     return checkExits();
 }

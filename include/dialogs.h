@@ -40,6 +40,10 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Penny: Look at all the plants dying...",
         "Penny: I'm glad you came back last night",
         "Penny: Now go get the paper and come back if youre not going\nto work today.",
+        "Penny: Where have you been?",
+/*35*/  "Penny: You know what, don't even answer.",
+        "Penny: I can't believe you'd do this to me\nat a time like this.",
+        "Penny: I'm taking Molly to my mothers.\nGoodbye John.",
         ""
 };
 }

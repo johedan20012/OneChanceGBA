@@ -43,6 +43,10 @@ bool Player::getHorizontalFlip(){
     return sprite.horizontal_flip();
 }
 
+bn::sprite_palette_ptr Player::getPalettePtr(){
+    return sprite.palette();
+}
+
 void Player::useNightColors(bool use_night){
     auto spr_pal = sprite.palette();
     if(use_night) spr_pal.set_colors(NIGHT_PAL);
