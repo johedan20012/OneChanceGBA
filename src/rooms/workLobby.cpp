@@ -34,10 +34,17 @@ WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _g
         case 3:
             loadDay3();
             break;
+        case 4:
+            loadDay4();
+            break;
         default:
             loadDay1();
             break;
     }
+    
+    #ifdef DEBUG_GAME
+    Room::createExitsDebug();
+    #endif
 }
 
 void WorkLobby::loadDay1(){
@@ -83,11 +90,11 @@ void WorkLobby::loadDay3(){
     }else{
         exits.push_back(RoomExit("house_molly",bn::fixed_rect(-110,20,30,64),DIRECTION::LEFT,true));
         exits.back().info = "Go home";
-
-        #ifdef DEBUG_GAME
-        Room::createExitsDebug();
-        #endif
     }
+}
+
+void WorkLobby::loadDay4(){
+    bg->set_item(bn::regular_bg_items::bg_work_lobby_c);
 }
 
 bn::optional<RoomExit> WorkLobby::update(){
