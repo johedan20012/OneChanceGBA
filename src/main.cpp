@@ -36,7 +36,7 @@ int main(){
             global_var.setRoofCheckedDay3(true);
             BN_LOG("Roof checked on day 3");
             BN_LOG("Work skipped on day 4A");
-            global_var.setWorkSkippedDay4A(true);
+            global_var.setDayChoice(4,game::CHOICE::SKIP_WORK);
             character.useNightColors(true);
             character.takeOffLabCoat();
         }

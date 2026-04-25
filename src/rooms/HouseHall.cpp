@@ -86,7 +86,7 @@ void HouseHall::loadDay3(){
 }
 
 void HouseHall::loadDay4(){
-    if(global_var.workSkippedDay4A()){
+    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
         bg->set_item(bn::regular_bg_items::bg_house_2c);
         exits.pop_back(); // Delete exits "Go to Work"
     }else{

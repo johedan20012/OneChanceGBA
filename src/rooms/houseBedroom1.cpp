@@ -85,7 +85,7 @@ void HouseBedroom1::loadDay3(){
 }
 
 void HouseBedroom1::loadDay4(){
-    if(global_var.workSkippedDay4A()){
+    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
         bg->set_item(bn::regular_bg_items::bg_house_1d);
 
         white_lab_coat.set_visible(false);
@@ -132,7 +132,7 @@ bn::optional<RoomExit> HouseBedroom1::update(){
     }
 
     if(global_var.currentDay() == 4){
-        if(global_var.workSkippedDay4A()){
+        if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
             if(global_var.getDialogManager().hasADialogSequence()) day4ADialogStarted = true;
             player.update(day4ADialogStarted);
 

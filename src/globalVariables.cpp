@@ -69,12 +69,4 @@ bool GlobalVariables::roofCheckedDay3(){
 void GlobalVariables::setRoofCheckedDay3(bool checked){
     roof_checked_day_3 = checked;
 }
-
-bool GlobalVariables::workSkippedDay4A(){
-    return work_skipped_day_4A;
-}
-
-void GlobalVariables::setWorkSkippedDay4A(bool skipped){
-    work_skipped_day_4A = skipped;
-}
 }

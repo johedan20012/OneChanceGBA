@@ -25,6 +25,7 @@ private:
     /* Especific room and day information */
     bool visited_work_lab_door = false;
     bool roof_checked_day_3 = false;
+    bool go_home_day_4A = false;
     bool work_skipped_day_4A = false;
 public:
     GlobalVariables() = default;
@@ -43,9 +44,6 @@ public:
 
     bool roofCheckedDay3();
     void setRoofCheckedDay3(bool checked);
-
-    bool workSkippedDay4A();
-    void setWorkSkippedDay4A(bool skipped);
 };
 }
 
