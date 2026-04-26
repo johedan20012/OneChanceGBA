@@ -62,6 +62,14 @@ void GlobalVariables::setVisitedLabDoor(bool visited){
     visited_work_lab_door = visited;
 }
 
+bool GlobalVariables::hasVisitedWorkHall(){
+    return visited_work_hall;
+}
+
+void GlobalVariables::setVisitedWorkHall(bool visited){
+    visited_work_hall = visited;
+}
+
 bool GlobalVariables::roofCheckedDay3(){
     return roof_checked_day_3;
 }

@@ -37,6 +37,9 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _glo
         case 3:
             loadDay3(entering_from);
             break;
+        case 4:
+            loadDay4();
+            break;
         default:
             loadDay1(entering_from);
             break;
@@ -96,7 +99,29 @@ void WorkHall::loadDay3(DIRECTION entering_from){
     }
 }
 
+void WorkHall::loadDay4(){
+    small_cabinet.set_rotation_angle(90);
+    small_cabinet.set_position(-36,26);
+
+    npcs.push_back(NPC(bn::sprite_items::work_people.create_sprite(-5,16,9)));
+    if(!global_var.hasVisitedWorkHall()){
+        DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(-13,0,24,64),false,false);
+        dialog->addDialog(Pair<int,int>(40,200));
+        dialog->addDialog(Pair<int,int>(41,296));
+        dialog->addDialog(Pair<int,int>(42,176));
+        npcs[0].addDialog(dialog);
+    }
+    global_var.setVisitedWorkHall(!global_var.hasVisitedWorkHall());
+
+    exits.push_back(RoomExit("skip_work",bn::fixed_rect(1,23,58,64),DIRECTION::RIGHT,true));
+    exits.back().info = "Skip work";
+}
+
 bn::optional<RoomExit> WorkHall::update(){
+
+    #ifdef DEBUG_GAME
+    if(mov) mov->update();
+    #endif
 
     if(walk_anim) walk_anim->update();
     if(walk_mov){
@@ -107,7 +132,12 @@ bn::optional<RoomExit> WorkHall::update(){
         }
     }
 
-    player.update();
+    player.update(global_var.currentDay() == 4 && global_var.getDialogManager().hasADialogSequence());
+
+    if(global_var.currentDay() == 4 && npcs.size() > 0){
+        npcs[0].lookAt(player.getPos(),true);
+        npcs[0].checkDialog(player.boundaries());    
+    }
 
     if(npcs.size() >= 2){ 
         npcs[1].lookAt(player.getPos(),true);

@@ -24,6 +24,7 @@ private:
 
     /* Especific room and day information */
     bool visited_work_lab_door = false;
+    bool visited_work_hall = false;
     bool roof_checked_day_3 = false;
     bool go_home_day_4A = false;
     bool work_skipped_day_4A = false;
@@ -41,6 +42,9 @@ public:
 
     bool hasVisitedLabDoor();
     void setVisitedLabDoor(bool visited);
+
+    bool hasVisitedWorkHall();
+    void setVisitedWorkHall(bool visited);
 
     bool roofCheckedDay3();
     void setRoofCheckedDay3(bool checked);

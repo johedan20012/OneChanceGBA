@@ -10,6 +10,11 @@
 #include "room.h"
 #include "globalVariables.h"
 
+#ifdef DEBUG_GAME
+#include "bn_unique_ptr.h"
+#include "moveable.h"
+#endif
+
 namespace game{
 class WorkHall : public Room{
 private:
@@ -23,9 +28,14 @@ private:
 
     bn::sprite_ptr small_cabinet;
 
+    #ifdef DEBUG_GAME
+    bn::unique_ptr<Moveable<NPC>> mov;
+    #endif 
+
     void loadDay1(DIRECTION entering_from);
     void loadDay2();
     void loadDay3(DIRECTION entering_from);
+    void loadDay4();
 public:
     WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkHall() override {}

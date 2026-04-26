@@ -15,6 +15,7 @@ DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     
     global_var.goNextDay();
     global_var.setVisitedLabDoor(false);
+    global_var.setVisitedWorkHall(false);
 
     BN_LOG("Day 1:",global_var.dayChoice(1));
     BN_LOG("Day 2:",global_var.dayChoice(2));
