@@ -25,13 +25,13 @@ private:
     void loadDay2();
     void loadDay3();
     void loadDay4();
+
+    bn::optional<RoomExit> updateDay3_4A();
 public:
     HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~HouseBedroom2() override {}
 
     bn::optional<RoomExit> update() override;
-
-    bn::optional<RoomExit> updateDay3();
 };
 }
 #endif

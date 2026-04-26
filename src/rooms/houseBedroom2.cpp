@@ -6,6 +6,9 @@
 #include "bn_regular_bg_items_bg_house_3.h"
 #include "bn_regular_bg_items_bg_house_3_b.h"
 #include "bn_regular_bg_items_bg_house_3_c.h"
+#include "bn_regular_bg_items_bg_house_3_d.h"
+
+#include "bn_log.h"
 
 namespace game{
 
@@ -83,9 +86,23 @@ void HouseBedroom2::loadDay3(){
 }
 
 void HouseBedroom2::loadDay4(){
-    bg->set_item(bn::regular_bg_items::bg_house_3_c);
     molly.setVisibility(false);
     teddy_bear.set_visible(false);
+
+    if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
+        bg->set_item(bn::regular_bg_items::bg_house_3_d);
+    }else if(global_var.dayChoice(4) == CHOICE::GO_HOME){
+        showing_go_home_option = true;
+        global_var.getDialogManager().resetBg();
+        global_var.getDialogManager().resetBottomText();
+        bg->set_item(bn::regular_bg_items::bg_house_3_b);
+        bg->set_visible(false);
+        bg_paper->set_visible(false);
+        player.setVisible(false);
+        timer = bn::make_unique<Timer>();
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_3_c);
+    }
 }
 
 bn::optional<RoomExit> HouseBedroom2::update(){
@@ -95,14 +112,14 @@ bn::optional<RoomExit> HouseBedroom2::update(){
 
     Room::update();
 
-    if(global_var.currentDay() == 3){
-        return updateDay3();
+    if(global_var.currentDay() == 3 || global_var.currentDay() == 4){
+        return updateDay3_4A();
     }
 
     return checkExits();
 }
 
-bn::optional<RoomExit> HouseBedroom2::updateDay3(){
+bn::optional<RoomExit> HouseBedroom2::updateDay3_4A(){
     if(showing_go_home_option){
         if(timer && timer->elapsedFrames() == 92){
             bg->set_visible(true);

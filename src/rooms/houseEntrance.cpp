@@ -259,6 +259,10 @@ bn::optional<RoomExit> HouseEntrance::updateDay4(){
             newspaper_bg->set_priority(1);
             newspaper_showed = true;
         }
+
+        auto exit = Room::checkExits();
+        if(exit && exit->name == bn::string_view("house_molly")) global_var.setDayChoice(global_var.currentDay(),CHOICE::GO_HOME);
+        return exit;
     }
 
     return Room::checkExits();
