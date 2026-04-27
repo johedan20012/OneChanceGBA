@@ -36,6 +36,9 @@ WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables
         case 3:
             loadDay3();
             break;
+        case 4:
+            loadDay4();
+            break;
         default:
             loadDay1();
             break;
@@ -97,6 +100,11 @@ void WorkLabDoor::loadDay3(){
         is_door_locked = true;
         npc.reset();
     }
+}
+
+void WorkLabDoor::loadDay4(){
+    is_door_locked = false;
+    npc.reset();
 }
 
 bn::optional<RoomExit> WorkLabDoor::update(){
