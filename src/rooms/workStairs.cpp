@@ -33,6 +33,9 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& 
     case 3:
         loadDay3();
         break;
+    case 4:
+        loadDay4();
+        break;
     default:
         loadDay1();
         break;
@@ -74,9 +77,18 @@ void WorkStairs::loadDay2(){
 
 void WorkStairs::loadDay3(){
     if(!global_var.roofCheckedDay3()){
+        player.setMovementBox(bn::fixed_rect(-17,0,226,160));
+        
         exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
         exits.back().info = "Roof";
     }
+}
+
+void WorkStairs::loadDay4(){
+    player.setMovementBox(bn::fixed_rect(-17,0,226,160));
+
+    exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
+    exits.back().info = "Roof";
 }
 
 bn::optional<RoomExit> WorkStairs::update(){
