@@ -25,11 +25,16 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
         case 3:
             loadDay3();
             break;
+        case 4:
+            loadDay4();
+            break;
         case 2:
         default:
             loadDay1_2();
             break;
     }
+
+    initial_dark = bn::make_unique<Timer>();
 
     setVisibility(false);
 }
@@ -64,23 +69,33 @@ void WorkLab::loadDay3(){
     player.setPos(-13,23);
 }
 
-bn::optional<RoomExit> WorkLab::update(){
+void WorkLab::loadDay4(){
+    npcs.push_back(bn::sprite_items::work_people_b.create_sprite(-110,22));
+    npcs.back().setHorizontalFlip(true);
+    npcs.push_back(bn::sprite_items::work_people.create_sprite(103,23,2));
+    npcs.push_back(bn::sprite_items::work_people.create_sprite(-48,23,5));
+    npcs.back().setHorizontalFlip(true);
+    npcs.back().getPalette().set_color(12,bn::color(6,3,2)); //Change hair color
+    npcs.back().getPalette().set_color(19,bn::color(0,0,0)); //Change shirt color
 
-    if(initial_dark.elapsedFrames() <= 54){
-        if(initial_dark.elapsedFrames() >= 54){
-            setVisibility(true);
-        }
+    player.setPos(-13,23);
+    dark_frames = 44;
+    show_frames = 174;
+}
+
+bn::optional<RoomExit> WorkLab::update(){
+    if(initial_dark && initial_dark->elapsedFrames() >= dark_frames){
+        setVisibility(true);
+        end_room = bn::make_unique<Timer>();
+        initial_dark.reset();
     }
 
-    if(initial_dark.elapsedFrames() >= 54){
-        if(end_room.elapsedFrames() >= 240){
+    if(end_room && end_room->elapsedFrames() >= show_frames){
             return RoomExit("day_change",DIRECTION::DOOR1);
-        }
     }
 
     Room::update();
 
     return bn::nullopt;
 }
-
 }
