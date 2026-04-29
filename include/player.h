@@ -7,9 +7,11 @@
 
 #include "bn_color.h"
 #include "bn_keypad.h"
+#include "bn_vector.h"
 #include "bn_fixed_rect.h"
 #include "bn_unique_ptr.h"
 
+#include "pair.h"
 #include "timer.h"
 
 namespace game{
@@ -22,14 +24,21 @@ private:
         STANDING_UP,
     };
 
-    static constexpr bn::color NIGHT_PAL[16] = {
-        bn::color(0,12,0),bn::color(0,0,0),bn::color(1,1,2),
-        bn::color(2,2,3),bn::color(5,3,2),bn::color(11,9,6),
-        bn::color(5,6,6),bn::color(10,13,17),bn::color(27,27,27),
+    static constexpr bn::fixed_rect LIGHT_BOX = bn::fixed_rect(63.5,0,67,20);
+    static constexpr bn::fixed PLAYER_SPEED = 0.75;
+    static constexpr bn::fixed_point LIGHT_POS[2] = {
+        bn::fixed_point(46,-2),
+        bn::fixed_point(82,-2)
     };
 
+    int indx_spr_still = 0;
+    int indx_spr_mov_1 = 2;
+    int indx_spr_mov_2 = 1;
+    int indx_spr_bend_1 = 3;
+    int indx_spr_bend_2 = 4;
+
+    bn::sprite_tiles_ptr spr_tiles;
     bn::sprite_ptr sprite;
-    bn::sprite_animate_action<2> walking;
 
     STATE state;
 
@@ -41,6 +50,29 @@ private:
     bn::fixed_rect movement_box;
 
     bool lab_coat = true;
+
+    // Walking animation
+    int walk_indx = 0;
+    int walk_elapsed_frames = 0;
+    static constexpr int wait_frames = 6;
+    int walk_tile_indx[2] = {2,1};
+
+    bool use_light_bathroom_day_4 = false;
+    int curr_tiles = 0;
+    int y_level = 16;
+
+    bool fliped = false;
+    bool wait_frame = false;
+
+    void resetWalk();
+    void updateWalk();
+
+    void changeTiles(int tiles_start);
+
+    uint32_t getLightRow(int spr,int x,int row);
+    uint32_t getLightRow(int spr,bn::fixed_point row_start_pos);
+
+    void updateLightBathroomDay4(); // Very specific i know
 public:
     Player();
 
@@ -70,6 +102,8 @@ public:
     void setVisible(bool _visible);
 
     void setHflip(bool flip);
+
+    void setUseLightBathroomDay4(bool use);
 
     void update(bool frozen = false);
 };

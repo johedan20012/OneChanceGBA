@@ -2,8 +2,10 @@
 
 #include "bn_sprite_items_lab_coat.h"
 #include "bn_sprite_items_penny_bathtub.h"
+#include "bn_sprite_items_light_bathroom.h"
 
 #include "bn_regular_bg_items_bg_house_4.h"
+#include "bn_regular_bg_items_bg_house_4_b.h"
 
 namespace game{
 
@@ -29,12 +31,18 @@ HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVaria
             loadDay2();
             break;
         case 3:
-        case 4:
             loadDay3();
+            break;
+        case 4:
+            loadDay4();
             break;
         default:
             break;
     }
+}
+
+HouseBathroom::~HouseBathroom(){
+    player.setUseLightBathroomDay4(false);
 }
 
 void HouseBathroom::loadDay2(){
@@ -53,6 +61,19 @@ void HouseBathroom::loadDay3(){
     coat->set_rotation_angle(90);
     bn::sprite_palette_ptr pal =  coat->palette();
     pal.set_color(2,bn::color(19,6,12));
+}
+
+void HouseBathroom::loadDay4(){
+    loadDay3();
+
+    if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
+        bg->set_item(bn::regular_bg_items::bg_house_4_b);
+
+        //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(46,-2,0));
+        //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(82,-2,1));
+
+        player.setUseLightBathroomDay4(true);
+    }
 }
 
 bn::optional<RoomExit> HouseBathroom::update(){

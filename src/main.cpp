@@ -38,8 +38,12 @@ int main(){
             BN_LOG("Work skipped on day 4A");
             global_var.setDayChoice(4,game::CHOICE::SKIP_WORK);
             character.useNightColors(true);
-            character.takeOffLabCoat();
         }
+
+        if(bn::keypad::select_held()){
+            BN_LOG("CPU:",int(bn::core::last_cpu_usage()*100),"%");
+        }
+        
 
         global_var.getDialogManager().update();
         game::Timer::update();
