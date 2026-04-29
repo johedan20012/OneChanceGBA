@@ -67,14 +67,15 @@ private:
 
     void loadDay2();
     void loadDay3();
+    void loadDay4();
+
+    bn::optional<RoomExit> updateDay2();
+    bn::optional<RoomExit> updateDay3();
 public:
     WorkRoof(Player& _player,GlobalVariables& _global_var);
     ~WorkRoof();
 
     bn::optional<RoomExit> update() override;
-
-    bn::optional<RoomExit> updateDay2();
-    bn::optional<RoomExit> updateDay3();
 };
 }
 

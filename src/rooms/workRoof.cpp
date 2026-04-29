@@ -121,6 +121,9 @@ WorkRoof::WorkRoof(Player& _player,GlobalVariables& _global_var):
     case 3:
         loadDay3();
         break;
+    case 4:
+        loadDay4();
+        break;
     default:    // Day 1,2
         loadDay2();
         break;
@@ -163,6 +166,13 @@ void WorkRoof::loadDay3(){
     edge.setZOrder(-1);
 }
 
+void WorkRoof::loadDay4(){
+    player.setMovementBox(bn::fixed_rect(-21,0,148,160));
+    player.setPos(-93,25);
+
+    exits.push_back(RoomExit("work_stairs",bn::fixed_rect(-120,23,40,64),DIRECTION::RIGHT,false));
+}
+
 bn::optional<RoomExit> WorkRoof::update(){
     player.update(state != STATE::NORMAL);
 
@@ -174,7 +184,11 @@ bn::optional<RoomExit> WorkRoof::update(){
     case 2:
     default: // Day 1 just for the lol's XD
         return updateDay2();
+    case 4: // No need for update on day 4
+        return Room::checkExits();
     }
+
+    return bn::nullopt;
 }
 
 bn::optional<RoomExit> WorkRoof::updateDay2(){
