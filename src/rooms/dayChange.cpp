@@ -5,6 +5,7 @@
 #include "bn_regular_bg_items_bg_house_1.h"
 
 #include "bn_log.h"
+#include "bn_music_items.h"
 
 #include "jostFontVar8x16Mini.h"
 
@@ -73,6 +74,10 @@ DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     pal2 = text.back().palette();
     pal2->set_fade_color(bn::color(0,0,0));
     pal2->set_fade_intensity(1);
+}
+
+DayChange::~DayChange(){
+    if(global_var.currentDay() == 1) bn::music_items::music.play(1,true);
 }
 
 bn::optional<RoomExit> DayChange::update(){

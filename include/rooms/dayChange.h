@@ -39,7 +39,7 @@ private:
     GlobalVariables& global_var;
 public:
     DayChange(Player& _player,GlobalVariables& _global_var);
-    ~DayChange() override {};
+    ~DayChange() override;
 
     bn::optional<RoomExit> update() override;
 };
