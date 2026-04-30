@@ -1,6 +1,9 @@
 #include "compositeSprite.h"
 
+#include "bn_sprite_tiles_ptr.h"
+
 #include "bn_log.h"
+#include "bn_assert.h"
 
 namespace game{
 CompositeSprite::CompositeSprite():
@@ -12,6 +15,12 @@ void CompositeSprite::addSprite(bn::sprite_ptr _sprite){
     sprites.push_back(_sprite);
     origOffset.push_back(_sprite.position()-pos);
     //distToCenter.push_back(bn::sqrt((_sprite.position().x()-pos.x())*(_sprite.position().x()-pos.x()) + (_sprite.position().y()-pos.y())*(_sprite.position().y()-pos.y())));
+}
+
+void CompositeSprite::changeSpriteTiles(int sprite,const bn::sprite_tiles_item& tiles_item,int tile_indx){
+    BN_ASSERT(sprite >= 0 && sprite < sprites.size(),"Index out of range");
+
+    sprites[sprite].set_tiles(tiles_item,tile_indx);
 }
 
 void CompositeSprite::setZOrder(int z_order){

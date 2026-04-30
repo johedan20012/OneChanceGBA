@@ -2,6 +2,7 @@
 #define COMPOSITESPRITE_H
 
 #include "bn_sprite_ptr.h"
+#include "bn_sprite_tiles_item.h"
 #include "bn_sprite_palette_ptr.h"
 
 #include "bn_math.h"
@@ -21,6 +22,7 @@ public:
     CompositeSprite();
 
     void addSprite(bn::sprite_ptr _sprite);
+    void changeSpriteTiles(int sprite,const bn::sprite_tiles_item& tiles_item,int tile_indx);
 
     void setZOrder(int z_order);
 
