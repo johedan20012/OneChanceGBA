@@ -5,13 +5,13 @@
 
 namespace game{
 enum class CHOICE{
-    NONE,
-    WORK,
-    SKIP_WORK,
-    GO_HOME,
-    DEFEND,
-    NO_DEFEND,
-    GIVE_UP
+    NONE = 0x0,
+    GO_HOME = 0x1,
+    SKIP_WORK = 0x2,
+    WORK = 0x3,
+    DEFEND = 0x4,
+    NO_DEFEND = 0x5,
+    GIVE_UP = 0x6
 };
 
 bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice);
@@ -36,6 +36,13 @@ public:
 
     CHOICE dayChoice(unsigned int day);
     void setDayChoice(unsigned int day,CHOICE choice);
+
+    /**
+     * @brief Returns the variant of the day provided
+     * @param day \in [1-6]
+     * @return The sum of a and b.
+     */
+    int getDayVariant(int day);
 
     unsigned int currentDay();
     void goNextDay();    
