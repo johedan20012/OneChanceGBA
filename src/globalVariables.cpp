@@ -37,19 +37,19 @@ DialogManager& GlobalVariables::getDialogManager(){
 }
 
 CHOICE GlobalVariables::dayChoice(unsigned int day){
-    BN_ASSERT(1<=day && day<=6,"Invalid day:",day);
+    BN_ASSERT(1<=day && day<=7,"Invalid day:",day);
     return day_choices[day-1];
 }
 
 void GlobalVariables::setDayChoice(unsigned int day, CHOICE choice){
-    BN_ASSERT(1<=day && day<=6,"Invalid day:",day);
+    BN_ASSERT(1<=day && day<=7,"Invalid day:",day);
     day_choices[day-1] = choice;
 }
 
 int GlobalVariables::getDayVariant(int day){
     int row = 0;
     for(int i = 1; i<day; i++){
-        BN_ASSERT(((row*9)+8) < decision_tree_bin_size,"Skill issue");
+        BN_ASSERT(size_t(((row*9)+8)) < decision_tree_bin_size,"Skill issue");
         if(day_choices[i-1] == CHOICE::NONE)
         row = decision_tree_bin[row*9 + 2 + 0x1];
         else row = decision_tree_bin[row*9 + 2 + int(day_choices[i-1])];
@@ -57,19 +57,19 @@ int GlobalVariables::getDayVariant(int day){
 
     row = decision_tree_bin[row*9 + 2 + int(day_choices[day-1])];
 
-    BN_ASSERT(((row*9)+8) < decision_tree_bin_size,"Yep skill issue");
-    BN_ASSERT(decision_tree_bin[row*9] == day, "Programming skill issue");
+    BN_ASSERT(size_t(((row*9)+8)) < decision_tree_bin_size,"Yep skill issue");
+    if(day <= 5) BN_ASSERT(decision_tree_bin[row*9] == uint8_t(day), "Programming skill issue");
     return decision_tree_bin[row*9 + 1];
 }
 
 unsigned int GlobalVariables::currentDay(){
-    BN_ASSERT(1<=current_day && current_day<=6,"Invalid day:",current_day);
+    BN_ASSERT(1<=current_day && current_day<=7,"Invalid day:",current_day);
     return current_day;
 }
 
 void GlobalVariables::goNextDay(){
     current_day += 1;
-    BN_ASSERT(1<=current_day && current_day<=6,"Invalid day:",current_day);
+    BN_ASSERT(1<=current_day && current_day<=7,"Invalid day:",current_day);
 }
 
 bool GlobalVariables::hasVisitedLabDoor(){

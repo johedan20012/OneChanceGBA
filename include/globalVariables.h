@@ -18,7 +18,7 @@ bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice);
 
 class GlobalVariables{
 private:
-    CHOICE day_choices[6] = {CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE};
+    CHOICE day_choices[7] = {CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE};
     unsigned int current_day = 0;
     DialogManager dialog_manager;
 

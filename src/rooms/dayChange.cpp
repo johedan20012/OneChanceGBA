@@ -24,7 +24,7 @@ DayChange::DayChange(Player& _player,GlobalVariables& _global_var):
     BN_LOG("Day 4:",global_var.dayChoice(4));
     BN_LOG("Day 5:",global_var.dayChoice(5));
     BN_LOG("Day 6:",global_var.dayChoice(6));
-    BN_LOG("Curr-day:",global_var.currentDay(),"-",char('A' + global_var.getDayVariant(global_var.currentDay())-1));
+    BN_LOG("Curr-day:",global_var.currentDay(),"-",global_var.getDayVariant(global_var.currentDay()));
 
     bn::string<80> top_message;
     bn::string<30> bottom_message;
