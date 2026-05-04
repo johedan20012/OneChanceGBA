@@ -24,7 +24,6 @@ void WorkRoof::Matthew::update(){
             state = MSTATE::ARMS;
             sprite.set_tiles(bn::sprite_items::matthew.tiles_item().create_tiles(2));
             timer = bn::make_unique<Timer>();
-            BN_LOG("Change Matthew to arms");
         }
         break;
     case MSTATE::ARMS:
@@ -32,7 +31,6 @@ void WorkRoof::Matthew::update(){
             state = MSTATE::LEANING;
             timer = bn::make_unique<Timer>();
             setPivot(bn::fixed_point(84,39));
-            BN_LOG("Change Matthew to leaning");
         }
         break;
     case MSTATE::LEANING:
@@ -43,7 +41,6 @@ void WorkRoof::Matthew::update(){
             sprite.set_tiles(bn::sprite_items::matthew.tiles_item().create_tiles(3));
             setPivot(bn::fixed_point(76,60));
             timer = bn::make_unique<Timer>();
-            BN_LOG("Change Matthew to falling");
         }
         break;
     case MSTATE::FALLING:
@@ -58,7 +55,6 @@ void WorkRoof::Matthew::update(){
             sprite.set_tiles(bn::sprite_items::matthew.tiles_item().create_tiles(3));
             timer.reset();
             jumpFinished = true;
-            BN_LOG("Change Matthew to leg over");
         }
         break;
     default: //LEG_OVER
@@ -67,7 +63,6 @@ void WorkRoof::Matthew::update(){
             sprite.set_tiles(bn::sprite_items::matthew.tiles_item().create_tiles(0));
             sprite.set_position(84,7); // -11y - 2x
             timer = bn::make_unique<Timer>();
-            BN_LOG("Change Matthew to standing");
         }
         break;
     }
@@ -203,7 +198,6 @@ bn::optional<RoomExit> WorkRoof::updateDay2(){
             edge.setVisibility(false);
             timer.reset();
             matthew->startJump();
-            BN_LOG("Change state to ANIM");
         }
         break;
 
@@ -215,7 +209,6 @@ bn::optional<RoomExit> WorkRoof::updateDay2(){
             player.setVisible(false);
             bg_paper->set_visible(false);
             bg->set_visible(false);
-            BN_LOG("Change state to dark");
         }
         break;
     
@@ -226,7 +219,6 @@ bn::optional<RoomExit> WorkRoof::updateDay2(){
             bg_paper.reset();
             bg->set_visible(true); // Change background
             bg = bn::regular_bg_items::bg_conference.create_bg(8,48);
-            BN_LOG("Change state to news");
         }
         break;
 
@@ -235,7 +227,6 @@ bn::optional<RoomExit> WorkRoof::updateDay2(){
             state = STATE::NORMAL;
             timer.reset();
             global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
-            BN_LOG("Going to day change from roof");
             return RoomExit("day_change",DIRECTION::DOOR1);
         }
         break;
@@ -246,7 +237,6 @@ bn::optional<RoomExit> WorkRoof::updateDay2(){
         if(global_var.getDialogManager().hasADialogSequence()){
             state = STATE::DIALOG;
             matthew->setHorizontalFlip(false);
-            BN_LOG("Change state to DIALOG");
         }
         break;
     }

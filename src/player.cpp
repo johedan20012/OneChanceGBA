@@ -80,13 +80,12 @@ void Player::updateLightBathroomDay4(){
     r = (LIGHT_BOX.right() - spr_box.left()).right_shift_integer();
     r = bn::min(bn::max(r,0),32);
 
-    BN_LOG("Real flipp:",fliped); // Butano doesnt update the oam until next frame after modification
+     // Butano doesnt update the oam until next frame after modification
     bool aux_fliped = fliped;
     if(wait_frame){
         aux_fliped = !aux_fliped;
         wait_frame = false;
     }
-    BN_LOG("Flip used:",aux_fliped);
 
     if(aux_fliped){
         l = (l*-1)+31;
@@ -330,8 +329,8 @@ void Player::update(bool frozen){
     if(prev_mov_dir != 0 && moving_dir == 0) changeTiles(indx_spr_still*32);
     if(moving_dir != 0 && prev_mov_dir != moving_dir){
         resetWalk();
-        if(moving_dir == 1){ sprite.set_horizontal_flip(false); BN_LOG("flipped:false"); if(fliped){ wait_frame = true;} fliped = false;}
-        if(moving_dir == -1){ sprite.set_horizontal_flip(true); BN_LOG("flipped:true"); if(!fliped){wait_frame = true;} fliped = true; }
+        if(moving_dir == 1){ sprite.set_horizontal_flip(false); if(fliped){ wait_frame = true;} fliped = false;}
+        if(moving_dir == -1){ sprite.set_horizontal_flip(true); if(!fliped){wait_frame = true;} fliped = true; }
     }
 
     if(moving_dir != 0){
@@ -349,13 +348,9 @@ void Player::update(bool frozen){
     prev_mov_dir = moving_dir;
 
     if(bn::keypad::up_pressed()){
-        //sprite.set_y(sprite.y() - 1);
-        y_level += 1;
-        BN_LOG("YLevel:",y_level);
+        sprite.set_y(sprite.y() - 1);
     }else if(bn::keypad::down_pressed()){
-        //sprite.set_y(sprite.y() + 1);
-        y_level -= 1;
-        BN_LOG("YLevel:",y_level);
+        sprite.set_y(sprite.y() + 1);
     }
 }
 
