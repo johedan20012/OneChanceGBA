@@ -1,5 +1,6 @@
 #include "globalVariables.h"
 
+#include "bn_log.h"
 #include "bn_assert.h"
 
 #include "decision_tree_bin.h"
@@ -55,10 +56,11 @@ int GlobalVariables::getDayVariant(int day){
         else row = decision_tree_bin[row*9 + 2 + int(day_choices[i-1])];
     }
 
-    row = decision_tree_bin[row*9 + 2 + int(day_choices[day-1])];
+    //row = decision_tree_bin[row*9 + 2 + int(day_choices[day-1])];
 
     BN_ASSERT(size_t(((row*9)+8)) < decision_tree_bin_size,"Yep skill issue");
-    if(day <= 5) BN_ASSERT(decision_tree_bin[row*9] == uint8_t(day), "Programming skill issue");
+    //if(day <= 5) BN_ASSERT(decision_tree_bin[row*9] == uint8_t(day), "Programming skill issue");
+    BN_LOG("Query (",decision_tree_bin[row*9],",",decision_tree_bin[row*9 + 1],")");
     return decision_tree_bin[row*9 + 1];
 }
 
