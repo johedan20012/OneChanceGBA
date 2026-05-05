@@ -7,6 +7,8 @@
 #include "bn_regular_bg_items_bg_house_2.h"
 #include "bn_regular_bg_items_bg_house_2b.h"
 #include "bn_regular_bg_items_bg_house_2c.h"
+#include "bn_regular_bg_items_bg_house_2d.h"
+#include "bn_regular_bg_items_bg_house_2e.h"
 
 namespace game{
 
@@ -87,10 +89,19 @@ void HouseHall::loadDay3(){
 
 void HouseHall::loadDay4(){
     if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
-        bg->set_item(bn::regular_bg_items::bg_house_2c);
         exits.pop_back(); // Delete exits "Go to Work"
+
+        if(global_var.getDayVariant(4) == 2){// B variant
+            bg->set_item(bn::regular_bg_items::bg_house_2e);
+        }else{
+            bg->set_item(bn::regular_bg_items::bg_house_2c);
+        }
     }else{
-        bg->set_item(bn::regular_bg_items::bg_house_2b);
+        if(global_var.getDayVariant(4) == 2){// B variant
+            bg->set_item(bn::regular_bg_items::bg_house_2d);
+        }else{
+            bg->set_item(bn::regular_bg_items::bg_house_2b);
+        }
     }
 
     npc->setVisibility(false);
