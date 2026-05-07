@@ -7,6 +7,7 @@
 #include "bn_regular_bg_items_bg_house_3_b.h"
 #include "bn_regular_bg_items_bg_house_3_c.h"
 #include "bn_regular_bg_items_bg_house_3_d.h"
+#include "bn_regular_bg_items_bg_house_3_e.h"
 
 #include "bn_log.h"
 
@@ -101,7 +102,11 @@ void HouseBedroom2::loadDay4(){
         player.setVisible(false);
         timer = bn::make_unique<Timer>();
     }else{
-        bg->set_item(bn::regular_bg_items::bg_house_3_c);
+        if(global_var.getDayVariant(4) == 2){ //B variant
+            bg->set_item(bn::regular_bg_items::bg_house_3_e);
+        }else{
+            bg->set_item(bn::regular_bg_items::bg_house_3_c);
+        }
     }
 }
 
