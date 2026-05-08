@@ -153,7 +153,7 @@ bn::optional<RoomExit> HouseEntrance::updateDay1_3(){
     }
 
     if(newspaper_bg){
-        if(bn::keypad::a_pressed()) newspaper_bg.reset();
+        if(bn::keypad::a_held()) newspaper_bg.reset();
         
         return bn::nullopt;
     }
@@ -223,7 +223,7 @@ bn::optional<RoomExit> HouseEntrance::updateDay4(){
         player.update();
     }else{
         if(newspaper_bg){
-            if(bn::keypad::a_pressed()) newspaper_bg.reset();
+            if(bn::keypad::a_held()) newspaper_bg.reset();
             for(auto& npc: npcs){
                 npc.setVisibility(true);
             }
