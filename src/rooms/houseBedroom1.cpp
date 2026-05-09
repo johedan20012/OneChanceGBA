@@ -25,6 +25,7 @@ HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVaria
     white_lab_coat.set_z_order(2);
 
     player.setMovementBox(bn::fixed_rect(14.5,0,231,160));
+    player.resetAnim();
     player.setHflip(true);
 
     switch(entering_from){

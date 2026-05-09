@@ -208,6 +208,7 @@ void Player::takeOffLabCoat(){
 
 void Player::resetAnim(){
     changeTiles(indx_spr_still*32);
+    prev_mov_dir = 0;
 }
 
 void Player::setPos(bn::fixed x,bn::fixed y){
