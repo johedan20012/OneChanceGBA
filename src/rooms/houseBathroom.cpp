@@ -6,6 +6,9 @@
 
 #include "bn_regular_bg_items_bg_house_4.h"
 #include "bn_regular_bg_items_bg_house_4_b.h"
+#include "bn_regular_bg_items_bg_house_4_c.h"
+
+#include "bn_log.h"
 
 namespace game{
 
@@ -67,20 +70,65 @@ void HouseBathroom::loadDay4(){
     loadDay3();
 
     if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
-        bg->set_item(bn::regular_bg_items::bg_house_4_b);
+        player.setUseLightBathroomDay4(true);
 
+        if(global_var.getDayVariant(4) == 2){ // variant B
+            bg->set_item(bn::regular_bg_items::bg_house_4_c);
+            player.resetAnim();
+            player.setHflip(true);
+            player.setPos(103,29);
+            player.update(); // i need to update the lights
+            player.update(); // i need to update the lights so i call again hahaha
+            timer = bn::make_unique<Timer>();
+        }else{
+            bg->set_item(bn::regular_bg_items::bg_house_4_b);
+        }
         //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(46,-2,0));
         //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(82,-2,1));
-
-        player.setUseLightBathroomDay4(true);
+        
     }
 }
 
+bn::optional<RoomExit> HouseBathroom::updateDay4(){
+    if(timer && timer->elapsedFrames() >= 127){
+        timer.reset();
+        player.kneel();
+        player.setUseLightBathroomDay4(false);
+        player.setPos(102,37);
+        timer2 = bn::make_unique<Timer>();
+    }
+
+    if(timer2 && timer2->elapsedFrames() >= 100){
+        timer2.reset();
+        bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
+        bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
+        bg_fade_to_black = bn::bg_palettes_fade_to_action(290,1);
+        spr_fade_to_black = bn::sprite_palettes_fade_to_action(290,1);
+    }
+
+    if(bg_fade_to_black){ 
+        if(bg_fade_to_black->done() || spr_fade_to_black->done()){
+            bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
+            bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
+            player.useNightColors(false);
+            player.resetAnim();
+            return RoomExit("day_change",DIRECTION::LEFT);
+        }
+        bg_fade_to_black->update();
+        spr_fade_to_black->update();
+    }
+
+    return bn::nullopt;
+}
+
 bn::optional<RoomExit> HouseBathroom::update(){
+    Room::update();
+
+    if(global_var.currentDay() == 4 && global_var.getDayVariant(4) == 2 && global_var.dayChoice(4) == CHOICE::SKIP_WORK) // B variant
+        return updateDay4();
+
     player.update();
     if(penny) penny->checkDialog(player.boundaries());
-    
-    Room::update();
 
     return checkExits();
 }

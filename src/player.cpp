@@ -284,6 +284,10 @@ void Player::standUp(){
     bend_stand_timer = bn::make_unique<Timer>();
 }
 
+void Player::kneel(){
+    changeTiles(13*32);
+}
+
 bn::fixed_rect Player::movementBox(){
     return movement_box;
 }

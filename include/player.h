@@ -95,6 +95,7 @@ public:
     bool isBended();
     void bend();
     void standUp();
+    void kneel();
 
     void setMovementBox(bn::fixed_rect _movement_box);
     bn::fixed_rect movementBox();
