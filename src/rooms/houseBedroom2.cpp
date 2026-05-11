@@ -8,6 +8,8 @@
 #include "bn_regular_bg_items_bg_house_3_c.h"
 #include "bn_regular_bg_items_bg_house_3_d.h"
 #include "bn_regular_bg_items_bg_house_3_e.h"
+#include "bn_regular_bg_items_bg_house_3_f.h"
+#include "bn_regular_bg_items_bg_house_3_g.h"
 
 #include "bn_log.h"
 
@@ -40,6 +42,9 @@ HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVaria
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         default:
             loadDay1();
@@ -107,6 +112,17 @@ void HouseBedroom2::loadDay4(){
         }else{
             bg->set_item(bn::regular_bg_items::bg_house_3_c);
         }
+    }
+}
+
+void HouseBedroom2::loadDay5(){
+    molly.setVisibility(false);
+    teddy_bear.set_visible(false);
+
+    if(global_var.dayChoice(5) == CHOICE::DEFEND){
+        bg->set_item(bn::regular_bg_items::bg_house_3_g); // Night
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_3_f);
     }
 }
 

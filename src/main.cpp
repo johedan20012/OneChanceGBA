@@ -36,7 +36,9 @@ int main(){
             global_var.setRoofCheckedDay3(true);
             BN_LOG("Roof checked on day 3");
             BN_LOG("Work skipped on day 4A");
+            BN_LOG("Defended on day 5A");
             global_var.setDayChoice(4,game::CHOICE::SKIP_WORK);
+            global_var.setDayChoice(5,game::CHOICE::DEFEND);
             character.useNightColors(true);
         }
 
