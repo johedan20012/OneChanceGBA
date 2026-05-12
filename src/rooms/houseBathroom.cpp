@@ -39,6 +39,9 @@ HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVaria
         case 4:
             loadDay4();
             break;
+        case 5:
+            loadDay5();
+            break;
         default:
             break;
     }
@@ -86,6 +89,15 @@ void HouseBathroom::loadDay4(){
         //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(46,-2,0));
         //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(82,-2,1));
         
+    }
+}
+
+void HouseBathroom::loadDay5(){
+    loadDay3();
+    if(global_var.dayChoice(5) == CHOICE::DEFEND){
+        player.setUseLightBathroomDay4(true);
+
+        bg->set_item(bn::regular_bg_items::bg_house_4_b);
     }
 }
 
