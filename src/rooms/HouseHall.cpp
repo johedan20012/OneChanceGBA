@@ -9,6 +9,8 @@
 #include "bn_regular_bg_items_bg_house_2c.h"
 #include "bn_regular_bg_items_bg_house_2d.h"
 #include "bn_regular_bg_items_bg_house_2e.h"
+#include "bn_regular_bg_items_bg_house_2f.h"
+#include "bn_regular_bg_items_bg_house_2g.h"
 
 namespace game{
 
@@ -54,6 +56,9 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _g
         case 4:
             loadDay4();
             break;
+        case 5:
+            loadDay5();
+            break;
         default:
             loadDay1(entering_from);
             break;
@@ -89,7 +94,7 @@ void HouseHall::loadDay3(){
 
 void HouseHall::loadDay4(){
     if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
-        exits.pop_back(); // Delete exits "Go to Work"
+        exits.pop_back(); // Delete exit "Go to Work"
 
         if(global_var.getDayVariant(4) == 2){// B variant
             bg->set_item(bn::regular_bg_items::bg_house_2e);
@@ -102,6 +107,18 @@ void HouseHall::loadDay4(){
         }else{
             bg->set_item(bn::regular_bg_items::bg_house_2b);
         }
+    }
+
+    npc->setVisibility(false);
+}
+
+void HouseHall::loadDay5(){
+    if(global_var.dayChoice(5) == CHOICE::DEFEND){
+        exits.pop_back(); // Delete exit "Go to Work"
+        bg->set_item(bn::regular_bg_items::bg_house_2g); // Night
+    
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_2f);
     }
 
     npc->setVisibility(false);
