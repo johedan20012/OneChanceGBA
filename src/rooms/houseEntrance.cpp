@@ -9,6 +9,7 @@
 #include "bn_regular_bg_items_bg_house_5_b.h"
 #include "bn_regular_bg_items_bg_house_5_c.h"
 #include "bn_regular_bg_items_bg_house_5_d.h"
+#include "bn_regular_bg_items_bg_house_5_e.h"
 #include "bn_regular_bg_items_bg_newspaper1.h"
 #include "bn_regular_bg_items_bg_newspaper2.h"
 #include "bn_regular_bg_items_bg_newspaper3.h"
@@ -57,6 +58,9 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVari
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         default:
             break;
@@ -124,6 +128,32 @@ void HouseEntrance::loadDay4(){
 
         exits.back().trigger = bn::fixed_rect(20,53,40,64);
         exits.back().name = "work_lobby";
+    }
+}
+
+void HouseEntrance::loadDay5(){
+    cloud.set_visible(false);
+
+    newspaper.set_visible(false);
+
+    if(global_var.dayChoice(5) == CHOICE::DEFEND){
+        bg->set_item(bn::regular_bg_items::bg_house_5_d);
+        bg->set_visible(false);
+        bg_paper->set_visible(false);
+
+        car.set_position(bn::fixed_point(219.6,67));
+        auto car_pal = car.palette().value();
+        car_pal.set_colors(car_dark_pal);
+        player.setVisible(false);
+        player.setPos(140,140);
+
+        timer = bn::make_unique<Timer>();
+        carMovement = CompositeSpritePosToAction(car,190, bn::fixed_point(72,67));
+    
+        exits.clear();
+        exits.push_back(RoomExit("house_hall",bn::fixed_rect(-120,53,50,64),DIRECTION::RIGHT,false));
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_5_e);
     }
 }
 
@@ -268,6 +298,77 @@ bn::optional<RoomExit> HouseEntrance::updateDay4(){
     return Room::checkExits();
 }
 
+bn::optional<RoomExit> HouseEntrance::updateDay5(){
+    if(global_var.dayChoice(5) == CHOICE::DEFEND){
+        if(timer && carMovement){
+            if(timer->elapsedFrames() >= 44){
+                bg->set_visible(true);
+                bg_paper->set_visible(true);
+                timer.reset();
+            }
+            return bn::nullopt;
+        }
+
+        if(carMovement){
+            if(carMovement->done()){
+                timer = bn::make_unique<Timer>();
+                carMovement.reset();
+            }
+            else carMovement->update();
+            return bn::nullopt;
+        }
+
+        if(timer && timer->elapsedFrames() >= 44){
+            timer.reset();
+            player.setPos(68,50);
+            player.setVisible(true);
+            player.setHflip(true);
+            player.resetAnim();
+            return bn::nullopt;
+        }
+
+        player.update();
+
+        return Room::checkExits();
+    }else{
+        if(isExiting){
+            for(auto &action : carRotations){
+                if(action){
+                    action->update();
+                    if(action->done()) action.reset();
+                    return bn::nullopt;
+                }
+            }
+
+            if(carMovement) carMovement->update();
+
+            if(carMovement && carMovement->done()){ 
+                player.setVisible(true);
+                return exits[0];
+            }
+
+            return bn::nullopt;
+        }
+
+        player.update();
+
+        auto exit = checkExits();
+        if(exit.has_value() && exit.get()->name == bn::string<15>("city")){
+            isExiting = true;
+            Room::clearExitsInfo();
+            player.setVisible(false);
+
+            //car_rotation = bn::sprite_rotate_to_action(car,)
+            carMovement = CompositeSpritePosToAction(car,120, bn::fixed_point(180,67));
+            carRotations.push_back(CompositeSpriteRotToAction(car,3,4));
+            carRotations.push_back(CompositeSpriteRotToAction(car,6,-4));
+            carRotations.push_back(CompositeSpriteRotToAction(car,3,0));
+        }
+    }
+        
+    return bn::nullopt;
+}
+
 bn::optional<RoomExit> HouseEntrance::update(){
 
     Room::updateExitsInfo();
@@ -280,6 +381,8 @@ bn::optional<RoomExit> HouseEntrance::update(){
     switch(global_var.currentDay()){
         case 4:
             return updateDay4();
+        case 5:
+            return updateDay5();
         case 3:
         case 2:
         default:

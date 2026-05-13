@@ -58,9 +58,11 @@ private:
     void loadDay2();
     void loadDay3();
     void loadDay4();
+    void loadDay5();
 
     bn::optional<RoomExit> updateDay1_3();
     bn::optional<RoomExit> updateDay4();
+    bn::optional<RoomExit> updateDay5();
 public:
     HouseEntrance(Player& _player, DIRECTION _entering_from,GlobalVariables& _global_var);
     ~HouseEntrance() override;
