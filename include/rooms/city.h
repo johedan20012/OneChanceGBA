@@ -35,15 +35,17 @@ private:
     int y_level_indx = 1;
 
     bn::vector<bn::sprite_ptr,4> npc_cars;
+    bn::optional<bn::sprite_ptr> damaged_car;
 
     bn::sprite_ptr car;
 
     void loadDay1_2();
     void loadDay3();
+    void loadDay5();
 
     void updateDay1_2();
     void updateDay3();
-    
+    void updateDay5();
 public:
     City(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~City() override {}

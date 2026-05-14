@@ -1,10 +1,12 @@
 #include "city.h"
 
 #include "bn_regular_bg_items_bg_city.h"
+#include "bn_regular_bg_items_bg_city_b.h"
 
 #include "bn_sprite_items_sign.h"
 #include "bn_sprite_palette_ptr.h"
 #include "bn_sprite_items_car_small.h"
+#include "bn_sprite_items_car_small2.h"
 #include "bn_sprite_items_city_people.h"
 
 #include "bn_log.h"
@@ -36,6 +38,10 @@ City::City(Player& _player, DIRECTION entering_from,GlobalVariables& _global_var
     case 3:
         loadDay3();
         break;
+    case 5:
+        loadDay5();
+        break;
+    case 4:
     case 2:
     default: // Day 1
         loadDay1_2();
@@ -106,6 +112,15 @@ void City::loadDay3(){
     npc_cars[1].set_horizontal_flip(true);
 }
 
+void City::loadDay5(){
+    bg->set_item(bn::regular_bg_items::bg_city_b);
+
+    small_npc.push_back(bn::sprite_items::city_people.create_sprite(71,38,4)); //Goes left
+    damaged_car = bn::sprite_items::car_small2.create_sprite(-1,42);
+    exits.pop_back();
+    exits.push_back(RoomExit("work_lobby",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
+}
+
 void City::updateDay1_2(){
     for(int i = 0; i<8; i++){
         auto& lil_npc = small_npc[i];
@@ -139,6 +154,25 @@ void City::updateDay3(){
     }
 }
 
+void City::updateDay5(){
+    bn::fixed y_diff = 0;
+    if(y_level_indx % 8 == 0) y_diff = 1;
+    if(y_level_indx % 8 == 4) y_diff = -1;
+    if(y_diff != 0){
+        for(auto& npc: small_npc){
+            npc.set_y(npc.y()+ y_diff);
+        }
+    }
+
+    if(small_npc.size() > 0){
+        small_npc[0].set_x(small_npc[0].x() - 0.7);
+        if(small_npc[0].x() <= -130){
+            small_npc[0].set_x(130);
+            small_npc.pop_back();
+        }
+    }
+}
+
 bn::optional<RoomExit> City::update(){
     for(auto& npc_car: npc_cars){
         npc_car.set_x(npc_car.x()-0.70);
@@ -156,6 +190,10 @@ bn::optional<RoomExit> City::update(){
     case 3:
         updateDay3();
         break;
+    case 5:
+        updateDay5();
+        break;
+    case 4:
     case 2:
     default: // Day 1
         updateDay1_2();
