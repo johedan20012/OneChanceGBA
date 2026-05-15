@@ -5,6 +5,7 @@
 #include "bn_regular_bg_items_bg_work_lobby.h"
 #include "bn_regular_bg_items_bg_work_lobby_b.h"
 #include "bn_regular_bg_items_bg_work_lobby_c.h"
+#include "bn_regular_bg_items_bg_work_lobby_d.h"
 
 namespace game{
 WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
@@ -36,6 +37,9 @@ WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _g
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         default:
             loadDay1();
@@ -95,6 +99,10 @@ void WorkLobby::loadDay3(){
 
 void WorkLobby::loadDay4(){
     bg->set_item(bn::regular_bg_items::bg_work_lobby_c);
+}
+
+void WorkLobby::loadDay5(){
+    bg->set_item(bn::regular_bg_items::bg_work_lobby_d);
 }
 
 bn::optional<RoomExit> WorkLobby::update(){
