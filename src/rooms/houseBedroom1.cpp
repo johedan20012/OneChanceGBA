@@ -9,6 +9,9 @@
 #include "bn_regular_bg_items_bg_house_1c.h"
 #include "bn_regular_bg_items_bg_house_1d.h"
 #include "bn_regular_bg_items_bg_house_1e.h"
+#include "bn_regular_bg_items_bg_house_1f.h"
+#include "bn_regular_bg_items_bg_house_1g.h"
+#include "bn_regular_bg_items_bg_graveyard.h"
 
 namespace game{
 
@@ -51,6 +54,9 @@ HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVaria
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         default:
             loadDay1();
@@ -151,6 +157,87 @@ void HouseBedroom1::loadDay4(){
     }
 }
 
+void HouseBedroom1::loadDay5(){
+    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::DEFEND){
+        bg->set_item(bn::regular_bg_items::bg_house_1g);
+
+        white_lab_coat.set_visible(false);
+
+        player.setPos(108,29);
+
+        timer = bn::make_unique<Timer>();
+
+        exits.clear();
+    }else{
+        bg->set_item(bn::regular_bg_items::bg_house_1f);
+
+        white_lab_coat.set_rotation_angle(90);
+        white_lab_coat.set_position(bn::fixed_point(23,48));
+
+        white_lab_coat2 = bn::sprite_items::lab_coat.create_sprite(75,60);
+        white_lab_coat2->set_rotation_angle(90);
+        white_lab_coat2->set_bg_priority(2);
+        white_lab_coat2->set_z_order(2);
+    }
+}
+
+bn::optional<RoomExit> HouseBedroom1::updateDay5(){
+    if(global_var.dayChoice(global_var.currentDay()) != CHOICE::DEFEND){
+        player.update();
+        return checkExits();
+    }
+
+    switch (state){
+    case 0:
+        if(timer && timer->elapsedFrames() >= 120){
+            bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
+            bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
+            bg_fade_to_black = bn::bg_palettes_fade_to_action(180,1);
+            spr_fade_to_black = bn::sprite_palettes_fade_to_action(180,1);
+            timer.reset();
+        }
+
+        if(bg_fade_to_black.has_value()){ 
+            if(bg_fade_to_black->done() || spr_fade_to_black->done()){
+                state = 1;
+                bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
+                bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
+                bg->set_item(bn::regular_bg_items::bg_graveyard);
+                bn::rect_window::internal().set_boundaries(bn::fixed_rect(0,-9,240,142));
+                player.setVisible(false);
+                player.setPos(200,200);
+                timer = bn::make_unique<Timer>();
+                break;
+            }
+            bg_fade_to_black->update();
+            spr_fade_to_black->update();
+        }
+        break;
+    case 1:
+        if(timer && timer->elapsedFrames() >= 432){
+            state = 2;
+            timer.reset();
+            timer = bn::make_unique<Timer>();
+            bg->set_visible(false);
+            bg_paper->set_visible(false);
+        }
+        break;
+    case 2:
+        if(timer && timer->elapsedFrames() >= 40){
+            player.setVisible(true);
+            player.useNightColors(false);
+            return RoomExit("day_change",DIRECTION::LEFT);
+        }
+        break;
+    default:
+        player.setVisible(true);
+        player.useNightColors(false);
+        return RoomExit("day_change",DIRECTION::LEFT);
+    }
+
+    return bn::nullopt;
+}
+
 bn::optional<RoomExit> HouseBedroom1::update(){
     player_reflexion.set_position(player.getPos() + bn::fixed_point(13,-10));
     player_reflexion.set_tiles(player.getTilesItem());
@@ -160,6 +247,8 @@ bn::optional<RoomExit> HouseBedroom1::update(){
         penny->checkDialog(player.boundaries());
         penny->lookAt(player.getPos(),true);
     }
+
+    Room::update();
 
     if(global_var.currentDay() == 4){
         if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
@@ -173,7 +262,7 @@ bn::optional<RoomExit> HouseBedroom1::update(){
                 spr_fade_to_black = bn::sprite_palettes_fade_to_action(132,1);
             }
 
-            if(bg_fade_to_black){ 
+            if(bg_fade_to_black.has_value()){ 
                 if(bg_fade_to_black->done() || spr_fade_to_black->done()){
                     bn::bg_palettes::set_fade(bn::color(0,0,0),0.0);
                     bn::sprite_palettes::set_fade(bn::color(0,0,0),0.0);
@@ -187,9 +276,10 @@ bn::optional<RoomExit> HouseBedroom1::update(){
             player.update(global_var.currentDay() == 4 && global_var.getDialogManager().hasADialogSequence());
         }
 
+    }else if(global_var.currentDay() == 5){
+        return updateDay5();
     }else player.update(); 
 
-    Room::update();
     #ifdef DEBUG_GAME
     if(mov) mov->update();
     #endif

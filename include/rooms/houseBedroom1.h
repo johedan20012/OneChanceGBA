@@ -11,6 +11,7 @@
 
 #include "npc.h"
 #include "room.h"
+#include "timer.h"
 #include "globalVariables.h"
 
 #ifdef DEBUG_GAME
@@ -37,6 +38,9 @@ private:
     bn::optional<bn::bg_palettes_fade_to_action> bg_fade_to_black;
     bn::optional<bn::sprite_palettes_fade_to_action> spr_fade_to_black;
     bool day4ADialogStarted = false;
+    
+    bn::unique_ptr<Timer> timer;
+    int state = 0;
 
     #ifdef DEBUG_GAME
     bn::unique_ptr<Moveable<NPC>> mov;
@@ -46,6 +50,9 @@ private:
     void loadDay2();
     void loadDay3();
     void loadDay4();
+    void loadDay5();
+
+    bn::optional<RoomExit> updateDay5();
 public:
     HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~HouseBedroom1() override {}
