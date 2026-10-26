@@ -15,6 +15,10 @@ public:
     Moveable(T& _object):object(_object){};
     ~Moveable() = default;
 
+    T& get(){
+        return object;
+    }
+
     void update(){
         if(bn::keypad::left_pressed()){
             object.set_position(object.position()+bn::fixed_point(-1,0));

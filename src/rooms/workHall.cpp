@@ -1,19 +1,138 @@
 #include "workHall.h"
 
+#include "bn_sprite_items_knife.h"
+#include "bn_sprite_items_jim_day5.h"
 #include "bn_sprite_items_work_people.h"
 #include "bn_sprite_items_walking_dude.h"
 #include "bn_sprite_items_small_cabinet.h"
 #include "bn_sprite_items_bruce_walking.h"
 
 #include "bn_regular_bg_items_bg_work_hall.h"
+#include "bn_regular_bg_items_bg_work_hall_b.h"
+
+#include "bn_math.h"
 
 namespace game{
+
+WorkHall::Jim::Jim():
+    NPC(bn::sprite_items::jim_day5.create_sprite(62,21,0)),
+    state(STATE::SPEAKING),
+    knife(bn::sprite_items::knife.create_sprite(-16,6)){
+
+    knife.set_position(sprite.position()+KNIFE_OFFSETS[0]);
+    knife.set_rotation_angle(90);
+
+    mov1 = bn::make_unique<Moveable<bn::sprite_ptr>>(knife);
+    mov2 = bn::make_unique<Moveable<NPC>>(*this);
+}
+
+bn::fixed_point WorkHall::Jim::position(){
+    return NPC::position();
+}
+
+bool WorkHall::Jim::isThreatening(){
+    return state == STATE::THREATENING;
+}
+
+bool WorkHall::Jim::isCharging(){
+    return state == STATE::CHARGING;
+}
+
+void WorkHall::Jim::update(){
+
+    if(bn::keypad::start_pressed()){
+        BN_LOG("STATE");
+        switch(state){
+        case STATE::IDLE:
+            BN_LOG("State IDLE");
+            break;
+        case STATE::THREATENING:
+            BN_LOG("State THREATENING");
+            break;
+        case STATE::SPEAKING:
+            BN_LOG("State SPEAKING");
+            break;
+        case STATE::CHARGING:
+            BN_LOG("State CHARGING");
+            break;
+        default://case STATE::ATTACKING:
+            BN_LOG("State ATTACKING");
+            break;
+        }
+    }
+
+    switch(state){
+    case STATE::THREATENING:
+        if(timer && timer->elapsedFrames() >= 49){
+            state = STATE::SPEAKING;
+
+            sprite.set_tiles(bn::sprite_items::jim_day5.tiles_item(),0);
+            knife.set_position(sprite.position()+KNIFE_OFFSETS[0]);
+            knife.set_rotation_angle(90);
+
+            timer.reset();
+        }
+        break;
+
+    case STATE::SPEAKING:
+        break;
+
+    case STATE::CHARGING:
+        if(anim_timer){
+            if(anim_timer->elapsedFrames() == 7){
+                sprite.set_tiles(bn::sprite_items::jim_day5.tiles_item(),2);
+            }else if(anim_timer->elapsedFrames() == 12){
+                sprite.set_tiles(bn::sprite_items::jim_day5.tiles_item(),1);
+                anim_timer = bn::make_unique<Timer>();
+            }
+        }
+        if(bn::keypad::select_pressed()) move = false;
+        if(move) sprite.set_position(sprite.position()+bn::fixed_point(-MOV_SPEED,0.0));
+        knife.set_position(sprite.position()+KNIFE_OFFSETS[2]);
+
+        if(bn::keypad::start_pressed()) BN_LOG("Jim pos",sprite.x(),",",sprite.y());
+        break;
+
+    case STATE::ATTACKING:
+        break;
+
+    default: // IDLE
+        break;
+    }
+}
+
+void WorkHall::Jim::initiateTalk(GlobalVariables& global_var){
+    dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,200,60),false,false);
+    dialog->addDialog(Pair<int,int>(43,82));
+    dialog->addDialog(Pair<int,int>(44,194));
+    dialog->addDialog(Pair<int,int>(45,110));
+
+    sprite.set_tiles(bn::sprite_items::jim_day5.tiles_item(),1);
+    knife.set_rotation_angle(0);
+    knife.set_position(sprite.position()+KNIFE_OFFSETS[1]);
+
+    timer = bn::make_unique<Timer>();
+
+    state = STATE::THREATENING;
+}
+
+void WorkHall::Jim::initiateCharging(){
+    anim_timer = bn::make_unique<Timer>();
+
+    knife.set_rotation_angle(270);
+    sprite.set_tiles(bn::sprite_items::jim_day5.tiles_item(),1);
+    knife.set_position(sprite.position()+KNIFE_OFFSETS[2]);
+    knife.set_horizontal_flip(true);
+
+    state = STATE::CHARGING;
+}
+
 WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_hall.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),
     global_var(_global_var),
     small_cabinet(bn::sprite_items::small_cabinet.create_sprite(-34,27)){
     
-    player.setMovementBox(bn::fixed_rect(0,0,260,160));
+    player.setMovementBox(bn::fixed_rect(0,0,205,160));
 
     switch (entering_from){
         case DIRECTION::LEFT:
@@ -39,6 +158,9 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _glo
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         default:
             loadDay1(entering_from);
@@ -117,11 +239,106 @@ void WorkHall::loadDay4(){
     exits.back().info = "Skip work";
 }
 
+void WorkHall::loadDay5(){
+    small_cabinet.set_rotation_angle(90);
+    small_cabinet.set_position(-36,26);
+
+    bg->set_item(bn::regular_bg_items::bg_work_hall_b); 
+
+    player.setPos(-99,28);
+
+    jim = bn::make_unique<Jim>();
+    timer = bn::make_unique<Timer>();
+
+    exits.clear();
+}
+
+bn::optional<RoomExit> WorkHall::updateDay5(){
+    if(jim) jim->update();
+
+    switch (state){
+    case ROOMSTATE::JIM_YAPPING:
+        player.update(!jim->isThreatening());
+
+        if(!global_var.getDialogManager().hasADialogSequence()){
+            state = ROOMSTATE::JIM_CHARGING;
+            jim->initiateCharging();
+            player.setMovementBox(bn::fixed_rect(0,0,215,160));
+        }
+
+        break;
+    case ROOMSTATE::JIM_CHARGING:
+        player.update();
+
+        if(exits.size() == 0 && bn::abs(player.getPos().x() - jim->position().x()) <= 66){
+            exits.push_back(RoomExit("defend",bn::fixed_rect(0,0,240,64),DIRECTION::LEFT,true));
+            exits[0].info = "Defend";
+        }
+
+        if(exits.size() > 0){
+            auto exit = Room::checkExits();
+            if(exit){
+                state = ROOMSTATE::JIM_ATTACKING;
+                player.setVisible(false);
+                day5_animation = bn::make_unique<JimStabFail>(jim->position());               
+                global_var.setDayChoice(5,CHOICE::DEFEND);
+                jim.reset();
+                exits.clear();
+                Room::clearExitsInfo();
+                break;
+            }
+        }
+
+        if(bn::abs(player.getPos().x() - jim->position().x()) <= 34){
+            state = ROOMSTATE::JIM_ATTACKING;
+            player.setVisible(false);
+            day5_animation = bn::make_unique<JimStab>(jim->position());
+            global_var.setDayChoice(5,CHOICE::NO_DEFEND);
+            jim.reset();
+            exits.clear();
+            Room::clearExitsInfo();
+        }
+
+        break;
+    case ROOMSTATE::JIM_ATTACKING:        
+        if(day5_animation){
+            day5_animation->update();
+
+            if(day5_animation->isFinished()){
+                state = ROOMSTATE::ATTACK_CONCLUDED;
+                if(global_var.dayChoice(5) == CHOICE::DEFEND) return RoomExit("work_lab",DIRECTION::DOOR1);
+            }
+        }
+
+        break;
+    case ROOMSTATE::ATTACK_CONCLUDED:
+        break;
+    default: // JOHN_ENTERING
+        player.update();
+        
+        if(timer && timer->elapsedFrames() >= 20){
+            state = ROOMSTATE::JIM_YAPPING;
+
+            jim->initiateTalk(global_var);
+            jim->checkDialog(player.boundaries());
+
+            timer.reset();
+        }
+        break;
+    }
+
+    Room::updateExitsInfo();
+
+    return bn::nullopt;
+}
+
 bn::optional<RoomExit> WorkHall::update(){
 
     #ifdef DEBUG_GAME
     if(mov) mov->update();
     #endif
+
+    if(global_var.currentDay() == 5) return updateDay5();
 
     if(walk_anim) walk_anim->update();
     if(walk_mov){
