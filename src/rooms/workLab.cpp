@@ -6,13 +6,15 @@
 
 #include "bn_regular_bg_items_bg_work_lab.h"
 
+#include "bn_assert.h"
+
 namespace game{
 WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_work_lab.create_bg(8,48),bn::fixed_rect(0,0,240,132),_player),
     pc_screen(bn::sprite_items::pc_screen.create_sprite(-28,17)),
     global_var(_global_var){
 
-    global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
+    if(global_var.currentDay() != 5) global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
     global_var.getDialogManager().resetBottomText();
     global_var.getDialogManager().resetBg();
 
@@ -21,12 +23,17 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     player.setPos(60,23);
     player.setMovementBox(bn::fixed_rect(0,0,240,160));
 
+    Room::exits.push_back(RoomExit("day_change",DIRECTION::DOOR1));
+
     switch(global_var.currentDay()){
         case 3:
             loadDay3();
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         case 2:
         default:
@@ -83,6 +90,14 @@ void WorkLab::loadDay4(){
     show_frames = 174;
 }
 
+void WorkLab::loadDay5(){
+    player.setPos(-13,23);
+    dark_frames = 44;
+    show_frames = 174;
+
+    Room::exits[0] = RoomExit("house_entrance",DIRECTION::DOOR1);
+}
+
 bn::optional<RoomExit> WorkLab::update(){
     if(initial_dark && initial_dark->elapsedFrames() >= dark_frames){
         setVisibility(true);
@@ -91,7 +106,9 @@ bn::optional<RoomExit> WorkLab::update(){
     }
 
     if(end_room && end_room->elapsedFrames() >= show_frames){
-            return RoomExit("day_change",DIRECTION::DOOR1);
+        BN_ASSERT(Room::exits.size() > 0, "WorkLab doesn't have a room to exit to");
+        if(global_var.currentDay() == 5) player.useNightColors(true);
+        return Room::exits[0];
     }
 
     Room::update();

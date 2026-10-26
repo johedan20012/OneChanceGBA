@@ -29,6 +29,7 @@ private:
     void loadDay1_2();
     void loadDay3();
     void loadDay4();
+    void loadDay5();
 public:
     WorkLab(Player& _player,GlobalVariables& _global_var);
     ~WorkLab() override {}
