@@ -132,7 +132,7 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _glo
     global_var(_global_var),
     small_cabinet(bn::sprite_items::small_cabinet.create_sprite(-34,27)){
     
-    player.setMovementBox(bn::fixed_rect(0,0,205,160));
+    player.setMovementBox(bn::fixed_rect(0,0,260,160));
 
     switch (entering_from){
         case DIRECTION::LEFT:
@@ -240,6 +240,8 @@ void WorkHall::loadDay4(){
 }
 
 void WorkHall::loadDay5(){
+    player.setMovementBox(bn::fixed_rect(0,0,205,160));
+
     small_cabinet.set_rotation_angle(90);
     small_cabinet.set_position(-36,26);
 
