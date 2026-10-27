@@ -18,6 +18,13 @@ bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice);
 
 class GlobalVariables{
 private:
+    struct SaveFile{
+        bn::array<char,4> format;
+        int8_t end_type;
+    };
+
+    SaveFile save;
+
     CHOICE day_choices[7] = {CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE,CHOICE::NONE};
     unsigned int current_day = 0;
     DialogManager dialog_manager;
@@ -29,7 +36,7 @@ private:
     bool go_home_day_4A = false;
     bool work_skipped_day_4A = false;
 public:
-    GlobalVariables() = default;
+    GlobalVariables();
     ~GlobalVariables() = default;
 
     DialogManager& getDialogManager();
@@ -40,7 +47,7 @@ public:
     /**
      * @brief Returns the variant of the day provided
      * @param day \in [1-6]
-     * @return The sum of a and b.
+     * @return The variant of @param day
      */
     int getDayVariant(int day);
 
@@ -55,6 +62,9 @@ public:
 
     bool roofCheckedDay3();
     void setRoofCheckedDay3(bool checked);
+
+    bn::optional<int8_t> endType();
+    void saveEndType(int8_t end_type);
 };
 }
 

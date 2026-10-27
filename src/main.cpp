@@ -17,7 +17,10 @@ int main(){
     game::Player character;
     game::GlobalVariables global_var;
 
-    bn::unique_ptr<game::Room> current_room = game::RoomLoader::loadRoom(game::RoomExit("day_change",game::DIRECTION::DOOR1),character,global_var);
+    bn::unique_ptr<game::Room> current_room;
+    if(global_var.endType().has_value()) current_room = game::RoomLoader::loadRoom(game::RoomExit("end",game::DIRECTION::DOOR1),character,global_var);
+    else current_room = game::RoomLoader::loadRoom(game::RoomExit("day_change",game::DIRECTION::DOOR1),character,global_var);
+    
     bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 

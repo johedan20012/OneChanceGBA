@@ -296,6 +296,7 @@ bn::optional<RoomExit> WorkHall::updateDay5(){
             player.setVisible(false);
             day5_animation = bn::make_unique<JimStab>(jim->position());
             global_var.setDayChoice(5,CHOICE::NO_DEFEND);
+            global_var.saveEndType(4);
             jim.reset();
             exits.clear();
             Room::clearExitsInfo();

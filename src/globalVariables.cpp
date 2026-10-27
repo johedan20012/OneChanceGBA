@@ -1,11 +1,20 @@
 #include "globalVariables.h"
 
 #include "bn_log.h"
+#include "bn_sram.h"
 #include "bn_assert.h"
 
 #include "decision_tree_bin.h"
 
 namespace game{
+
+GlobalVariables::GlobalVariables(){
+    bn::sram::read(save);
+
+    if(save.format[0] != 'S' || save.format[1] != 'A' || save.format[2] != 'V' || save.format[3] != 'E'){
+        save.end_type = -1;
+    }
+}
 
 bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice){
     switch (choice){
@@ -96,5 +105,19 @@ bool GlobalVariables::roofCheckedDay3(){
 
 void GlobalVariables::setRoofCheckedDay3(bool checked){
     roof_checked_day_3 = checked;
+}
+
+bn::optional<int8_t> GlobalVariables::endType(){
+    if(save.end_type < 0) return bn::nullopt;
+    return save.end_type;
+}
+
+void GlobalVariables::saveEndType(int8_t end_type){
+    save.format[0] = 'S';
+    save.format[1] = 'A';
+    save.format[2] = 'V';
+    save.format[3] = 'E';
+    save.end_type = end_type;
+    bn::sram::write(save);
 }
 }
