@@ -10,6 +10,7 @@
 #include "bn_regular_bg_items_bg_house_3_e.h"
 #include "bn_regular_bg_items_bg_house_3_f.h"
 #include "bn_regular_bg_items_bg_house_3_g.h"
+#include "bn_regular_bg_items_bg_house_3_h.h"
 
 #include "bn_log.h"
 
@@ -122,7 +123,8 @@ void HouseBedroom2::loadDay5(){
     if(global_var.dayChoice(5) == CHOICE::DEFEND){
         bg->set_item(bn::regular_bg_items::bg_house_3_g); // Night
     }else{
-        bg->set_item(bn::regular_bg_items::bg_house_3_f);
+        if(global_var.getDayVariant(5) == 1) bg->set_item(bn::regular_bg_items::bg_house_3_f); // A variant
+        else bg->set_item(bn::regular_bg_items::bg_house_3_h); // B variant
     }
 }
 
