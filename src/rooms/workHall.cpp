@@ -240,22 +240,25 @@ void WorkHall::loadDay4(){
 }
 
 void WorkHall::loadDay5(){
-    player.setMovementBox(bn::fixed_rect(0,0,205,160));
-
     small_cabinet.set_rotation_angle(90);
     small_cabinet.set_position(-36,26);
 
     bg->set_item(bn::regular_bg_items::bg_work_hall_b); 
 
-    player.setPos(-99,28);
-
-    jim = bn::make_unique<Jim>();
-    timer = bn::make_unique<Timer>();
-
-    exits.clear();
+    if(global_var.getDayVariant(5) == 1){ // A variant
+        player.setMovementBox(bn::fixed_rect(0,0,205,160));
+        player.setPos(-99,28);
+        jim = bn::make_unique<Jim>();
+        timer = bn::make_unique<Timer>();
+        exits.clear();
+    }
 }
 
 bn::optional<RoomExit> WorkHall::updateDay5(){
+    if(global_var.getDayVariant(5) == 2){// B variant
+        player.update();
+        return Room::checkExits(); 
+    }
     if(jim) jim->update();
 
     switch (state){
