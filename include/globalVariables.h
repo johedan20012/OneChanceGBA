@@ -41,11 +41,18 @@ public:
 
     DialogManager& getDialogManager();
 
+    /**
+     * @param day \in [1-6]
+     * @return The choice made in day @param day
+     */
     CHOICE dayChoice(unsigned int day);
+    /**
+     * @param day \in [1-6]
+     * @param choice any of class game::CHOICE
+     */
     void setDayChoice(unsigned int day,CHOICE choice);
 
     /**
-     * @brief Returns the variant of the day provided
      * @param day \in [1-6]
      * @return The variant of @param day
      */

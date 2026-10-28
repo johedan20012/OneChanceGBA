@@ -18,9 +18,19 @@ int main(){
     game::GlobalVariables global_var;
 
     bn::unique_ptr<game::Room> current_room;
+    
+    #ifdef DEBUG_GAME
+    global_var.goNextDay();global_var.goNextDay();global_var.goNextDay();global_var.goNextDay();
+    global_var.setDayChoice(1,game::CHOICE::SKIP_WORK);
+    global_var.setDayChoice(2,game::CHOICE::WORK);
+    global_var.setDayChoice(3,game::CHOICE::GO_HOME);
+
+    current_room = game::RoomLoader::loadRoom(game::RoomExit("house_entrance",game::DIRECTION::LEFT),character,global_var);
+    #else
     if(global_var.endType().has_value()) current_room = game::RoomLoader::loadRoom(game::RoomExit("end",game::DIRECTION::DOOR1),character,global_var);
     else current_room = game::RoomLoader::loadRoom(game::RoomExit("day_change",game::DIRECTION::DOOR1),character,global_var);
-    
+    #endif
+
     bn::optional<game::RoomExit> next_room = bn::nullopt;
 
     while(true){ 
