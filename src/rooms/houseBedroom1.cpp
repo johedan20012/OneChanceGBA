@@ -11,6 +11,7 @@
 #include "bn_regular_bg_items_bg_house_1e.h"
 #include "bn_regular_bg_items_bg_house_1f.h"
 #include "bn_regular_bg_items_bg_house_1g.h"
+#include "bn_regular_bg_items_bg_house_1h.h"
 #include "bn_regular_bg_items_bg_graveyard.h"
 
 namespace game{
@@ -169,7 +170,8 @@ void HouseBedroom1::loadDay5(){
 
         exits.clear();
     }else{
-        bg->set_item(bn::regular_bg_items::bg_house_1f);
+        if(global_var.getDayVariant(5) == 1) bg->set_item(bn::regular_bg_items::bg_house_1f); // A variant
+        else bg->set_item(bn::regular_bg_items::bg_house_1h); // B variant
 
         white_lab_coat.set_rotation_angle(90);
         white_lab_coat.set_position(bn::fixed_point(23,48));
