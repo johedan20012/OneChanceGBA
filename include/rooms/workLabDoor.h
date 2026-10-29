@@ -25,6 +25,7 @@ private:
     void loadDay2(DIRECTION entering_from);
     void loadDay3();
     void loadDay4();
+    void loadDay5();
 public:
     WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var);
     ~WorkLabDoor() override {}

@@ -4,6 +4,7 @@
 #include "bn_sprite_items_walking_dude.h"
 
 #include "bn_regular_bg_items_bg_work_lab_door.h"
+#include "bn_regular_bg_items_bg_work_lab_door_b.h"
 
 namespace game{
 WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
@@ -38,6 +39,9 @@ WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables
             break;
         case 4:
             loadDay4();
+            break;
+        case 5:
+            loadDay5();
             break;
         default:
             loadDay1();
@@ -105,6 +109,20 @@ void WorkLabDoor::loadDay3(){
 void WorkLabDoor::loadDay4(){
     is_door_locked = false;
     npc.reset();
+}
+
+void WorkLabDoor::loadDay5(){
+    exits.clear();
+    exits.push_back(RoomExit("work_stairs",bn::fixed_rect(128,20,7,64),DIRECTION::LEFT,false));
+    exits.push_back(RoomExit("work_lab",bn::fixed_rect(50,20,40,64),DIRECTION::RIGHT,true));
+    exits.back().info = "Work";
+    
+    bg->set_item(bn::regular_bg_items::bg_work_lab_door_b);
+    
+    is_door_locked = false;
+    npc.reset();
+
+    player.setMovementBox(bn::fixed_rect(-130,0,520,160));
 }
 
 bn::optional<RoomExit> WorkLabDoor::update(){
