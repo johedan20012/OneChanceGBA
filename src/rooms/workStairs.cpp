@@ -4,6 +4,7 @@
 #include "bn_sprite_items_construction_guy.h"
 
 #include "bn_regular_bg_items_bg_work_stairs.h"
+#include "bn_regular_bg_items_bg_work_stairs_b.h"
 
 namespace game{
 WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
@@ -35,6 +36,9 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& 
         break;
     case 4:
         loadDay4();
+        break;
+    case 5:
+        loadDay5();
         break;
     default:
         loadDay1();
@@ -85,6 +89,15 @@ void WorkStairs::loadDay3(){
 }
 
 void WorkStairs::loadDay4(){
+    player.setMovementBox(bn::fixed_rect(-17,0,226,160));
+
+    exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
+    exits.back().info = "Roof";
+}
+
+void WorkStairs::loadDay5(){
+    bg->set_item(bn::regular_bg_items::bg_work_stairs_b);
+
     player.setMovementBox(bn::fixed_rect(-17,0,226,160));
 
     exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
