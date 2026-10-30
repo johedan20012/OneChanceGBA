@@ -14,7 +14,7 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
     pc_screen(bn::sprite_items::pc_screen.create_sprite(-28,17)),
     global_var(_global_var){
 
-    if(global_var.currentDay() != 5) global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
+    if(!(global_var.currentDay() == 5 && global_var.getDayVariant(5) == 1)) global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
     global_var.getDialogManager().resetBottomText();
     global_var.getDialogManager().resetBg();
 
@@ -95,7 +95,7 @@ void WorkLab::loadDay5(){
     dark_frames = 44;
     show_frames = 174;
 
-    Room::exits[0] = RoomExit("house_entrance",DIRECTION::DOOR1);
+    if(global_var.getDayVariant(5) == 1) Room::exits[0] = RoomExit("house_entrance",DIRECTION::DOOR1); // A variant
 }
 
 bn::optional<RoomExit> WorkLab::update(){
@@ -107,7 +107,7 @@ bn::optional<RoomExit> WorkLab::update(){
 
     if(end_room && end_room->elapsedFrames() >= show_frames){
         BN_ASSERT(Room::exits.size() > 0, "WorkLab doesn't have a room to exit to");
-        if(global_var.currentDay() == 5) player.useNightColors(true);
+        if(global_var.currentDay() == 5 && global_var.getDayVariant(5) == 1) player.useNightColors(true); // A variant
         return Room::exits[0];
     }
 
