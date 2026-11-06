@@ -47,7 +47,6 @@ DMGAUDIOBACKEND	:=  default
 ROMTITLE    	:=  ONE CHANCE
 ROMCODE     	:=  SBTP
 USERFLAGS   	:=  -DDEBUG_GAME
-# Add "ANIMATION_EDIT_MODE" flag to enable the edition of AnimationFromData with the use of SRAM and .sav file
 USERCXXFLAGS	:=  
 USERASFLAGS 	:=  
 USERLDFLAGS 	:=  

@@ -15,8 +15,11 @@
 
 namespace game{
 
-template <int MAX_FRAMES,int MAX_OBJECTS>
-class AnimationFromData : public Animation{
+struct SRAMDataAccess {};
+struct ROMDataAccess {};
+
+template <typename DataPolicy,int MAX_FRAMES,int MAX_OBJECTS>
+class AnimationFromData : public Animation {
 protected:
     struct ObjectData{
         bn::fixed_point pos_offset;
@@ -36,22 +39,22 @@ protected:
         bn::array<FrameData,MAX_FRAMES> frames_data;
     };
 
+    static constexpr bool data_from_sram = std::is_same_v<DataPolicy, SRAMDataAccess>;
+
     uint32_t frame = 0;
     uint32_t data_indx = 0;
     bn::vector<bn::sprite_ptr,MAX_OBJECTS> objects;
 
-    #ifdef ANIMATION_EDIT_MODE
-    AnimationData record_animation_data;
-    bool record_mode;
-    bool run = false;
-    bn::array<bn::fixed_point,MAX_OBJECTS> objects_og_pos;
-    #else
-    const AnimationData &animation_data;
-    #endif
-
+    [[no_unique_address]] std::conditional_t<data_from_sram, AnimationData, std::monostate> record_animation_data;
+    [[no_unique_address]] std::conditional_t<data_from_sram, bool, std::monostate> record_mode;
+    [[no_unique_address]] std::conditional_t<data_from_sram, bool, std::monostate> run;
+    [[no_unique_address]] std::conditional_t<data_from_sram, bn::array<bn::fixed_point,MAX_OBJECTS>, std::monostate> objects_og_pos;
+  
+    [[no_unique_address]] std::conditional_t<!data_from_sram, const AnimationData&, std::monostate> animation_data;
 public:
-    #ifdef ANIMATION_EDIT_MODE
-    AnimationFromData(uint32_t _duration,bool _record_mode = false): record_mode(_record_mode)
+
+    AnimationFromData(uint32_t _duration,bool _record_mode = false)
+    requires (data_from_sram) : record_mode(_record_mode)
     {
         if(!record_mode){
             bn::sram::read(record_animation_data);
@@ -82,8 +85,10 @@ public:
             }
         }
     }
-    #else
-    AnimationFromData(const uint8_t *data,size_t data_size): animation_data(*reinterpret_cast<const AnimationData(*)>(data)) {
+
+    AnimationFromData(const uint8_t *data,size_t data_size)
+    requires (!data_from_sram)
+    : animation_data(*reinterpret_cast<const AnimationData(*)>(data)) {
         BN_ASSERT(data_size == sizeof(AnimationData),"Unexpected file size for animation data, expected:",sizeof(AnimationData),".Received:",data_size);
         BN_ASSERT(
             animation_data.format[0] == 'A' && 
@@ -93,23 +98,24 @@ public:
             animation_data.max_frames == MAX_FRAMES &&
             animation_data.max_objects == MAX_OBJECTS, "Bad format for animation data");
     }
-    #endif
+
 
     virtual ~AnimationFromData() = default;
 
     void add_object(bn::sprite_ptr object){objects.push_back(object);}
 
-    #ifdef ANIMATION_EDIT_MODE
-    void set_objects_og_pos(){
+    void set_objects_og_pos()
+    requires(data_from_sram)
+    {
         for(int i = 0; i< objects.size(); ++i){
             objects_og_pos[i] = objects[i].position();
         }
         BN_LOG("Objects og positions reseted");
     }
-    #endif
 
-    #ifdef ANIMATION_EDIT_MODE
-    virtual void update(){
+    virtual void update()
+    {
+    if constexpr(data_from_sram){
         if(record_mode){
             if(bn::keypad::l_held() && bn::keypad::b_pressed()){
                 set_objects_og_pos();
@@ -192,9 +198,7 @@ public:
         }
 
         ++frame;
-    }
-    #else
-    virtual void update(){
+    }else{
         if(data_indx < MAX_FRAMES && animation_data.frames_data[data_indx].frame_indx <= frame){
             for(int i = 0; i < animation_data.frames_data[data_indx].objects_data.size(); ++i){
                 BN_ASSERT(i >= 0 && i < MAX_OBJECTS, "AnimationFromData: indx out of bounds for object_data");
@@ -205,16 +209,15 @@ public:
         }
         ++frame;
     }
-    #endif
-
+    }
+    
     virtual bool isFinished(){
-        #ifdef ANIMATION_EDIT_MODE
-        return false;
-        #else
-        return frame >= animation_data.duration;
-        #endif
+        if constexpr(data_from_sram){
+            return false;
+        }else{
+            return frame >= animation_data.duration;
+        }
     };
 };
 }
-
 #endif

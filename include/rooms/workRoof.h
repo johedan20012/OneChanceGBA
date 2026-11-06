@@ -6,6 +6,7 @@
 #include "npc.h"
 #include "room.h"
 #include "timer.h"
+#include "animation.h"
 #include "compositeSprite.h"
 #include "globalVariables.h"
 
@@ -65,12 +66,16 @@ private:
 
     bn::optional<NPC> npc;
 
+    bn::unique_ptr<Animation> animation;
+
     void loadDay2();
     void loadDay3();
     void loadDay4();
+    void loadDay5();
 
     bn::optional<RoomExit> updateDay2();
     bn::optional<RoomExit> updateDay3();
+    bn::optional<RoomExit> updateDay5();
 public:
     WorkRoof(Player& _player,GlobalVariables& _global_var);
     ~WorkRoof();

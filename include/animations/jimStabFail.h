@@ -10,7 +10,7 @@
 #include "moveableCollection.h"
 
 namespace game{
-class JimStabFail : public AnimationFromData<15,5>{
+class JimStabFail : public AnimationFromData<ROMDataAccess,15,5>{
 private:
     static constexpr bn::fixed_point JOHN_OFFSETS[1] = {
         bn::fixed_point(-41,5), // Relative to Jim's first position
