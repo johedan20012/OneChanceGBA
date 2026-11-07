@@ -8,18 +8,13 @@
 
 #include "bn_keypad.h"
 
-#include "day5_john_blood_bin.h"
-
 namespace game{
-
-const bn::point (&JimStab::BLOOD_PUDDLE_PIXELS)[BLOOD_PIXELS_ROWS][BLOOD_PIXELS_COLUMNS] = *reinterpret_cast<const bn::point(*)[BLOOD_PIXELS_ROWS][BLOOD_PIXELS_COLUMNS]>(day5_john_blood_bin);
 
 JimStab::JimStab(bn::fixed_point jim_pos): 
 blood_puddle(bn::sprite_items::blood_puddle.create_sprite(0,0)),blood_puddle_palette(blood_puddle.palette()),
 jim(bn::sprite_items::jim_day5.create_sprite(0,0)),knife(bn::sprite_items::knife.create_sprite(0,0)),
 john(bn::sprite_items::character_day5.create_sprite(0,0)),
 john_eyes(bn::sprite_items::john_eyes.create_sprite(0,0)),john_eyes_palette(john_eyes.palette()){
-    static_assert(day5_john_blood_bin_size == BLOOD_PIXELS_ROWS*BLOOD_PIXELS_COLUMNS*sizeof(bn::point),"The blood puddle data has an incorrect size.");
 
     jim.set_position(jim_pos);
     jim.set_tiles(bn::sprite_items::jim_day5.tiles_item(),1);

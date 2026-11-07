@@ -14,10 +14,7 @@
 namespace game{
 class JimStab : public Animation{
 private:
-    static constexpr int BLOOD_PIXELS_ROWS = 6;
-    static constexpr int BLOOD_PIXELS_COLUMNS = 31;
     static constexpr bn::fixed_point BLOOD_OFFSET = {7,6}; // Relative to John laying on the ground
-    static const bn::point (&BLOOD_PUDDLE_PIXELS)[BLOOD_PIXELS_ROWS][BLOOD_PIXELS_COLUMNS];
 
     static constexpr bn::fixed_point JIM_OFFSETS[1] = {
         {-15,0} // Right in front of John
