@@ -16,6 +16,27 @@ enum class CHOICE{
 
 bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice);
 
+constexpr bn::string_view choice_to_string(CHOICE choice){
+    switch (choice){
+    case CHOICE::WORK:
+        return "Work";
+    case CHOICE::SKIP_WORK:
+        return "Skip work";
+    case CHOICE::GO_HOME:
+        return "Go home";
+    case CHOICE::DEFEND:
+        return "Defend";
+    case CHOICE::NO_DEFEND:
+        return "No defend";
+    case CHOICE::GIVE_UP:
+        return "Give up";
+    default:
+        return "None";
+    }
+}
+
+CHOICE to_choice(int value);
+
 class GlobalVariables{
 private:
     struct SaveFile{
@@ -33,8 +54,6 @@ private:
     bool visited_work_lab_door = false;
     bool visited_work_hall = false;
     bool roof_checked_day_3 = false;
-    bool go_home_day_4A = false;
-    bool work_skipped_day_4A = false;
 public:
     GlobalVariables();
     ~GlobalVariables() = default;
@@ -60,6 +79,13 @@ public:
 
     unsigned int currentDay();
     void goNextDay();    
+    #ifdef DEBUG_GAME
+    /**
+     * @param day \in [0-6]
+     * Values above 6 will become 0
+     */
+    void setDay(int day);
+    #endif
 
     bool hasVisitedLabDoor();
     void setVisitedLabDoor(bool visited);

@@ -20,25 +20,33 @@ bn::ostringstream& operator<<(bn::ostringstream& os, CHOICE choice){
     switch (choice){
     case CHOICE::WORK:
         return os << "Work";
-        break;
     case CHOICE::SKIP_WORK:
         return os << "Skip work";
-        break;
     case CHOICE::GO_HOME:
         return os << "Go home";
-        break;
     case CHOICE::DEFEND:
         return os << "Defend";
-        break;
     case CHOICE::NO_DEFEND:
         return os << "No defend";
-        break;
     case CHOICE::GIVE_UP:
         return os << "Give up";
-        break;
     default:
         return os << "None";
-        break;
+    }
+}
+
+CHOICE to_choice(int value){
+    switch(static_cast<CHOICE>(value)){
+        case CHOICE::NONE:
+        case CHOICE::GO_HOME:
+        case CHOICE::SKIP_WORK:
+        case CHOICE::WORK:
+        case CHOICE::DEFEND:
+        case CHOICE::NO_DEFEND:
+        case CHOICE::GIVE_UP:
+            return static_cast<CHOICE>(value);
+        default:
+            return CHOICE::NONE;
     }
 }
 
@@ -57,6 +65,7 @@ void GlobalVariables::setDayChoice(unsigned int day, CHOICE choice){
 }
 
 int GlobalVariables::getDayVariant(int day){
+    BN_ASSERT(0<=day && day<=6,"Invalid day:",day);
     int row = 0;
     for(int i = 1; i<day; i++){
         BN_ASSERT(size_t(((row*9)+8)) < decision_tree_bin_size,"Skill issue");
@@ -74,7 +83,6 @@ int GlobalVariables::getDayVariant(int day){
 }
 
 unsigned int GlobalVariables::currentDay(){
-    BN_ASSERT(1<=current_day && current_day<=7,"Invalid day:",current_day);
     return current_day;
 }
 
@@ -82,6 +90,12 @@ void GlobalVariables::goNextDay(){
     current_day += 1;
     BN_ASSERT(1<=current_day && current_day<=7,"Invalid day:",current_day);
 }
+
+#ifdef DEBUG_GAME
+void GlobalVariables::setDay(int day){
+    current_day = bn::max(day,0)%6; 
+}
+#endif
 
 bool GlobalVariables::hasVisitedLabDoor(){
     return visited_work_lab_door;

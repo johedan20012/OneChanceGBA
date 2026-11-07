@@ -46,7 +46,8 @@ DMGAUDIO    	:=  dmg_audio
 DMGAUDIOBACKEND	:=  default
 ROMTITLE    	:=  ONE CHANCE
 ROMCODE     	:=  SBTP
-USERFLAGS   	:=  -DDEBUG_GAME
+USERFLAGS   	:= -DDEBUG_GAME
+#-DDEBUG_GAME -- Show debug_room first and other utilities for debug
 USERCXXFLAGS	:=  
 USERASFLAGS 	:=  
 USERLDFLAGS 	:=  
