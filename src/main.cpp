@@ -45,6 +45,7 @@ int main(){
         }
         #endif
 
+        if(bn::keypad::any_pressed()) global_var.update_random(); 
         global_var.getDialogManager().update();
         game::Timer::update();
         bn::core::update();

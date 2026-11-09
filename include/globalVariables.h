@@ -1,6 +1,8 @@
 #ifndef GLOBALVARIABLES_H
 #define GLOBALVARIABLES_H
 
+#include "bn_random.h"
+
 #include "dialogManager.h"
 
 namespace game{
@@ -50,6 +52,8 @@ private:
     unsigned int current_day = 0;
     DialogManager dialog_manager;
 
+    bn::random random;
+
     /* Especific room and day information */
     bool visited_work_lab_door = false;
     bool visited_work_hall = false;
@@ -98,6 +102,10 @@ public:
 
     bn::optional<int8_t> endType();
     void saveEndType(int8_t end_type);
+
+    void update_random();
+    bn::fixed random_fixed(bn::fixed min,bn::fixed max);
+    int random_int(int min,int max);
 };
 }
 

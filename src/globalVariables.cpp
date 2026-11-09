@@ -134,4 +134,16 @@ void GlobalVariables::saveEndType(int8_t end_type){
     save.end_type = end_type;
     bn::sram::write(save);
 }
+
+void GlobalVariables::update_random(){
+    random.update();
+}
+
+bn::fixed GlobalVariables::random_fixed(bn::fixed min, bn::fixed max){
+    return random.get_unbiased_fixed(min,max);
+}
+
+int GlobalVariables::random_int(int min,int max){
+    return random.get_unbiased_int(min,max);
+}
 }
