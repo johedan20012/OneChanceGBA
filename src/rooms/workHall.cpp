@@ -245,8 +245,9 @@ void WorkHall::loadDay5(){
 
     bg->set_item(bn::regular_bg_items::bg_work_hall_b); 
 
+    player.setMovementBox(bn::fixed_rect(10,0,225,160));
+
     if(global_var.getDayVariant(5) == 1){ // A variant
-        player.setMovementBox(bn::fixed_rect(0,0,205,160));
         player.setPos(-99,28);
         jim = bn::make_unique<Jim>();
         timer = bn::make_unique<Timer>();
@@ -255,10 +256,11 @@ void WorkHall::loadDay5(){
 }
 
 bn::optional<RoomExit> WorkHall::updateDay5(){
-    if(global_var.getDayVariant(5) == 2){// B variant
+    if(global_var.getDayVariant(5) == 2 || global_var.getDayVariant(5) == 3){// B,C variant
         player.update();
         return Room::checkExits(); 
     }
+
     if(jim) jim->update();
 
     switch (state){
