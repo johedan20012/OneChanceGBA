@@ -170,8 +170,15 @@ void HouseBedroom1::loadDay5(){
 
         exits.clear();
     }else{
-        if(global_var.getDayVariant(5) == 1) bg->set_item(bn::regular_bg_items::bg_house_1f); // A variant
-        else bg->set_item(bn::regular_bg_items::bg_house_1h); // B variant
+        switch(global_var.getDayVariant(5)){
+            case 2: // B variant
+                bg->set_item(bn::regular_bg_items::bg_house_1h);
+                break;
+            case 3:
+            default: // A,C variant
+                bg->set_item(bn::regular_bg_items::bg_house_1f);
+                break;
+        }
 
         white_lab_coat.set_rotation_angle(90);
         white_lab_coat.set_position(bn::fixed_point(23,48));
