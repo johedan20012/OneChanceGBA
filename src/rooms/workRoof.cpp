@@ -180,8 +180,10 @@ void WorkRoof::loadDay5(){
     player.setPos(-93,25);
 
     exits.push_back(RoomExit("work_stairs",bn::fixed_rect(-120,23,40,64),DIRECTION::RIGHT,false));
-    exits.push_back(RoomExit("give_up",bn::fixed_rect(63,23,8,64),DIRECTION::RIGHT,true));
-    exits.back().info = "Give up";
+    if(global_var.getDayVariant(5) == 2){ // B variant
+        exits.push_back(RoomExit("give_up",bn::fixed_rect(63,23,8,64),DIRECTION::RIGHT,true));
+        exits.back().info = "Give up";
+    }
     edge.setZOrder(-10);
 
     #ifdef DEBUG_GAME
