@@ -128,7 +128,8 @@ void HouseBedroom2::loadDay5(){
             bg->set_item(bn::regular_bg_items::bg_house_3_h);
             break;
         case 3:
-        default: // A,C variant
+        case 4:
+        default: // A,C,D variant
             bg->set_item(bn::regular_bg_items::bg_house_3_f); 
             break;
         }
