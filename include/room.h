@@ -67,6 +67,7 @@ protected:
     bn::optional<bn::regular_bg_ptr> bg;
     bn::optional<bn::regular_bg_ptr> bg_paper;
     Player& player;
+    const int variant; 
     bool isExiting = false;
 
     bn::vector<RoomExit,6> exits;
@@ -81,7 +82,7 @@ protected:
     void updateExitsInfo();
 
 public:
-    Room(const bn::regular_bg_ptr _bg,bn::fixed_rect _paper_boundaries,Player& _player);
+    Room(const bn::regular_bg_ptr _bg,bn::fixed_rect _paper_boundaries,Player& _player,int _variant = 1);
     virtual ~Room();
 
     virtual bn::optional<RoomExit> update();

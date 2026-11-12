@@ -128,7 +128,7 @@ void WorkHall::Jim::initiateCharging(){
 }
 
 WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_work_hall.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),
+    Room(bn::regular_bg_items::bg_work_hall.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),
     small_cabinet(bn::sprite_items::small_cabinet.create_sprite(-34,27)){
     
@@ -247,7 +247,7 @@ void WorkHall::loadDay5(){
 
     player.setMovementBox(bn::fixed_rect(10,0,225,160));
 
-    if(global_var.getDayVariant(5) == 1){ // A variant
+    if(Room::variant == 1){ // A variant
         player.setPos(-99,28);
         jim = bn::make_unique<Jim>();
         timer = bn::make_unique<Timer>();
@@ -256,7 +256,9 @@ void WorkHall::loadDay5(){
 }
 
 bn::optional<RoomExit> WorkHall::updateDay5(){
-    if(global_var.getDayVariant(5) == 2 || global_var.getDayVariant(5) == 3){// B,C variant
+    if( Room::variant == 2 || 
+        Room::variant == 3 ||
+        Room::variant == 4){// B,C,D variant
         player.update();
         return Room::checkExits(); 
     }

@@ -8,8 +8,8 @@
 
 namespace game{
 
-Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player& _player):
-    info_gen(JostFontVar8x16),exit_info_displayed(-1),bg(_bg),bg_paper(bn::regular_bg_items::bg_paper_full.create_bg(8,48)),player(_player){
+Room::Room(const bn::regular_bg_ptr _bg, bn::fixed_rect _paper_boundaries,Player& _player, int _variant):
+    info_gen(JostFontVar8x16),exit_info_displayed(-1),bg(_bg),bg_paper(bn::regular_bg_items::bg_paper_full.create_bg(8,48)),player(_player),variant(_variant){
     
     bg->set_priority(3);
     bg_paper->set_priority(0);
