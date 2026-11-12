@@ -102,7 +102,7 @@ bool WorkRoof::Matthew::jumpfinished(){
 }
 
 WorkRoof::WorkRoof(Player& _player,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_work_roof.create_bg(8,48),bn::fixed_rect(0,0,280,160),_player),
+    Room(bn::regular_bg_items::bg_work_roof.create_bg(8,48),bn::fixed_rect(0,0,280,160),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),state(STATE::NORMAL),edge(){
 
     player.setPos(-98,25);
@@ -180,10 +180,10 @@ void WorkRoof::loadDay5(){
     player.setPos(-93,25);
 
     exits.push_back(RoomExit("work_stairs",bn::fixed_rect(-120,23,40,64),DIRECTION::RIGHT,false));
-    if(global_var.getDayVariant(5) == 2){ // B variant
+    if(Room::variant == 2){ // B variant
         exits.push_back(RoomExit("give_up",bn::fixed_rect(63,23,8,64),DIRECTION::RIGHT,true));
         exits.back().info = "Give up";
-    }
+    } // else C,D variant
     edge.setZOrder(-10);
 
     #ifdef DEBUG_GAME
