@@ -7,13 +7,14 @@
 #include "bn_regular_bg_items_bg_house_4.h"
 #include "bn_regular_bg_items_bg_house_4_b.h"
 #include "bn_regular_bg_items_bg_house_4_c.h"
+#include "bn_regular_bg_items_bg_house_4_d.h"
 
 #include "bn_log.h"
 
 namespace game{
 
 HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_house_4.create_bg(8,48),bn::fixed_rect(60,0,121,131),_player),
+    Room(bn::regular_bg_items::bg_house_4.create_bg(8,48),bn::fixed_rect(60,0,121,131),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),penny(nullptr){
 
     player.setMovementBox(bn::fixed_rect(75,0,110,160));
@@ -75,7 +76,7 @@ void HouseBathroom::loadDay4(){
     if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
         player.setUseLightBathroomDay4(true);
 
-        if(global_var.getDayVariant(4) == 2){ // variant B
+        if(Room::variant == 2){ // variant B
             bg->set_item(bn::regular_bg_items::bg_house_4_c);
             player.resetAnim();
             player.setHflip(true);
@@ -98,6 +99,15 @@ void HouseBathroom::loadDay5(){
         player.setUseLightBathroomDay4(true);
 
         bg->set_item(bn::regular_bg_items::bg_house_4_b);
+    }else{
+        switch (Room::variant){
+        case 5:
+        case 11: // E,K variant
+            bg->set_item(bn::regular_bg_items::bg_house_4_d);
+            break;
+        default: // A,B,C,D variant
+            break;
+        }
     }
 }
 
@@ -136,7 +146,7 @@ bn::optional<RoomExit> HouseBathroom::updateDay4(){
 bn::optional<RoomExit> HouseBathroom::update(){
     Room::update();
 
-    if(global_var.currentDay() == 4 && global_var.getDayVariant(4) == 2 && global_var.dayChoice(4) == CHOICE::SKIP_WORK) // B variant
+    if(global_var.currentDay() == 4 && Room::variant == 2 && global_var.dayChoice(4) == CHOICE::SKIP_WORK) // B variant
         return updateDay4();
 
     player.update();
