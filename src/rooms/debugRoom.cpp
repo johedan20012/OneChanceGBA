@@ -40,20 +40,12 @@ info_gen(JostFontVar8x16){
     info_gen.set_bg_priority(2);
     info_gen.set_z_order(0);
 
-    /*global_var.setDay(5);
-    global_var.setDayChoice(1,game::CHOICE::SKIP_WORK);
-    global_var.setDayChoice(2,game::CHOICE::WORK);
-    global_var.setDayChoice(3,game::CHOICE::GO_HOME);
-    global_var.setDayChoice(4,game::CHOICE::SKIP_WORK);
-    room_selected = 10;
-    player_lab_coat = false;*/
-
     display_info();
 }
 
 DebugRoom::~DebugRoom(){
     if(!player_lab_coat) player.takeOffLabCoat();
-    player.useNightColors(player_night_colors);
+    if(player_night_colors) player.useNightColors(player_night_colors);
 }
 
 bn::optional<RoomExit> DebugRoom::update(){
@@ -88,6 +80,10 @@ bn::optional<RoomExit> DebugRoom::update(){
             break;
         case 12:
             player_night_colors = !player_night_colors;
+            break;
+        case 13:
+            molly_on_players_back = !molly_on_players_back;
+            player.carryMolly(molly_on_players_back);
             break;
         case 1:
         case 2:
@@ -125,6 +121,7 @@ void DebugRoom::display_info(){
     info_gen.generate(bn::fixed_point{-110,30},"RCD3",text_sprs);
     info_gen.generate(bn::fixed_point{-110,40},"PLC",text_sprs);
     info_gen.generate(bn::fixed_point{-110,50},"PNC",text_sprs);
+    info_gen.generate(bn::fixed_point{-110,60},"MoPB",text_sprs);
 
     info_gen.generate(bn::fixed_point{-80,-70},choice_to_string(global_var.dayChoice(1)),text_sprs);
     info_gen.generate(bn::fixed_point{-80,-60},choice_to_string(global_var.dayChoice(2)),text_sprs);
@@ -153,6 +150,9 @@ void DebugRoom::display_info(){
 
     aux_str = bn::to_string<11>(player_night_colors);
     info_gen.generate(bn::fixed_point{-80,50},aux_str,text_sprs);
+
+    aux_str = bn::to_string<11>(molly_on_players_back);
+    info_gen.generate(bn::fixed_point{-80,60},aux_str,text_sprs);
 }
 
 }

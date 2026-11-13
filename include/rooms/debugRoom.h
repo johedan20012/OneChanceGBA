@@ -13,7 +13,7 @@
 namespace game{
 class DebugRoom : public Room{
 private:
-    static constexpr int MAX_OPTIONS = 13;
+    static constexpr int MAX_OPTIONS = 14;
     static constexpr int MAX_ROOMS = 16;
     static const bn::string<15> roomsNames[MAX_ROOMS];
 
@@ -28,6 +28,7 @@ private:
     int option_selected = 0;
     bool player_lab_coat = true;
     bool player_night_colors = false;
+    bool molly_on_players_back = false;
 
     void display_info();
 public:
