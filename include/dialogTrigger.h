@@ -27,6 +27,8 @@ private:
     bool player_in = false;
     bool active = true;
 
+    bool triggered = false;
+
     #ifdef DEBUG_GAME
     bn::vector<bn::sprite_ptr,5> trigger_debug;
     void createTriggerDebug();
@@ -39,6 +41,8 @@ public:
     bn::fixed_point getPos();
 
     void addDialog(Pair<int,int> dialog);
+
+    bool wasTriggered();
 
     void update(bn::fixed_rect player_boundaries);
 };

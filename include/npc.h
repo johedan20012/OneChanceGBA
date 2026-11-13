@@ -26,6 +26,7 @@ public:
     void setHorizontalFlip(bool flip);
 
     void addDialog(DialogTrigger* _dialog); //eww raw pointers
+    bool dialogTriggered(); // Returns false if this NPC has no dialog
 
     void lookAt(bn::fixed_point p,bool flip = false);
     void checkDialog(bn::fixed_rect player_boundaries);

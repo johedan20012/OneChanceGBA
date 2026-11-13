@@ -34,6 +34,7 @@ private:
     bn::sprite_ptr white_lab_coat;
     bn::optional<bn::sprite_ptr> white_lab_coat2;
     bn::optional<NPC> penny;
+    bn::optional<NPC> molly;
 
     bn::optional<bn::bg_palettes_fade_to_action> bg_fade_to_black;
     bn::optional<bn::sprite_palettes_fade_to_action> spr_fade_to_black;

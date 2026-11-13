@@ -51,7 +51,8 @@ inline constexpr bn::string_view DIALOGS[MAX_DIALOGS] = {
         "Annie: Do you maybe... wanna get out of here?",
         "Jim: You!",
         "Jim: This is all your fault John.",
-/*45*/  "Jim: You'll pay for this."
+/*45*/  "Jim: You'll pay for this.",
+        "Molly: Where's mummy, daddy?"
 };
 }
 

@@ -64,6 +64,10 @@ private:
     bool fliped = false;
     bool wait_frame = false;
 
+    // Molly
+    bn::unique_ptr<bn::sprite_ptr> molly;
+    bn::unique_ptr<bn::sprite_ptr> mollys_arm;
+
     void resetWalk();
     void updateWalk();
 
@@ -105,6 +109,8 @@ public:
     void setHflip(bool flip);
 
     void setUseLightBathroomDay4(bool use);
+
+    void carryMolly(bool carry = false);
 
     void update(bool frozen = false);
 };

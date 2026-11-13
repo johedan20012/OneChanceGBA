@@ -2,6 +2,7 @@
 
 #include "bn_sprite_palette_ptr.h"
 #include "bn_sprite_items_character.h"
+#include "bn_sprite_items_molly_small.h"
 #include "bn_sprite_items_light_bathroom.h"
 
 #include "bn_log.h"
@@ -213,6 +214,11 @@ void Player::resetAnim(){
 
 void Player::setPos(bn::fixed x,bn::fixed y){
     sprite.set_position(x,y);
+
+    if(molly){
+        molly->set_position(sprite.position());
+        mollys_arm->set_position(sprite.position());
+    }
 }
 
 bn::fixed_point Player::getPos(){
@@ -294,15 +300,37 @@ bn::fixed_rect Player::movementBox(){
 
 void Player::setVisible(bool _visible){
     sprite.set_visible(_visible);
+    if(molly){
+        molly->set_visible(_visible);
+        mollys_arm->set_visible(_visible);
+    }
 }
 
 void Player::setHflip(bool flip){
     sprite.set_horizontal_flip(flip);
+    if(molly){
+        molly->set_horizontal_flip(sprite.horizontal_flip());
+        mollys_arm->set_horizontal_flip(sprite.horizontal_flip());
+    }
     fliped = flip;
 }
 
 void Player::setUseLightBathroomDay4(bool use){
     use_light_bathroom_day_4 = use;
+}
+
+void Player::carryMolly(bool carry){
+    if(carry && !molly){
+        molly = bn::make_unique<bn::sprite_ptr>(bn::sprite_items::molly_small.create_sprite(sprite.position(),0));
+        molly->set_bg_priority(2);
+        molly->set_z_order(2);
+        mollys_arm = bn::make_unique<bn::sprite_ptr>(bn::sprite_items::molly_small.create_sprite(sprite.position(),1));
+        mollys_arm->set_bg_priority(2);
+        mollys_arm->set_z_order(-15);
+    }else if(!carry && molly){
+        molly.reset();
+        mollys_arm.reset();
+    }
 }
 
 void Player::update(bool frozen){
@@ -326,6 +354,10 @@ void Player::update(bool frozen){
         return;
     }
 
+    if(molly){
+        molly->set_position(sprite.position());
+        mollys_arm->set_position(sprite.position());
+    }
 
     moving_dir = 0;
     if(bn::keypad::right_held()) moving_dir = 1;
@@ -336,6 +368,11 @@ void Player::update(bool frozen){
         resetWalk();
         if(moving_dir == 1){ sprite.set_horizontal_flip(false); if(fliped){ wait_frame = true;} fliped = false;}
         if(moving_dir == -1){ sprite.set_horizontal_flip(true); if(!fliped){wait_frame = true;} fliped = true; }
+    }
+
+    if(molly){
+        molly->set_horizontal_flip(sprite.horizontal_flip());
+        mollys_arm->set_horizontal_flip(sprite.horizontal_flip());
     }
 
     if(moving_dir != 0){

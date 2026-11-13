@@ -26,6 +26,10 @@ void DialogTrigger::addDialog(Pair<int,int> dialog){
     dialog_sequence.push_back(dialog);
 }
 
+bool DialogTrigger::wasTriggered(){
+    return triggered;
+}
+
 void DialogTrigger::update(bn::fixed_rect player_boundaries){
     if(!active) return;
 
@@ -39,6 +43,7 @@ void DialogTrigger::update(bn::fixed_rect player_boundaries){
         if(trigger_box.intersects(player_boundaries)){
             player_in = true;
             global_var.getDialogManager().setActDialogSequence(dialog_sequence);
+            triggered = true;
             if(hold_until_leaving) global_var.getDialogManager().setBottomTextDuration(-1);
             if(!is_reuseable && !hold_until_leaving) active = false;
         }else player_in = false;

@@ -1,6 +1,7 @@
 #include "HouseBedroom1.h"
 
 #include "bn_sprite_items_penny.h"
+#include "bn_sprite_items_molly.h"
 #include "bn_sprite_items_lab_coat.h"
 #include "bn_sprite_items_character.h"
 
@@ -17,7 +18,7 @@
 namespace game{
 
 HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,131),_player),
+    Room(bn::regular_bg_items::bg_house_1.create_bg(8,48),bn::fixed_rect(0,0,240,131),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),
     player_reflexion(bn::sprite_items::character.create_sprite(0,0)),
     white_lab_coat(bn::sprite_items::lab_coat.create_sprite(0,0)){
@@ -174,6 +175,17 @@ void HouseBedroom1::loadDay5(){
             case 2: // B variant
                 bg->set_item(bn::regular_bg_items::bg_house_1h);
                 break;
+            case 5:
+            case 11: // E,K variant
+                bg->set_item(bn::regular_bg_items::bg_house_1h);
+                {
+                molly = bn::sprite_items::molly.create_sprite(104,39);
+                molly->setHorizontalFlip(true);
+                DialogTrigger* dialog = new DialogTrigger(global_var,bn::fixed_rect(0,0,40,64),false,false);
+                dialog->addDialog(Pair<int,int>(46,78));
+                molly->addDialog(dialog);
+                }
+                break;
             case 3:
             case 4:
             default: // A,C,D variant
@@ -193,7 +205,14 @@ void HouseBedroom1::loadDay5(){
 
 bn::optional<RoomExit> HouseBedroom1::updateDay5(){
     if(global_var.dayChoice(global_var.currentDay()) != CHOICE::DEFEND){
-        player.update();
+        if(Room::variant == 5 || Room::variant == 11){ // E,K variant
+            molly->checkDialog(player.boundaries());
+            player.update(global_var.getDialogManager().hasADialogSequence());
+            if(molly->dialogTriggered() && !global_var.getDialogManager().hasADialogSequence()){
+                molly->setVisibility(false);
+                player.carryMolly(true);
+            }
+        }else player.update();
         return checkExits();
     }
 

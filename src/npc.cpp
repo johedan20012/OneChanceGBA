@@ -29,6 +29,13 @@ void NPC::addDialog(DialogTrigger* _dialog){
     dialog->setPos(sprite.position()+dialog->getPos());
 }
 
+bool NPC::dialogTriggered(){
+    if(dialog != nullptr){
+        return dialog->wasTriggered();
+    }
+    return false;
+}
+
 void NPC::lookAt(bn::fixed_point p, bool flip){
     bn::fixed x_dif = sprite.position().x()-p.x();
     if(bn::abs(x_dif) > 20) return; 
