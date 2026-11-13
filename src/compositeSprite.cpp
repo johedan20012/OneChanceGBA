@@ -11,7 +11,7 @@ CompositeSprite::CompositeSprite():
 
 void CompositeSprite::addSprite(bn::sprite_ptr _sprite){
     _sprite.set_bg_priority(2);
-    _sprite.set_z_order(2);
+    _sprite.set_z_order(3);
     sprites.push_back(_sprite);
     origOffset.push_back(_sprite.position()-pos);
     //distToCenter.push_back(bn::sqrt((_sprite.position().x()-pos.x())*(_sprite.position().x()-pos.x()) + (_sprite.position().y()-pos.y())*(_sprite.position().y()-pos.y())));

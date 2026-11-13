@@ -10,6 +10,7 @@
 #include "bn_regular_bg_items_bg_house_5_c.h"
 #include "bn_regular_bg_items_bg_house_5_d.h"
 #include "bn_regular_bg_items_bg_house_5_e.h"
+#include "bn_regular_bg_items_bg_house_5_f.h"
 #include "bn_regular_bg_items_bg_newspaper1.h"
 #include "bn_regular_bg_items_bg_newspaper2.h"
 #include "bn_regular_bg_items_bg_newspaper3.h"
@@ -20,7 +21,7 @@
 
 namespace game{
 HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_house_5.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
+    Room(bn::regular_bg_items::bg_house_5.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),
     car(),cloud(bn::sprite_items::cloud.create_sprite(130,-71)),
     newspaper(bn::sprite_items::newspaper.create_sprite(-43,73)),
@@ -153,7 +154,15 @@ void HouseEntrance::loadDay5(){
         exits.clear();
         exits.push_back(RoomExit("house_hall",bn::fixed_rect(-120,53,50,64),DIRECTION::RIGHT,false));
     }else{
-        bg->set_item(bn::regular_bg_items::bg_house_5_e);
+        switch(Room::variant){
+        case 5:
+        case 11: // E,K variant
+            bg->set_item(bn::regular_bg_items::bg_house_5_f);
+            break;
+        default: // A,B,C,D variant
+            bg->set_item(bn::regular_bg_items::bg_house_5_e);
+            break;
+        }
     }
 }
 
