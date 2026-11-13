@@ -11,11 +11,12 @@
 #include "bn_regular_bg_items_bg_house_2e.h"
 #include "bn_regular_bg_items_bg_house_2f.h"
 #include "bn_regular_bg_items_bg_house_2g.h"
+#include "bn_regular_bg_items_bg_house_2h.h"
 
 namespace game{
 
 HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::fixed_rect(0,9,239,113),_player),
+    Room(bn::regular_bg_items::bg_house_2.create_bg(8,48),bn::fixed_rect(0,9,239,113),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),npc(bn::sprite_items::penny.create_sprite(54,23)){
 
     player.setMovementBox(bn::fixed_rect(-10.5,0,239,160));
@@ -118,7 +119,15 @@ void HouseHall::loadDay5(){
         bg->set_item(bn::regular_bg_items::bg_house_2g); // Night
     
     }else{
-        bg->set_item(bn::regular_bg_items::bg_house_2f);
+        switch (Room::variant){
+        case 5:
+        case 11: // E,K variant
+            bg->set_item(bn::regular_bg_items::bg_house_2h);
+            break;
+        default: // A,B,C,D variant
+            bg->set_item(bn::regular_bg_items::bg_house_2f);
+            break;
+        }
     }
 
     npc->setVisibility(false);
