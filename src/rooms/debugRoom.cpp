@@ -25,7 +25,8 @@ const bn::string<15> DebugRoom::roomsNames[DebugRoom::MAX_ROOMS] = {
     /*12*/ "work_lab",
     /*13*/ "day_change",
     /*14*/ "work_roof",
-    /*15*/ "end"
+    /*15*/ "end",
+    /*16*/ "decision"
 };
     
 DebugRoom::DebugRoom(Player& _player, GlobalVariables& _global_var):

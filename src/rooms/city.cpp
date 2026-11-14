@@ -13,7 +13,7 @@
 
 namespace game{
 City::City(Player& _player, DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_city.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
+    Room(bn::regular_bg_items::bg_city.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),
     car(bn::sprite_items::car_small.create_sprite(0,0)){
 
@@ -118,7 +118,16 @@ void City::loadDay5(){
     small_npc.push_back(bn::sprite_items::city_people.create_sprite(71,38,4)); //Goes left
     damaged_car = bn::sprite_items::car_small2.create_sprite(-1,42);
     exits.pop_back();
-    exits.push_back(RoomExit("work_lobby",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
+
+    switch(Room::variant){
+    case 5:
+    case 11: // E,K variant
+        exits.push_back(RoomExit("decision",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
+        break;
+    default: // A,B,C,D variant
+        exits.push_back(RoomExit("work_lobby",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
+        break;
+    }
 }
 
 void City::updateDay1_2(){

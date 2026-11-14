@@ -95,7 +95,7 @@ constexpr int8_t JostFontVar8x16_character_widths[] = {
     5,  // 113 q
     2,  // 114 r
     3,  // 115 s
-    2,  // 116 t
+    3,  // 116 t
     3,  // 117 u
     4,  // 118 v
     6,  // 119 w

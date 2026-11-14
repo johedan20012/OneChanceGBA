@@ -6,6 +6,7 @@
 #include "rooms/skipWork.h"
 #include "rooms/workHall.h"
 #include "rooms/workRoof.h"
+#include "rooms/decision.h"
 #include "rooms/dayChange.h"
 #include "rooms/houseHall.h"
 #include "rooms/workLobby.h"
@@ -19,7 +20,7 @@
 
 namespace game{
 
-const bn::string<15> RoomLoader::roomsNames[16] = {
+const bn::string<15> RoomLoader::roomsNames[17] = {
     "house_bedroom",
     "house_hall",
     "house_molly",
@@ -35,7 +36,8 @@ const bn::string<15> RoomLoader::roomsNames[16] = {
     "work_lab",
     "day_change",
     "work_roof",
-    "end"
+    "end",
+    "decision"
 };
 
 bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player,GlobalVariables& _global){
@@ -87,6 +89,9 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player,Glob
     }
     if(room_exit.name == roomsNames[15]){
         return bn::make_unique<End>(player,_global);
+    }
+    if(room_exit.name == roomsNames[16]){
+        return bn::make_unique<Decision>(player);
     }
     BN_LOG("Error loading room: ",room_exit.name);
     return bn::make_unique<HouseBedroom1>(player,room_exit.next_in_dir,_global);

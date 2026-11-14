@@ -10,7 +10,7 @@
 namespace game{
 class RoomLoader{
 private:
-    static const bn::string<15> roomsNames[16];
+    static const bn::string<15> roomsNames[17];
 
 public:
     static bn::unique_ptr<Room> loadRoom(RoomExit room_exit, Player& player,GlobalVariables& _global);

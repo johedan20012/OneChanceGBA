@@ -14,7 +14,7 @@ namespace game{
 class DebugRoom : public Room{
 private:
     static constexpr int MAX_OPTIONS = 14;
-    static constexpr int MAX_ROOMS = 16;
+    static constexpr int MAX_ROOMS = 17;
     static const bn::string<15> roomsNames[MAX_ROOMS];
 
     GlobalVariables& global_var;
