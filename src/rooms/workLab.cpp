@@ -1,5 +1,7 @@
 #include "workLab.h"
 
+#include "bn_sprite_items_ball.h"
+#include "bn_sprite_items_molly.h"
 #include "bn_sprite_items_pc_screen.h"
 #include "bn_sprite_items_work_people.h"
 #include "bn_sprite_items_work_people_b.h"
@@ -10,11 +12,11 @@
 
 namespace game{
 WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_work_lab.create_bg(8,48),bn::fixed_rect(0,0,240,132),_player),
+    Room(bn::regular_bg_items::bg_work_lab.create_bg(8,48),bn::fixed_rect(0,0,240,132),_player,_global_var.getDayVariant(_global_var.currentDay())),
     pc_screen(bn::sprite_items::pc_screen.create_sprite(-28,17)),
     global_var(_global_var){
 
-    if(!(global_var.currentDay() == 5 && global_var.getDayVariant(5) == 1)) global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
+    if(!(global_var.currentDay() == 5 && Room::variant == 1)) global_var.setDayChoice(global_var.currentDay(),CHOICE::WORK);
     global_var.getDialogManager().resetBottomText();
     global_var.getDialogManager().resetBg();
 
@@ -95,7 +97,19 @@ void WorkLab::loadDay5(){
     dark_frames = 44;
     show_frames = 174;
 
-    if(global_var.getDayVariant(5) == 1) Room::exits[0] = RoomExit("house_entrance",DIRECTION::DOOR1); // A variant
+    switch (Room::variant){
+    case 1: // A variant
+        Room::exits[0] = RoomExit("house_entrance",DIRECTION::DOOR1);
+        break;
+    case 5:
+    case 11: // E,K variant
+        player.carryMolly(false);
+        npcs.push_back(bn::sprite_items::molly.create_sprite(80,42));
+        npcs.push_back(bn::sprite_items::ball.create_sprite(92,54));
+        break;
+    default:
+        break;
+    }
 }
 
 bn::optional<RoomExit> WorkLab::update(){
@@ -107,7 +121,7 @@ bn::optional<RoomExit> WorkLab::update(){
 
     if(end_room && end_room->elapsedFrames() >= show_frames){
         BN_ASSERT(Room::exits.size() > 0, "WorkLab doesn't have a room to exit to");
-        if(global_var.currentDay() == 5 && global_var.getDayVariant(5) == 1) player.useNightColors(true); // A variant
+        if(global_var.currentDay() == 5 && Room::variant == 1) player.useNightColors(true); // A variant
         return Room::exits[0];
     }
 
