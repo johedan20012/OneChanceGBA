@@ -183,7 +183,7 @@ void WorkRoof::loadDay5(){
     if(Room::variant == 2){ // B variant
         exits.push_back(RoomExit("give_up",bn::fixed_rect(63,23,8,64),DIRECTION::RIGHT,true));
         exits.back().info = "Give up";
-    } // else C,D variant
+    } // else C,D,E,K variant
     edge.setZOrder(-10);
 
     #ifdef DEBUG_GAME
