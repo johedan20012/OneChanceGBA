@@ -258,7 +258,9 @@ void WorkHall::loadDay5(){
 bn::optional<RoomExit> WorkHall::updateDay5(){
     if( Room::variant == 2 || 
         Room::variant == 3 ||
-        Room::variant == 4){// B,C,D variant
+        Room::variant == 4 ||
+        Room::variant == 5 ||
+        Room::variant == 11){// B,C,D,E,K variant
         player.update();
         return Room::checkExits(); 
     }
