@@ -124,14 +124,16 @@ void HouseBedroom2::loadDay5(){
     if(global_var.dayChoice(5) == CHOICE::DEFEND){
         bg->set_item(bn::regular_bg_items::bg_house_3_g); // Night
     }else{
-        switch (global_var.getDayVariant(5)){
+        switch (Room::variant){
         case 2: // B variant
             bg->set_item(bn::regular_bg_items::bg_house_3_h);
             break;
         case 3:
         case 4:
         case 5:
+        case 6:
         case 11:
+        case 12:
         default: // A,C,D,E,K variant
             bg->set_item(bn::regular_bg_items::bg_house_3_f); 
             break;
