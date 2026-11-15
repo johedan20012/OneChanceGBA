@@ -102,7 +102,9 @@ void WorkLab::loadDay5(){
         Room::exits[0] = RoomExit("house_entrance",DIRECTION::DOOR1);
         break;
     case 5:
-    case 11: // E,K variant
+    case 6:
+    case 11:
+    case 12: // E,F,K,L variant
         player.carryMolly(false);
         npcs.push_back(bn::sprite_items::molly.create_sprite(80,42));
         npcs.push_back(bn::sprite_items::ball.create_sprite(92,54));
