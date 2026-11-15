@@ -94,22 +94,18 @@ void HouseHall::loadDay3(){
 }
 
 void HouseHall::loadDay4(){
-    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
-        exits.pop_back(); // Delete exit "Go to Work"
-
-        if(global_var.getDayVariant(4) == 2){// B variant
+    if(Room::variant == 2){ // B variant
+        if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK ||
+           global_var.dayChoice(global_var.currentDay()) == CHOICE::WORK){
+            exits.pop_back(); // Delete exit "Go to Work"
             bg->set_item(bn::regular_bg_items::bg_house_2e);
-        }else{
+        }else bg->set_item(bn::regular_bg_items::bg_house_2d);
+    }else{ // A variant
+        if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
+            exits.pop_back(); // Delete exit "Go to Work"
             bg->set_item(bn::regular_bg_items::bg_house_2c);
-        }
-    }else{
-        if(global_var.getDayVariant(4) == 2){// B variant
-            bg->set_item(bn::regular_bg_items::bg_house_2d);
-        }else{
-            bg->set_item(bn::regular_bg_items::bg_house_2b);
-        }
+        }else bg->set_item(bn::regular_bg_items::bg_house_2b);
     }
-
     npc->setVisibility(false);
 }
 

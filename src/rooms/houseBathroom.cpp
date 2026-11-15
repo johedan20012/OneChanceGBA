@@ -73,23 +73,26 @@ void HouseBathroom::loadDay3(){
 void HouseBathroom::loadDay4(){
     loadDay3();
 
-    if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
-        player.setUseLightBathroomDay4(true);
-
-        if(Room::variant == 2){ // variant B
+    if(Room::variant == 2){ // B variant
+        if(global_var.dayChoice(4) == CHOICE::SKIP_WORK ||
+           global_var.dayChoice(4) == CHOICE::WORK){
             bg->set_item(bn::regular_bg_items::bg_house_4_c);
+            player.setUseLightBathroomDay4(true);
             player.resetAnim();
             player.setHflip(true);
             player.setPos(103,29);
             player.update(); // i need to update the lights
-            player.update(); // i need to update the lights so i call again hahaha
+            player.update(); // i need to update the lights so i call again hahaha  //14/11/26 update: why i call update two times here is now a mistery
             timer = bn::make_unique<Timer>();
-        }else{
-            bg->set_item(bn::regular_bg_items::bg_house_4_b);
         }
+        return;
+    }
+    // A variant
+    if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
+        player.setUseLightBathroomDay4(true);
+        bg->set_item(bn::regular_bg_items::bg_house_4_b);
         //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(46,-2,0));
         //light_day4A.push_back(bn::sprite_items::light_bathroom.create_sprite(82,-2,1));
-        
     }
 }
 
@@ -146,7 +149,8 @@ bn::optional<RoomExit> HouseBathroom::updateDay4(){
 bn::optional<RoomExit> HouseBathroom::update(){
     Room::update();
 
-    if(global_var.currentDay() == 4 && Room::variant == 2 && global_var.dayChoice(4) == CHOICE::SKIP_WORK) // B variant
+    if(global_var.currentDay() == 4 && Room::variant == 2 && 
+       (global_var.dayChoice(4) == CHOICE::SKIP_WORK || global_var.dayChoice(4) == CHOICE::WORK)) // B variant
         return updateDay4();
 
     player.update();

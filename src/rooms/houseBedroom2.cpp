@@ -17,7 +17,7 @@
 namespace game{
 
 HouseBedroom2::HouseBedroom2(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_house_3.create_bg(8,48),bn::fixed_rect(6,0,228,131),_player),
+    Room(bn::regular_bg_items::bg_house_3.create_bg(8,48),bn::fixed_rect(6,0,228,131),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var),
     molly(bn::sprite_items::molly.create_sprite(-77,39)),teddy_bear(bn::sprite_items::teddy.create_sprite(-24,43)){
 
@@ -108,8 +108,9 @@ void HouseBedroom2::loadDay4(){
         player.setVisible(false);
         timer = bn::make_unique<Timer>();
     }else{
-        if(global_var.getDayVariant(4) == 2){ //B variant
-            bg->set_item(bn::regular_bg_items::bg_house_3_e);
+        if(Room::variant == 2){ //B variant
+            if(global_var.dayChoice(4) == CHOICE::WORK) bg->set_item(bn::regular_bg_items::bg_house_3_d);
+            else bg->set_item(bn::regular_bg_items::bg_house_3_e);
         }else{
             bg->set_item(bn::regular_bg_items::bg_house_3_c);
         }

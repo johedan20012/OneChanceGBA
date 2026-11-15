@@ -95,17 +95,27 @@ void HouseBedroom1::loadDay3(){
 }
 
 void HouseBedroom1::loadDay4(){
-    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
-        if(global_var.getDayVariant(global_var.currentDay()) == 2){ // B variant
-
-        bg->set_item(bn::regular_bg_items::bg_house_1d);
-
-        white_lab_coat.set_visible(false);
-
-        player_reflexion.set_palette(player.getPalettePtr());
-
+    if(Room::variant == 2){ // B variant
+        if(global_var.dayChoice(4) == CHOICE::SKIP_WORK ||
+           global_var.dayChoice(4) == CHOICE::WORK){
+            bg->set_item(bn::regular_bg_items::bg_house_1d);
+            white_lab_coat.set_visible(false);
+            player_reflexion.set_palette(player.getPalettePtr());
         }else{
-        
+            bg->set_item(bn::regular_bg_items::bg_house_1e);
+
+            white_lab_coat.set_rotation_angle(90);
+            white_lab_coat.set_position(bn::fixed_point(23,48));
+
+            white_lab_coat2 = bn::sprite_items::lab_coat.create_sprite(75,60);
+            white_lab_coat2->set_rotation_angle(90);
+            white_lab_coat2->set_bg_priority(2);
+            white_lab_coat2->set_z_order(2);
+        }
+        return;
+    }
+    // A variant
+    if(global_var.dayChoice(4) == CHOICE::SKIP_WORK){
         bg->set_item(bn::regular_bg_items::bg_house_1d);
 
         white_lab_coat.set_visible(false);
@@ -121,23 +131,7 @@ void HouseBedroom1::loadDay4(){
         penny->getPalette().set_colors(penny_dark_pal);
 
         player_reflexion.set_palette(player.getPalettePtr());
-        
-        }
     }else{
-        if(global_var.getDayVariant(global_var.currentDay()) == 2){ // B variant
-
-        bg->set_item(bn::regular_bg_items::bg_house_1e);
-
-        white_lab_coat.set_rotation_angle(90);
-        white_lab_coat.set_position(bn::fixed_point(23,48));
-
-        white_lab_coat2 = bn::sprite_items::lab_coat.create_sprite(75,60);
-        white_lab_coat2->set_rotation_angle(90);
-        white_lab_coat2->set_bg_priority(2);
-        white_lab_coat2->set_z_order(2);
-
-        }else{
-        
         bg->set_item(bn::regular_bg_items::bg_house_1c);
 
         white_lab_coat.set_rotation_angle(90);
@@ -154,8 +148,6 @@ void HouseBedroom1::loadDay4(){
         dialog->addDialog(Pair<int,int>(32,208));
         dialog->addDialog(Pair<int,int>(33,340));
         penny->addDialog(dialog);
-
-        }
     }
 }
 

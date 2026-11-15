@@ -95,7 +95,8 @@ void HouseEntrance::loadDay4(){
     newspaper_item = bn::regular_bg_items::bg_newspaper4;
     global_var.getDialogManager().setBg(bn::regular_bg_items::bg_bottom_text_c.create_bg(8,48));
 
-    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
+    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK ||
+       global_var.dayChoice(global_var.currentDay()) == CHOICE::WORK ){
         bg->set_item(bn::regular_bg_items::bg_house_5_d);
         bg->set_visible(false);
         bg_paper->set_visible(false);
@@ -231,7 +232,8 @@ bn::optional<RoomExit> HouseEntrance::updateDay1_3(){
 }
 
 bn::optional<RoomExit> HouseEntrance::updateDay4(){
-    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK){
+    if(global_var.dayChoice(global_var.currentDay()) == CHOICE::SKIP_WORK ||
+       global_var.dayChoice(global_var.currentDay()) == CHOICE::WORK){
         if(timer && carMovement){
             if(timer->elapsedFrames() >= 44){
                 bg->set_visible(true);

@@ -121,6 +121,12 @@ bn::optional<RoomExit> WorkLab::update(){
 
     if(end_room && end_room->elapsedFrames() >= show_frames){
         BN_ASSERT(Room::exits.size() > 0, "WorkLab doesn't have a room to exit to");
+        
+        if(global_var.currentDay() == 4 && Room::variant == 2){ // B variant
+            player.useNightColors(true);
+            return RoomExit("house_entrance",DIRECTION::DOOR1);
+        }
+
         if(global_var.currentDay() == 5 && Room::variant == 1) player.useNightColors(true); // A variant
         return Room::exits[0];
     }
