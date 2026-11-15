@@ -17,8 +17,6 @@
 #include "bn_regular_bg_items_bg_newspaper4.h"
 #include "bn_regular_bg_items_bg_bottom_text_c.h"
 
-#include "bn_log.h"
-
 namespace game{
 HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVariables& _global_var):
     Room(bn::regular_bg_items::bg_house_5.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player,_global_var.getDayVariant(_global_var.currentDay())),
@@ -157,7 +155,9 @@ void HouseEntrance::loadDay5(){
     }else{
         switch(Room::variant){
         case 5:
-        case 11: // E,K variant
+        case 6:
+        case 11:
+        case 12: // E,F,K,L variant
             bg->set_item(bn::regular_bg_items::bg_house_5_f);
             break;
         default: // A,B,C,D variant
