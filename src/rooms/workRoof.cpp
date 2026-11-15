@@ -11,7 +11,6 @@
 #include "bn_regular_bg_items_bg_work_roof_b.h"
 #include "bn_regular_bg_items_bg_bottom_text_b.h"
 
-#include "bn_log.h"
 #include "bn_math.h"
 
 #include "johnGiveUp.h"
@@ -183,7 +182,7 @@ void WorkRoof::loadDay5(){
     if(Room::variant == 2){ // B variant
         exits.push_back(RoomExit("give_up",bn::fixed_rect(63,23,8,64),DIRECTION::RIGHT,true));
         exits.back().info = "Give up";
-    } // else C,D,E,K variant
+    } // else C,D,E,F,K,L variant
     edge.setZOrder(-10);
 
     #ifdef DEBUG_GAME
