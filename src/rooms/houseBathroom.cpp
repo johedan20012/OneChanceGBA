@@ -9,8 +9,6 @@
 #include "bn_regular_bg_items_bg_house_4_c.h"
 #include "bn_regular_bg_items_bg_house_4_d.h"
 
-#include "bn_log.h"
-
 namespace game{
 
 HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
@@ -105,7 +103,9 @@ void HouseBathroom::loadDay5(){
     }else{
         switch (Room::variant){
         case 5:
-        case 11: // E,K variant
+        case 6:
+        case 11:
+        case 12: // E,F,K,L variant
             bg->set_item(bn::regular_bg_items::bg_house_4_d);
             break;
         default: // A,B,C,D variant
