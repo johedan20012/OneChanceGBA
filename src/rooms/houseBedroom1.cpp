@@ -163,12 +163,14 @@ void HouseBedroom1::loadDay5(){
 
         exits.clear();
     }else{
-        switch(global_var.getDayVariant(5)){
+        switch(Room::variant){
             case 2: // B variant
                 bg->set_item(bn::regular_bg_items::bg_house_1h);
                 break;
             case 5:
-            case 11: // E,K variant
+            case 6:
+            case 11: 
+            case 12: // E,F,K,L variant
                 bg->set_item(bn::regular_bg_items::bg_house_1h);
                 {
                 molly = bn::sprite_items::molly.create_sprite(104,39);
@@ -197,7 +199,8 @@ void HouseBedroom1::loadDay5(){
 
 bn::optional<RoomExit> HouseBedroom1::updateDay5(){
     if(global_var.dayChoice(global_var.currentDay()) != CHOICE::DEFEND){
-        if(Room::variant == 5 || Room::variant == 11){ // E,K variant
+        if(Room::variant == 5 || Room::variant == 11 ||
+           Room::variant == 6 || Room::variant == 12){ // E,F,K,L variant
             molly->checkDialog(player.boundaries());
             player.update(global_var.getDialogManager().hasADialogSequence());
             if(molly->dialogTriggered() && !global_var.getDialogManager().hasADialogSequence()){
