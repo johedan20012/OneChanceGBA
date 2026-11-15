@@ -31,10 +31,16 @@ Park::~Park(){
 
 bn::optional<RoomExit> Park::update(){
     player.update();
-    
     if(second_room){
         if(molly_dialog != nullptr){
             molly_dialog->update(player.boundaries());
+            if(molly_dialog->wasTriggered() && player.getPos().x() <= bn::fixed{-139}){
+                global_var.getDialogManager().resetBottomText();
+                delete molly_dialog;
+                molly_dialog = new DialogTrigger(global_var,bn::fixed_rect(0,32,28,64),false,false);
+                molly_dialog->addDialog(Pair<int,int>(47,226));
+                return bn::nullopt;
+            }
             if(molly_dialog->wasTriggered() && !global_var.getDialogManager().hasADialogSequence()){
                 delete molly_dialog;
                 molly_dialog = nullptr;
