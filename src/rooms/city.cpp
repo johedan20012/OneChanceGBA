@@ -121,7 +121,9 @@ void City::loadDay5(){
 
     switch(Room::variant){
     case 5:
-    case 11: // E,K variant
+    case 6:
+    case 11:
+    case 12: // E,F,K,L variant
         exits.push_back(RoomExit("decision",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
         break;
     default: // A,B,C,D variant
