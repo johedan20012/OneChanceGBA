@@ -39,28 +39,6 @@ bool WorkHall::Jim::isCharging(){
 }
 
 void WorkHall::Jim::update(){
-
-    if(bn::keypad::start_pressed()){
-        BN_LOG("STATE");
-        switch(state){
-        case STATE::IDLE:
-            BN_LOG("State IDLE");
-            break;
-        case STATE::THREATENING:
-            BN_LOG("State THREATENING");
-            break;
-        case STATE::SPEAKING:
-            BN_LOG("State SPEAKING");
-            break;
-        case STATE::CHARGING:
-            BN_LOG("State CHARGING");
-            break;
-        default://case STATE::ATTACKING:
-            BN_LOG("State ATTACKING");
-            break;
-        }
-    }
-
     switch(state){
     case STATE::THREATENING:
         if(timer && timer->elapsedFrames() >= 49){
@@ -89,8 +67,6 @@ void WorkHall::Jim::update(){
         if(bn::keypad::select_pressed()) move = false;
         if(move) sprite.set_position(sprite.position()+bn::fixed_point(-MOV_SPEED,0.0));
         knife.set_position(sprite.position()+KNIFE_OFFSETS[2]);
-
-        if(bn::keypad::start_pressed()) BN_LOG("Jim pos",sprite.x(),",",sprite.y());
         break;
 
     case STATE::ATTACKING:
@@ -260,7 +236,9 @@ bn::optional<RoomExit> WorkHall::updateDay5(){
         Room::variant == 3 ||
         Room::variant == 4 ||
         Room::variant == 5 ||
-        Room::variant == 11){// B,C,D,E,K variant
+        Room::variant == 6 ||
+        Room::variant == 11 ||
+        Room::variant == 12){// B,C,D,E,F,K,L variant
         player.update();
         return Room::checkExits(); 
     }
