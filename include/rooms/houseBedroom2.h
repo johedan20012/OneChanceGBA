@@ -26,6 +26,7 @@ private:
     void loadDay3();
     void loadDay4();
     void loadDay5();
+    void loadDay6();
 
     bn::optional<RoomExit> updateDay3_4A();
 public:
