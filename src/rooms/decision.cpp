@@ -10,9 +10,9 @@
 #include "jostFontVar8x16.h"
 
 namespace game{
-Decision::Decision(Player& _player):
-Room(bn::regular_bg_items::bg_decision_options.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player),
-black_overlay(bn::regular_bg_items::bg_decision_black.create_bg(8,48)),
+Decision::Decision(Player& _player,GlobalVariables& _global_var):
+Room(bn::regular_bg_items::bg_decision_options.create_bg(8,48),bn::fixed_rect(0,0,240,160),_player,_global_var.getDayVariant(_global_var.currentDay())),
+global_var(_global_var),black_overlay(bn::regular_bg_items::bg_decision_black.create_bg(8,48)),
 label_gen(JostFontVar8x16),selector(bn::sprite_items::selector.create_sprite(0,0)){
     bg_paper->set_priority(1);
     black_overlay.set_priority(0);
@@ -25,7 +25,15 @@ label_gen(JostFontVar8x16),selector(bn::sprite_items::selector.create_sprite(0,0
     label_gen.set_center_alignment();
     label_gen.set_bg_priority(0);
 
-    label_gen.generate(bn::fixed_point{0,-70},"Take Molly to...",text_sprs);
+    if(global_var.currentDay() == 5) label_gen.generate(bn::fixed_point{0,-70},"Take Molly to...",text_sprs);
+    else{
+        switch(Room::variant){
+        case 9:
+        default: // A,I variant
+            label_gen.generate(bn::fixed_point{0,-70},"Go to...",text_sprs);
+        }
+    }
+    
     label_gen.generate(bn::fixed_point{-75,60},"The Park",text_sprs);
     label_gen.generate(bn::fixed_point{75,60},"Work",text_sprs);
 }

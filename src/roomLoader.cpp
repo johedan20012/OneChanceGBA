@@ -93,7 +93,7 @@ bn::unique_ptr<Room> RoomLoader::loadRoom(RoomExit room_exit,Player& player,Glob
         return bn::make_unique<End>(player,_global);
     }
     if(room_exit.name == roomsNames[16]){
-        return bn::make_unique<Decision>(player);
+        return bn::make_unique<Decision>(player,_global);
     }
     if(room_exit.name == roomsNames[17]){
         return bn::make_unique<Park>(player,_global);

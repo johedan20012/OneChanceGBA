@@ -9,10 +9,12 @@
 #include "bn_vector.h"
 
 #include "room.h"
+#include "globalVariables.h"
 
 namespace game{
 class Decision : public Room{
 private:
+    GlobalVariables &global_var;
     bn::regular_bg_ptr black_overlay;
 
     bn::vector<bn::sprite_ptr,20> text_sprs;
@@ -20,8 +22,9 @@ private:
 
     bn::sprite_ptr selector;
     int selection = 0;
+
 public:
-    Decision(Player& _player);
+    Decision(Player& _player,GlobalVariables& _global_var);
     ~Decision();
 
     bn::optional<RoomExit> update() override;
