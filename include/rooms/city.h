@@ -42,6 +42,7 @@ private:
     void loadDay1_2();
     void loadDay3();
     void loadDay5();
+    void loadDay6();
 
     void updateDay1_2();
     void updateDay3();

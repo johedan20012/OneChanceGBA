@@ -2,6 +2,7 @@
 
 #include "bn_regular_bg_items_bg_city.h"
 #include "bn_regular_bg_items_bg_city_b.h"
+#include "bn_regular_bg_items_bg_city_c.h"
 
 #include "bn_sprite_items_sign.h"
 #include "bn_sprite_palette_ptr.h"
@@ -40,6 +41,9 @@ City::City(Player& _player, DIRECTION entering_from,GlobalVariables& _global_var
         break;
     case 5:
         loadDay5();
+        break;
+    case 6:
+        loadDay6();
         break;
     case 4:
     case 2:
@@ -132,6 +136,13 @@ void City::loadDay5(){
     }
 }
 
+void City::loadDay6(){
+    // A,I variant
+    bg->set_item(bn::regular_bg_items::bg_city_c);
+    exits.pop_back();
+    exits.push_back(RoomExit("decision",bn::fixed_rect(160,20,10,64),DIRECTION::LEFT,false));
+}
+
 void City::updateDay1_2(){
     for(int i = 0; i<8; i++){
         auto& lil_npc = small_npc[i];
@@ -203,6 +214,8 @@ bn::optional<RoomExit> City::update(){
         break;
     case 5:
         updateDay5();
+        break;
+    case 6:
         break;
     case 4:
     case 2:
