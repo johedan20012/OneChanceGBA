@@ -11,6 +11,7 @@
 #include "bn_regular_bg_items_bg_house_5_d.h"
 #include "bn_regular_bg_items_bg_house_5_e.h"
 #include "bn_regular_bg_items_bg_house_5_f.h"
+#include "bn_regular_bg_items_bg_house_5_g.h"
 #include "bn_regular_bg_items_bg_newspaper1.h"
 #include "bn_regular_bg_items_bg_newspaper2.h"
 #include "bn_regular_bg_items_bg_newspaper3.h"
@@ -60,6 +61,9 @@ HouseEntrance::HouseEntrance(Player& _player,DIRECTION _entering_from,GlobalVari
             break;
         case 5:
             loadDay5();
+            break;
+        case 6:
+            loadDay6();
             break;
         default:
             break;
@@ -164,6 +168,18 @@ void HouseEntrance::loadDay5(){
             bg->set_item(bn::regular_bg_items::bg_house_5_e);
             break;
         }
+    }
+}
+
+void HouseEntrance::loadDay6(){
+    cloud.set_visible(false);
+    newspaper.set_visible(false);
+
+    switch(Room::variant){
+    case 9:
+    default:
+        bg->set_item(bn::regular_bg_items::bg_house_5_g);
+        break;
     }
 }
 
@@ -309,8 +325,8 @@ bn::optional<RoomExit> HouseEntrance::updateDay4(){
     return Room::checkExits();
 }
 
-bn::optional<RoomExit> HouseEntrance::updateDay5(){
-    if(global_var.dayChoice(5) == CHOICE::DEFEND){
+bn::optional<RoomExit> HouseEntrance::updateDay5_6(){
+    if(global_var.currentDay() == 5 && global_var.dayChoice(5) == CHOICE::DEFEND){
         if(timer && carMovement){
             if(timer->elapsedFrames() >= 44){
                 bg->set_visible(true);
@@ -393,7 +409,8 @@ bn::optional<RoomExit> HouseEntrance::update(){
         case 4:
             return updateDay4();
         case 5:
-            return updateDay5();
+        case 6:
+            return updateDay5_6();
         case 3:
         case 2:
         default:
