@@ -333,6 +333,15 @@ void Player::carryMolly(bool carry){
     }
 }
 
+void Player::getSick(){
+    auto pal = sprite.palette();
+    pal.set_color(5,SICK_SKIN_COLOR);
+    pal.set_color(14,SICK_SKIN_COLOR);
+    pal.set_color(13,SOCKS_COLOR);
+    PLAYER_SPEED = SICK_PLAYER_SPEED;
+    wait_frames = 12;
+}
+
 void Player::update(bool frozen){
     if(state == STATE::END_BENDING) return;
 

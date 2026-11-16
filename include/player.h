@@ -25,11 +25,15 @@ private:
     };
 
     static constexpr bn::fixed_rect LIGHT_BOX = bn::fixed_rect(63.5,0,67,20);
-    static constexpr bn::fixed PLAYER_SPEED = 0.75;
+    static constexpr bn::fixed SICK_PLAYER_SPEED = {0.46017};
     static constexpr bn::fixed_point LIGHT_POS[2] = {
         bn::fixed_point(46,-2),
         bn::fixed_point(82,-2)
     };
+    static constexpr bn::color SICK_SKIN_COLOR = bn::color{25,22,18};
+    static constexpr bn::color SOCKS_COLOR = bn::color{25,25,25};
+
+    bn::fixed PLAYER_SPEED = 0.75;
 
     int indx_spr_still = 0;
     int indx_spr_mov_1 = 2;
@@ -54,7 +58,7 @@ private:
     // Walking animation
     int walk_indx = 0;
     int walk_elapsed_frames = 0;
-    static constexpr int wait_frames = 6;
+    int wait_frames = 6;
     int walk_tile_indx[2] = {2,1};
 
     bool use_light_bathroom_day_4 = false;
@@ -111,6 +115,8 @@ public:
     void setUseLightBathroomDay4(bool use);
 
     void carryMolly(bool carry = false);
+
+    void getSick();
 
     void update(bool frozen = false);
 };

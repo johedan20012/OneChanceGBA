@@ -12,10 +12,10 @@
 #include "npc.h"
 #include "room.h"
 #include "timer.h"
+#include "bn_unique_ptr.h"
 #include "globalVariables.h"
 
 #ifdef DEBUG_GAME
-#include "bn_unique_ptr.h"
 #include "moveable.h"
 #endif
 
@@ -52,6 +52,7 @@ private:
     void loadDay3();
     void loadDay4();
     void loadDay5();
+    void loadDay6();
 
     bn::optional<RoomExit> updateDay5();
 public:

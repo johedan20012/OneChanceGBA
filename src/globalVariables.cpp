@@ -93,7 +93,7 @@ void GlobalVariables::goNextDay(){
 
 #ifdef DEBUG_GAME
 void GlobalVariables::setDay(int day){
-    current_day = bn::max(day,0)%6; 
+    current_day = bn::max(day,0)%7; 
 }
 #endif
 

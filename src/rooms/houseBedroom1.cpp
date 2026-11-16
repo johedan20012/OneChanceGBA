@@ -13,6 +13,7 @@
 #include "bn_regular_bg_items_bg_house_1f.h"
 #include "bn_regular_bg_items_bg_house_1g.h"
 #include "bn_regular_bg_items_bg_house_1h.h"
+#include "bn_regular_bg_items_bg_house_1i.h"
 #include "bn_regular_bg_items_bg_graveyard.h"
 
 namespace game{
@@ -59,6 +60,9 @@ HouseBedroom1::HouseBedroom1(Player& _player,DIRECTION entering_from,GlobalVaria
             break;
         case 5:
             loadDay5();
+            break;
+        case 6:
+            loadDay6();
             break;
         default:
             loadDay1();
@@ -195,6 +199,26 @@ void HouseBedroom1::loadDay5(){
         white_lab_coat2->set_bg_priority(2);
         white_lab_coat2->set_z_order(2);
     }
+}
+
+void HouseBedroom1::loadDay6(){
+    player.getSick();
+    player_reflexion.set_palette(player.getPalettePtr());
+
+    switch (Room::variant){
+    case 9:
+    default: // A,I variant
+        bg->set_item(bn::regular_bg_items::bg_house_1i);
+        break;
+    }
+
+    white_lab_coat.set_rotation_angle(90);
+    white_lab_coat.set_position(bn::fixed_point(23,48));
+
+    white_lab_coat2 = bn::sprite_items::lab_coat.create_sprite(75,60);
+    white_lab_coat2->set_rotation_angle(90);
+    white_lab_coat2->set_bg_priority(2);
+    white_lab_coat2->set_z_order(2);
 }
 
 bn::optional<RoomExit> HouseBedroom1::updateDay5(){
