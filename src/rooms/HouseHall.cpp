@@ -12,6 +12,7 @@
 #include "bn_regular_bg_items_bg_house_2f.h"
 #include "bn_regular_bg_items_bg_house_2g.h"
 #include "bn_regular_bg_items_bg_house_2h.h"
+#include "bn_regular_bg_items_bg_house_2i.h"
 
 namespace game{
 
@@ -59,6 +60,9 @@ HouseHall::HouseHall(Player& _player,DIRECTION entering_from,GlobalVariables& _g
             break;
         case 5:
             loadDay5();
+            break;
+        case 6:
+            loadDay6();
             break;
         default:
             loadDay1(entering_from);
@@ -126,6 +130,17 @@ void HouseHall::loadDay5(){
             bg->set_item(bn::regular_bg_items::bg_house_2f);
             break;
         }
+    }
+
+    npc->setVisibility(false);
+}
+
+void HouseHall::loadDay6(){
+    switch(Room::variant){
+    case 9:
+    default: // A,I variant
+        bg->set_item(bn::regular_bg_items::bg_house_2i);
+        break;
     }
 
     npc->setVisibility(false);
