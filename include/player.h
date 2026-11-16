@@ -67,6 +67,7 @@ private:
 
     bool fliped = false;
     bool wait_frame = false;
+    bool sick = false;
 
     // Molly
     bn::unique_ptr<bn::sprite_ptr> molly;

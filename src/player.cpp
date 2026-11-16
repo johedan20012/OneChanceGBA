@@ -327,6 +327,12 @@ void Player::carryMolly(bool carry){
         mollys_arm = bn::make_unique<bn::sprite_ptr>(bn::sprite_items::molly_small.create_sprite(sprite.position(),1));
         mollys_arm->set_bg_priority(2);
         mollys_arm->set_z_order(-15);
+        if(sick){
+            auto molly_pal = molly->palette();
+            molly_pal.set_color(2,SICK_SKIN_COLOR);
+            molly_pal = mollys_arm->palette();
+            molly_pal.set_color(2,SICK_SKIN_COLOR);
+        }
     }else if(!carry && molly){
         molly.reset();
         mollys_arm.reset();
@@ -334,6 +340,7 @@ void Player::carryMolly(bool carry){
 }
 
 void Player::getSick(){
+    sick = true;
     auto pal = sprite.palette();
     pal.set_color(5,SICK_SKIN_COLOR);
     pal.set_color(14,SICK_SKIN_COLOR);

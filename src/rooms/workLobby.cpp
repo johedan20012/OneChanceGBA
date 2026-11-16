@@ -6,10 +6,11 @@
 #include "bn_regular_bg_items_bg_work_lobby_b.h"
 #include "bn_regular_bg_items_bg_work_lobby_c.h"
 #include "bn_regular_bg_items_bg_work_lobby_d.h"
+#include "bn_regular_bg_items_bg_work_lobby_e.h"
 
 namespace game{
 WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _global_var):
-    Room(bn::regular_bg_items::bg_work_lobby.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player),
+    Room(bn::regular_bg_items::bg_work_lobby.create_bg(8,48),bn::fixed_rect(0,1,240,118),_player,_global_var.getDayVariant(_global_var.currentDay())),
     global_var(_global_var){
 
     player.setMovementBox(bn::fixed_rect(11.5,0,237,160));
@@ -40,6 +41,9 @@ WorkLobby::WorkLobby(Player& _player,DIRECTION entering_from,GlobalVariables& _g
             break;
         case 5:
             loadDay5();
+            break;
+        case 6:
+            loadDay6();
             break;
         default:
             loadDay1();
@@ -105,6 +109,18 @@ void WorkLobby::loadDay5(){
     bg->set_item(bn::regular_bg_items::bg_work_lobby_d);
 }
 
+void WorkLobby::loadDay6(){
+    bg->set_item(bn::regular_bg_items::bg_work_lobby_e);
+
+    switch(Room::variant){
+    case 9:
+    default: // A,I variant
+        player.carryMolly(true);
+        player.setHflip(true);
+        break;
+    }
+}
+
 bn::optional<RoomExit> WorkLobby::update(){
     player.update();
 
@@ -113,6 +129,15 @@ bn::optional<RoomExit> WorkLobby::update(){
     }
 
     if(npcs.size() > 0) npcs[0].checkDialog(player.boundaries());
+
+    if(global_var.currentDay() == 6){
+        switch(Room::variant){
+        case 9:
+        default: // A,I variant
+            if(bn::keypad::left_pressed() || bn::keypad::right_pressed()) player.carryMolly(false);
+            break;
+        }
+    }
 
     Room::update();
     Room::updateExitsInfo();
