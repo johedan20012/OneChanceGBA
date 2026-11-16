@@ -41,6 +41,9 @@ HouseBathroom::HouseBathroom(Player& _player,DIRECTION entering_from,GlobalVaria
         case 5:
             loadDay5();
             break;
+        case 6:
+            loadDay6();
+            break;
         default:
             break;
     }
@@ -112,6 +115,10 @@ void HouseBathroom::loadDay5(){
             break;
         }
     }
+}
+
+void HouseBathroom::loadDay6(){
+    loadDay3();
 }
 
 bn::optional<RoomExit> HouseBathroom::updateDay4(){
