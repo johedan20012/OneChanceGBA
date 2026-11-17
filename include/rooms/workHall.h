@@ -98,6 +98,7 @@ private:
     void loadDay3(DIRECTION entering_from);
     void loadDay4();
     void loadDay5();
+    void loadDay6();
 
     bn::optional<RoomExit> updateDay5();
 public:

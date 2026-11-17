@@ -138,6 +138,9 @@ WorkHall::WorkHall(Player& _player,DIRECTION entering_from,GlobalVariables& _glo
         case 5:
             loadDay5();
             break;
+        case 6:
+            loadDay6();
+            break;
         default:
             loadDay1(entering_from);
             break;
@@ -229,6 +232,15 @@ void WorkHall::loadDay5(){
         timer = bn::make_unique<Timer>();
         exits.clear();
     }
+}
+
+void WorkHall::loadDay6(){
+    small_cabinet.set_rotation_angle(90);
+    small_cabinet.set_position(-36,26);
+
+    bg->set_item(bn::regular_bg_items::bg_work_hall_b); 
+
+    player.setMovementBox(bn::fixed_rect(10,0,225,160));
 }
 
 bn::optional<RoomExit> WorkHall::updateDay5(){
