@@ -14,6 +14,8 @@ frames_to_step_fade(FADE_STEP_TIME),fading_in(true),fading_out(false),faded_out(
 min_x(_init_pos.x() - dist_to_left_limit),max_x(_init_pos.x() + dist_to_right_limit),fade_out_y(_fade_out_y)
 {
     spr.set_affine_mat(scale);
+    spr.set_bg_priority(2);
+    spr.set_z_order(-5);
     going_right = _go_right;
     update_particle_color();
 }
@@ -69,6 +71,11 @@ void Particle::update(bn::optional<bn::fixed_rect> area_to_avoid){
                 curr_color = fade_out_color;
                 break;
             }        
+        }
+        if(spr.y() >= 120 && !fading_out){
+            fading_out = true;
+            fade_out_color = FADE_OUT_COLOR_INDX[0];
+            curr_color = fade_out_color;
         }
     }
 
@@ -131,7 +138,7 @@ void SnowParticles::create_particles(int n,bn::sprite_affine_mat_ptr scale){
         init_pos = {
             global_var.random_fixed(fade_in_areas[fade_in_area].area.left(),fade_in_areas[fade_in_area].area.right()),
             global_var.random_fixed(fade_in_areas[fade_in_area].area.top(),fade_in_areas[fade_in_area].area.bottom())};
-        y_fade_out = global_var.random_fixed(15,90);
+        y_fade_out = global_var.random_fixed(init_pos.y()+bn::fixed{50},120);
         particles.push_back(Particle(global_var.random_int(0,2) == 1,init_pos,y_fade_out,global_var.random_fixed(6,56),global_var.random_fixed(6,56),scale,FADE_IN_COLOR_INDX[fade_in_areas[fade_in_area].palette_indx],snow_palette,fade_out_areas));
     }
 }
