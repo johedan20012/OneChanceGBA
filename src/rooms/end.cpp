@@ -1,8 +1,10 @@
 #include "end.h"
 
 #include "bn_sprite_palette_items_roof_snow_particle.h"
+#include "bn_sprite_palette_items_park1_snow_particle.h"
 
 #include "bn_regular_bg_items_bg_end_4.h" // Ends: 4
+#include "bn_regular_bg_items_bg_park_2c.h" // Ends: 1
 #include "bn_regular_bg_items_bg_work_roof_c.h" // Ends: 8
 
 #include "bn_assert.h"
@@ -17,6 +19,10 @@ Room(bn::regular_bg_items::bg_end_4.create_bg(8,48),bn::fixed_rect(0,0,240,160),
     
     BN_ASSERT(global_var.endType() != bn::nullopt, "No end saved");
     switch (global_var.endType().value()){
+    case 1:
+        bg->set_item(bn::regular_bg_items::bg_park_2c);
+        snow_particles = bn::make_unique<SnowParticles>(global_var,player,PARK2_IN_AREAS,PARK2_OUT_AREAS,bn::sprite_palette_items::park1_snow_particle,false);
+        break; 
     case 8:
         bg->set_item(bn::regular_bg_items::bg_work_roof_c);
         snow_particles = bn::make_unique<SnowParticles>(global_var,player,ROOF_IN_AREAS,ROOF_OUT_AREAS,bn::sprite_palette_items::roof_snow_particle,false);
