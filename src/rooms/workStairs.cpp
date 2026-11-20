@@ -40,6 +40,9 @@ WorkStairs::WorkStairs(Player& _player,DIRECTION entering_from,GlobalVariables& 
     case 5:
         loadDay5();
         break;
+    case 6:
+        loadDay6();
+        break;
     default:
         loadDay1();
         break;
@@ -96,6 +99,16 @@ void WorkStairs::loadDay4(){
 }
 
 void WorkStairs::loadDay5(){
+    bg->set_item(bn::regular_bg_items::bg_work_stairs_b);
+
+    player.setMovementBox(bn::fixed_rect(-17,0,226,160));
+
+    exits.push_back(RoomExit("work_roof",bn::fixed_rect(110,20,38,64),DIRECTION::LEFT,true));
+    exits.back().info = "Roof";
+}
+
+void WorkStairs::loadDay6(){
+    // A,I variant
     bg->set_item(bn::regular_bg_items::bg_work_stairs_b);
 
     player.setMovementBox(bn::fixed_rect(-17,0,226,160));
