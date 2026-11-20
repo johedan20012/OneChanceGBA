@@ -137,8 +137,10 @@ void HouseHall::loadDay5(){
 
 void HouseHall::loadDay6(){
     switch(Room::variant){
+    case 2:
     case 9:
-    default: // A,I variant
+    case 10:
+    default: // A,B,I,J variant
         bg->set_item(bn::regular_bg_items::bg_house_2i);
         break;
     }

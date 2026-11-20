@@ -206,8 +206,10 @@ void HouseBedroom1::loadDay6(){
     player_reflexion.set_palette(player.getPalettePtr());
 
     switch (Room::variant){
+    case 2:
     case 9:
-    default: // A,I variant
+    case 10:
+    default: // A,B,I,J variant
         bg->set_item(bn::regular_bg_items::bg_house_1i);
         break;
     }
