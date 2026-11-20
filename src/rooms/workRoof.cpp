@@ -124,6 +124,9 @@ WorkRoof::WorkRoof(Player& _player,GlobalVariables& _global_var):
     case 5:
         loadDay5();
         break;
+    case 6:
+        loadDay6();
+        break;
     default:    // Day 1,2
         loadDay2();
         break;
@@ -190,12 +193,26 @@ void WorkRoof::loadDay5(){
     #endif
 }
 
+void WorkRoof::loadDay6(){
+    // A,I variant
+    bg->set_item(bn::regular_bg_items::bg_work_roof_b);
+    player.setMovementBox(bn::fixed_rect(-26,0,170,160));
+    player.setPos(-93,25);
+
+    exits.push_back(RoomExit("work_stairs",bn::fixed_rect(-120,23,40,64),DIRECTION::RIGHT,false));
+    exits.push_back(RoomExit("give_up",bn::fixed_rect(63,23,8,64),DIRECTION::RIGHT,true));
+    exits.back().info = "Give up";
+    edge.setZOrder(-10);
+}
+
 bn::optional<RoomExit> WorkRoof::update(){
     player.update(state != STATE::NORMAL);
 
     switch (global_var.currentDay()){
     case 5:
         return updateDay5();
+    case 6:
+        return updateDay6();
     case 3:
         return updateDay3();
     case 2:
@@ -311,7 +328,34 @@ bn::optional<RoomExit> WorkRoof::updateDay5(){
         if(exit.value().name == "work_stairs") return exit;
 
         // On "give_up" exit
-        global_var.saveEndType(8);
+        global_var.saveEndType(3);
+        edge.setZOrder(-10);
+        player.setVisible(false);
+        animation = bn::make_unique<JohnGiveUp>(player.getPos());
+    }
+    
+    return bn::nullopt;
+}
+
+bn::optional<RoomExit> WorkRoof::updateDay6(){
+    // A,I variant
+    Room::updateExitsInfo();
+
+    if(animation){
+        animation->update();
+
+        if(animation->isFinished()) animation.reset();
+        return bn::nullopt;
+    }
+
+    auto exit = Room::checkExits();
+    if(exit){
+        exits.clear();
+        Room::clearExitsInfo();
+        if(exit.value().name == "work_stairs") return exit;
+
+        // On "give_up" exit
+        global_var.saveEndType(3);
         edge.setZOrder(-10);
         player.setVisible(false);
         animation = bn::make_unique<JohnGiveUp>(player.getPos());

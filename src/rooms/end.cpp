@@ -23,7 +23,7 @@ Room(bn::regular_bg_items::bg_end_4.create_bg(8,48),bn::fixed_rect(0,0,240,160),
         bg->set_item(bn::regular_bg_items::bg_park_2c);
         snow_particles = bn::make_unique<SnowParticles>(global_var,player,PARK2_IN_AREAS,PARK2_OUT_AREAS,bn::sprite_palette_items::park1_snow_particle,false);
         break; 
-    case 8:
+    case 3:
         bg->set_item(bn::regular_bg_items::bg_work_roof_c);
         snow_particles = bn::make_unique<SnowParticles>(global_var,player,ROOF_IN_AREAS,ROOF_OUT_AREAS,bn::sprite_palette_items::roof_snow_particle,false);
         break;

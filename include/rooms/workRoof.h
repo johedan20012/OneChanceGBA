@@ -72,10 +72,12 @@ private:
     void loadDay3();
     void loadDay4();
     void loadDay5();
+    void loadDay6();
 
     bn::optional<RoomExit> updateDay2();
     bn::optional<RoomExit> updateDay3();
     bn::optional<RoomExit> updateDay5();
+    bn::optional<RoomExit> updateDay6();
 public:
     WorkRoof(Player& _player,GlobalVariables& _global_var);
     ~WorkRoof();
