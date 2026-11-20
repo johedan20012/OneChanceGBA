@@ -3,6 +3,8 @@
 
 #include "bn_unique_ptr.h"
 
+#include "bn_vector.h"
+
 #include "room.h"
 #include "snowParticles.h"
 #include "globalVariables.h"
@@ -13,7 +15,7 @@ private:
     GlobalVariables& global_var;
 
     bn::unique_ptr<SnowParticles> snow_particles;
-
+    bn::vector<bn::sprite_ptr,5> sprites;
 public:
     End(Player& _player,GlobalVariables& _global_var);
     ~End() override {}
