@@ -2,6 +2,7 @@
 #define WORKLAB_H
 
 #include "bn_sprite_ptr.h"
+#include "bn_sprite_palette_ptr.h"
 
 #include "bn_vector.h"
 #include "bn_unique_ptr.h"
@@ -19,6 +20,8 @@ private:
 
     bn::vector<NPC,3> npcs;
     bn::sprite_ptr pc_screen;
+    bn::unique_ptr<bn::sprite_ptr> john_eyes;
+    bn::unique_ptr<bn::sprite_palette_ptr> john_eyes_pal;
 
     GlobalVariables& global_var;
 
@@ -30,6 +33,7 @@ private:
     void loadDay3();
     void loadDay4();
     void loadDay5();
+    void loadDay6();
 public:
     WorkLab(Player& _player,GlobalVariables& _global_var);
     ~WorkLab() override {}

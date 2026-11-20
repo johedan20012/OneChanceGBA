@@ -2,11 +2,13 @@
 
 #include "bn_sprite_items_ball.h"
 #include "bn_sprite_items_molly.h"
+#include "bn_sprite_items_john_eyes.h"
 #include "bn_sprite_items_pc_screen.h"
 #include "bn_sprite_items_work_people.h"
 #include "bn_sprite_items_work_people_b.h"
 
 #include "bn_regular_bg_items_bg_work_lab.h"
+#include "bn_regular_bg_items_bg_work_lab_b.h"
 
 #include "bn_assert.h"
 
@@ -36,6 +38,9 @@ WorkLab::WorkLab(Player& _player,GlobalVariables& _global_var):
             break;
         case 5:
             loadDay5();
+            break;
+        case 6:
+            loadDay6();
             break;
         case 2:
         default:
@@ -114,11 +119,44 @@ void WorkLab::loadDay5(){
     }
 }
 
+void WorkLab::loadDay6(){
+    // A,I variant
+    bg->set_item(bn::regular_bg_items::bg_work_lab_b);
+    dark_frames = 44;
+    john_eyes = bn::make_unique<bn::sprite_ptr>(bn::sprite_items::john_eyes.create_sprite(74,18));
+    john_eyes->set_visible(false);
+    john_eyes->set_rotation_angle(270);
+    john_eyes->set_horizontal_flip(true);
+    john_eyes_pal = bn::make_unique<bn::sprite_palette_ptr>(john_eyes->palette());
+    john_eyes_pal->set_color(1,bn::color{25,22,18});
+    john_eyes_pal->set_color(2,bn::color(0));
+    john_eyes_pal->set_color(3,bn::color(0));
+    john_eyes_pal->set_color(4,bn::color(0));
+    global_var.saveEndType(2);    
+}
+
 bn::optional<RoomExit> WorkLab::update(){
     if(initial_dark && initial_dark->elapsedFrames() >= dark_frames){
         setVisibility(true);
         end_room = bn::make_unique<Timer>();
         initial_dark.reset();
+        if(global_var.currentDay() == 6){
+            john_eyes->set_visible(true);
+            player.setVisible(false);
+        }
+    }
+
+    if(global_var.currentDay() == 6){
+        if(!end_room) return bn::nullopt;
+
+        if(end_room->elapsedFrames() >= 200 && end_room->elapsedFrames() <= 320 && (end_room->elapsedFrames() - 200)%33 == 0){
+            int indx = ((end_room->elapsedFrames() - 200)/33) +1;
+            BN_ASSERT(indx >= 1 && indx <= 4, "Invalid indx for John eyes palette", indx);
+            john_eyes_pal->set_color(indx,bn::color{25,22,18});
+        }
+
+        if(end_room->elapsedFrames() >= 320) end_room.reset();
+        return bn::nullopt;
     }
 
     if(end_room && end_room->elapsedFrames() >= show_frames){
