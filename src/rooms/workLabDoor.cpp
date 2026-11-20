@@ -43,6 +43,9 @@ WorkLabDoor::WorkLabDoor(Player& _player,DIRECTION entering_from,GlobalVariables
         case 5:
             loadDay5();
             break;
+        case 6:
+            loadDay6();
+            break;
         default:
             loadDay1();
             break;
@@ -112,6 +115,20 @@ void WorkLabDoor::loadDay4(){
 }
 
 void WorkLabDoor::loadDay5(){
+    exits.clear();
+    exits.push_back(RoomExit("work_stairs",bn::fixed_rect(128,20,7,64),DIRECTION::LEFT,false));
+    exits.push_back(RoomExit("work_lab",bn::fixed_rect(50,20,40,64),DIRECTION::RIGHT,true));
+    exits.back().info = "Work";
+    
+    bg->set_item(bn::regular_bg_items::bg_work_lab_door_b);
+    
+    is_door_locked = false;
+    npc.reset();
+
+    player.setMovementBox(bn::fixed_rect(-130,0,520,160));
+}
+
+void WorkLabDoor::loadDay6(){
     exits.clear();
     exits.push_back(RoomExit("work_stairs",bn::fixed_rect(128,20,7,64),DIRECTION::LEFT,false));
     exits.push_back(RoomExit("work_lab",bn::fixed_rect(50,20,40,64),DIRECTION::RIGHT,true));
