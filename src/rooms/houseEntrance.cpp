@@ -12,6 +12,7 @@
 #include "bn_regular_bg_items_bg_house_5_e.h"
 #include "bn_regular_bg_items_bg_house_5_f.h"
 #include "bn_regular_bg_items_bg_house_5_g.h"
+#include "bn_regular_bg_items_bg_house_5_h.h"
 #include "bn_regular_bg_items_bg_newspaper1.h"
 #include "bn_regular_bg_items_bg_newspaper2.h"
 #include "bn_regular_bg_items_bg_newspaper3.h"
@@ -176,8 +177,12 @@ void HouseEntrance::loadDay6(){
     newspaper.set_visible(false);
 
     switch(Room::variant){
+    case 2:
+    case 10: // B,J variant
+        bg->set_item(bn::regular_bg_items::bg_house_5_h);
+        break;
     case 9:
-    default:
+    default: // A,I variant
         bg->set_item(bn::regular_bg_items::bg_house_5_g);
         break;
     }
