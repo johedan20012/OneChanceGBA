@@ -178,7 +178,9 @@ void HouseEntrance::loadDay6(){
 
     switch(Room::variant){
     case 2:
-    case 10: // B,J variant
+    case 3:
+    case 10:
+    case 11: // B,C,J,K variant
         bg->set_item(bn::regular_bg_items::bg_house_5_h);
         break;
     case 9:
