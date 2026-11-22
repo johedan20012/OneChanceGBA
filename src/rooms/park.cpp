@@ -47,8 +47,10 @@ void Park::loadDay6(){
     player.setMovementBox(bn::fixed_rect(46,0,300,160));
 
     switch(Room::variant){
+    case 2:
     case 9:
-    default: // A,I variant
+    case 10:
+    default: // A,B,I,J variant
         player.carryMolly(true);
         break;
     }
@@ -152,8 +154,10 @@ bn::optional<RoomExit> Park::update(){
 
     if(global_var.currentDay() == 6){
         switch(Room::variant){
+        case 2:
         case 9:
-        default: // A,I variant
+        case 10:
+        default: // A,B,I,J variant
             if(bn::keypad::left_pressed() || bn::keypad::right_pressed()) player.carryMolly(false);
             break;
         }
