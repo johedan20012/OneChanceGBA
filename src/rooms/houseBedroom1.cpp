@@ -208,10 +208,12 @@ void HouseBedroom1::loadDay6(){
     switch (Room::variant){
     case 2:
     case 3:
+    case 4:
     case 9:
     case 10:
     case 11:
-    default: // A,B,C,I,J,K variant
+    case 12:
+    default: // A,B,C,D,I,J,K,L variant
         bg->set_item(bn::regular_bg_items::bg_house_1i);
         break;
     }
