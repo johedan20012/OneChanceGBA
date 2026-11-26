@@ -26,12 +26,8 @@ label_gen(JostFontVar8x16),selector(bn::sprite_items::selector.create_sprite(0,0
     label_gen.set_bg_priority(0);
 
     if(global_var.currentDay() == 5) label_gen.generate(bn::fixed_point{0,-70},"Take Molly to...",text_sprs);
-    else{
-        switch(Room::variant){
-        case 9:
-        default: // A,I variant
-            label_gen.generate(bn::fixed_point{0,-70},"Go to...",text_sprs);
-        }
+    else{ // Day 6
+        label_gen.generate(bn::fixed_point{0,-70},"Go to...",text_sprs);
     }
     
     label_gen.generate(bn::fixed_point{-75,60},"The Park",text_sprs);

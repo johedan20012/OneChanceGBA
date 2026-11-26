@@ -115,10 +115,12 @@ void WorkLobby::loadDay6(){
     switch(Room::variant){
     case 2:
     case 3:
+    case 4:
     case 9:
     case 10:
     case 11:
-    default: // A,B,C,I,J,K variant
+    case 12:
+    default: // A,B,C,D,I,J,K,L variant
         player.carryMolly(true);
         player.setHflip(true);
         break;
@@ -138,10 +140,12 @@ bn::optional<RoomExit> WorkLobby::update(){
         switch(Room::variant){
         case 2:
         case 3:
+        case 4:
         case 9:
         case 10:
         case 11:
-        default: // A,B,C,I,J,K variant
+        case 12:
+        default: // A,B,C,D,I,J,K,L variant
             if(bn::keypad::left_pressed() || bn::keypad::right_pressed()) player.carryMolly(false);
             break;
         }
