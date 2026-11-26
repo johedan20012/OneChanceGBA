@@ -13,6 +13,7 @@
 #include "bn_regular_bg_items_bg_house_2g.h"
 #include "bn_regular_bg_items_bg_house_2h.h"
 #include "bn_regular_bg_items_bg_house_2i.h"
+#include "bn_regular_bg_items_bg_house_2j.h"
 
 namespace game{
 
@@ -137,6 +138,10 @@ void HouseHall::loadDay5(){
 
 void HouseHall::loadDay6(){
     switch(Room::variant){
+    case 5:
+    case 13: // E,M variant
+        bg->set_item(bn::regular_bg_items::bg_house_2j);
+        break;
     case 2:
     case 3:
     case 4:
