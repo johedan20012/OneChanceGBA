@@ -119,6 +119,15 @@ void HouseBathroom::loadDay5(){
 
 void HouseBathroom::loadDay6(){
     loadDay3();
+
+    switch(Room::variant){
+    case 5:
+    case 13: // E,M variant
+        bg->set_item(bn::regular_bg_items::bg_house_4_d);
+        break;
+    default:
+        break;
+    }
 }
 
 bn::optional<RoomExit> HouseBathroom::updateDay4(){
